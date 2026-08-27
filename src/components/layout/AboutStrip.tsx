@@ -49,30 +49,57 @@ export default function AboutStrip() {
       {/* ── Row 2 — profile + body ── */}
       <div
         className="col grid gap-10 pt-10"
-        style={{ gridTemplateColumns: "clamp(6rem, 14vw, 10rem) 1fr" }}
+        style={{
+          gridTemplateColumns: "clamp(12rem, 25vw, 20rem) 1fr",
+          gap: "4rem",
+        }}
       >
-        {/* Photo — small square */}
-        <div className="about-item" style={{ aspectRatio: "1", overflow: "hidden", borderRadius: "4px" }}>
+        {/* Photo */}
+        <div
+          className="about-item"
+          style={{
+            width: "100%",
+            aspectRatio: "1",
+            overflow: "hidden",
+            borderRadius: "4px",
+          }}
+        >
           <Image
-            src="/profile_picture.jpeg"
+            src="/profile_picture.png"
             alt="Asep Saepudin"
-            width={160}
-            height={160}
+            width={500}
+            height={500}
             className="w-full h-full"
-            style={{ objectFit: "cover", objectPosition: "top", filter: "grayscale(20%)" }}
+            style={{
+              objectFit: "cover",
+              objectPosition: "top",
+              filter: "grayscale(20%)",
+            }}
           />
         </div>
 
         {/* Text body */}
         <div className="about-item">
-          <p className="type-body" style={{ color: "var(--color-foreground)", maxWidth: "52ch" }}>
-            I&apos;m a fullstack developer from Indonesia with a{" "}
-            <em>serious</em> approach to craft. I believe the web should be
-            fast, accessible, and purposefully designed — and I build it that way.
+          <p
+            className="type-body"
+            style={{
+              color: "var(--color-foreground)",
+              maxWidth: "52ch",
+            }}
+          >
+            I&apos;m a fullstack developer from Indonesia with a <em>serious</em> approach to craft. I believe the web
+            should be fast, accessible, and purposefully designed, and I build it that way.
           </p>
-          <p className="type-body mt-4" style={{ color: "var(--color-mutedForeground)", maxWidth: "52ch" }}>
-            When I&apos;m not coding I&apos;m thinking about design systems, reading
-            about architecture patterns, or taking a long walk with a strong coffee.
+
+          <p
+            className="type-body mt-4"
+            style={{
+              color: "var(--color-mutedForeground)",
+              maxWidth: "52ch",
+            }}
+          >
+            When I&apos;m not coding I&apos;m thinking about design systems, reading about architecture patterns, or
+            taking a long walk with a strong coffee.
           </p>
         </div>
       </div>
@@ -92,7 +119,7 @@ export default function AboutStrip() {
             style={{
               borderRight: i < FACTS.length - 1 ? "1px solid var(--color-border)" : "none",
               paddingInline: i === 0 ? "0 1.5rem" : "1.5rem",
-              background: "color-mix(in srgb, var(--color-card) 60%, transparent)",
+              // background: "color-mix(in srgb, var(--color-card) 60%, transparent)",
               backdropFilter: "blur(10px)",
               WebkitBackdropFilter: "blur(10px)",
             }}

@@ -352,7 +352,7 @@ export const themes: Record<string, Theme> = {
 };
 
 export const themeNames = Object.keys(themes) as (keyof typeof themes)[];
-export const defaultTheme = "catppuccin";
+export const defaultTheme = "github";
 export const defaultMode: ThemeMode = "dark";
 
 export function getTheme(themeName: string, mode: ThemeMode): ThemeColors {

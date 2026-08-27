@@ -24,7 +24,9 @@ export default function Header() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -32,65 +34,62 @@ export default function Header() {
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
           borderBottom: scrolled ? "1px solid var(--color-border)" : "1px solid transparent",
-          backgroundColor: scrolled
-            ? "color-mix(in srgb, var(--color-background) 90%, transparent)"
-            : "transparent",
+          backgroundColor: scrolled ? "color-mix(in srgb, var(--color-background) 90%, transparent)" : "transparent",
           backdropFilter: scrolled ? "blur(16px)" : "none",
         }}
       >
-        <div
-          className="col flex items-center justify-between"
-          style={{ height: "3.5rem" }}
-        >
+        <div className="col flex items-center justify-between" style={{ height: "3.5rem" }}>
           {/* Logo — wordmark only */}
           <Link
             href="/"
             className="type-mono"
             style={{
-              color: "var(--color-foreground)",
+              color: "var(--color-accent)",
               fontSize: "0.8rem",
               letterSpacing: "0.12em",
               textDecoration: "none",
-              textTransform: "uppercase",
               fontWeight: 500,
             }}
             aria-label="Home"
           >
-            Asep
-            <span style={{ color: "var(--color-accent)" }}>.</span>
+            <span>
+              ~/cosmic/{NAV.find((item) => item.href === pathname)?.label?.toLowerCase() ?? pathname.replace("/", "")}
+            </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            {NAV.map(({ label, href }) => {
-              const active = pathname === href || (href !== "/" && pathname.startsWith(href));
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className="type-label link-draw"
-                  style={{
-                    color: active ? "var(--color-foreground)" : "var(--color-mutedForeground)",
-                    textDecoration: "none",
-                  }}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Right controls */}
           <div className="flex items-center gap-3">
-            <ThemeSwitcher />
-            <button
-              className="md:hidden"
-              style={{ color: "var(--color-foreground)", background: "none", border: "none", padding: "4px" }}
-              onClick={() => setOpen((v) => !v)}
-              aria-label={open ? "Close menu" : "Open menu"}
-            >
-              {open ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
-            </button>
+            {/* Desktop nav */}
+            <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+              {NAV.map(({ label, href }) => {
+                const active = pathname === href || (href !== "/" && pathname.startsWith(href));
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="type-label link-draw"
+                    style={{
+                      color: active ? "var(--color-foreground)" : "var(--color-mutedForeground)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Right controls */}
+            <div className="flex items-center gap-3">
+              <ThemeSwitcher />
+              <button
+                className="md:hidden"
+                style={{ color: "var(--color-foreground)", background: "none", border: "none", padding: "4px" }}
+                onClick={() => setOpen((v) => !v)}
+                aria-label={open ? "Close menu" : "Open menu"}
+              >
+                {open ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -120,9 +119,7 @@ export default function Header() {
                   }}
                 >
                   {label}
-                  {active && (
-                    <span style={{ color: "var(--color-accent)", marginLeft: "0.25em" }}>·</span>
-                  )}
+                  {active && <span style={{ color: "var(--color-accent)", marginLeft: "0.25em" }}>·</span>}
                 </Link>
               );
             })}

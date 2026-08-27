@@ -9,75 +9,107 @@ import Footer from "@/components/layout/Footer";
 
 const PROJECTS = [
   {
-    n: "01", slug: "ecommerce-platform",
-    title: "E-Commerce Platform", year: "2024",
+    n: "01",
+    slug: "ecommerce-platform",
+    title: "E-Commerce Platform",
+    year: "2024",
     tags: ["Next.js", "Node.js", "Stripe", "PostgreSQL"],
     desc: "Full-stack storefront with product catalog, cart, Stripe checkout, order management, and admin dashboard. Handles 10k+ SKUs.",
-    github: "https://github.com/aseppp", live: null as string | null,
-    role: "Fullstack", status: "Live",
+    github: "https://github.com/aseppp",
+    live: null as string | null,
+    role: "Fullstack",
+    status: "Live",
   },
   {
-    n: "02", slug: "ops-dashboard",
-    title: "Ops Dashboard", year: "2024",
+    n: "02",
+    slug: "ops-dashboard",
+    title: "Ops Dashboard",
+    year: "2024",
     tags: ["React", "Socket.io", "Redis", "TypeScript"],
     desc: "Real-time logistics monitoring with WebSocket updates, interactive charts, and role-based access control. 50k+ daily requests in production.",
-    github: "https://github.com/aseppp", live: null as string | null,
-    role: "Fullstack", status: "Live",
+    github: "https://github.com/aseppp",
+    live: null as string | null,
+    role: "Fullstack",
+    status: "Live",
   },
   {
-    n: "03", slug: "api-boilerplate",
-    title: "REST API Boilerplate", year: "2023",
+    n: "03",
+    slug: "api-boilerplate",
+    title: "REST API Boilerplate",
+    year: "2023",
     tags: ["Node.js", "Express", "Prisma", "Jest"],
     desc: "Production-ready Node.js API starter with JWT auth, rate limiting, input validation, Swagger docs, and 90%+ test coverage.",
-    github: "https://github.com/aseppp", live: null as string | null,
-    role: "Backend", status: "Open source",
+    github: "https://github.com/aseppp",
+    live: null as string | null,
+    role: "Backend",
+    status: "Open source",
   },
   {
-    n: "04", slug: "blog-cms",
-    title: "Blog CMS", year: "2023",
+    n: "04",
+    slug: "blog-cms",
+    title: "Blog CMS",
+    year: "2023",
     tags: ["Next.js", "MDX", "Vercel", "Tailwind"],
     desc: "Headless CMS with MDX content, tag system, full-text search, and Incremental Static Regeneration. Sub-800ms load time.",
-    github: "https://github.com/aseppp", live: null as string | null,
-    role: "Frontend", status: "Live",
+    github: "https://github.com/aseppp",
+    live: null as string | null,
+    role: "Frontend",
+    status: "Live",
   },
   {
-    n: "05", slug: "task-manager",
-    title: "Task Manager", year: "2023",
+    n: "05",
+    slug: "task-manager",
+    title: "Task Manager",
+    year: "2023",
     tags: ["React", "Redux", "Node.js", "Socket.io"],
     desc: "Drag-and-drop kanban board with real-time team updates via WebSocket, notifications, and user authentication.",
-    github: "https://github.com/aseppp", live: null as string | null,
-    role: "Fullstack", status: "Live",
+    github: "https://github.com/aseppp",
+    live: null as string | null,
+    role: "Fullstack",
+    status: "Live",
   },
   {
-    n: "06", slug: "analytics-dashboard",
-    title: "Analytics Dashboard", year: "2024",
+    n: "06",
+    slug: "analytics-dashboard",
+    title: "Analytics Dashboard",
+    year: "2024",
     tags: ["React", "Chart.js", "TypeScript"],
     desc: "Data visualization dashboard with filterable charts, date range pickers, and CSV/PDF export. Built for a logistics client.",
-    github: "https://github.com/aseppp", live: null as string | null,
-    role: "Frontend", status: "WIP",
+    github: "https://github.com/aseppp",
+    live: null as string | null,
+    role: "Frontend",
+    status: "WIP",
   },
   {
-    n: "07", slug: "portfolio",
-    title: "This Portfolio", year: "2024",
+    n: "07",
+    slug: "portfolio",
+    title: "This Portfolio",
+    year: "2024",
     tags: ["Next.js", "GSAP", "TypeScript"],
     desc: "The site you're on — editorial layout, custom cursor, multi-theme system, GSAP scroll animations, horizontal scroll projects.",
-    github: "https://github.com/aseppp", live: "/" as string | null,
-    role: "Design + Dev", status: "Live",
+    github: "https://github.com/aseppp",
+    live: "/" as string | null,
+    role: "Design + Dev",
+    status: "Live",
   },
 ];
 
 const ALL_ROLES = ["All", ...Array.from(new Set(PROJECTS.map((p) => p.role)))];
 
 export default function ProjectsPage() {
-  const pageRef  = useRef<HTMLDivElement>(null);
-  const listRef  = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const [filter, setFilter] = useState("All");
 
   const items = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.role === filter);
 
   useEffect(() => {
     gsap.from(listRef.current?.querySelectorAll(".project-row") ?? [], {
-      opacity: 0, y: 16, stagger: 0.06, duration: 0.55, ease: "expo.out",
+      opacity: 0,
+      y: 16,
+      stagger: 0.06,
+      duration: 0.55,
+      ease: "expo.out",
     });
   }, [filter]);
 
@@ -96,7 +128,9 @@ export default function ProjectsPage() {
           className="col"
           style={{ paddingTop: "3rem", paddingBottom: "2rem", borderBottom: "1px solid var(--color-border)" }}
         >
-          <p className="type-label mb-3" style={{ color: "var(--color-accent)" }}>Work</p>
+          <p className="type-label mb-3" style={{ color: "var(--color-accent)" }}>
+            Work
+          </p>
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <h1 className="type-title page-title" style={{ color: "var(--color-foreground)" }}>
               Projects
@@ -154,16 +188,24 @@ export default function ProjectsPage() {
                 ((e.currentTarget as HTMLAnchorElement).style.backgroundColor =
                   "color-mix(in srgb, var(--color-foreground) 3%, transparent)")
               }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent")
-              }
+              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent")}
             >
               {/* Number */}
-              <span className="type-index" style={{ paddingTop: "0.25rem" }}>{p.n}</span>
+              <span className="type-index" style={{ paddingTop: "0.25rem" }}>
+                {p.n}
+              </span>
 
               {/* Content */}
               <div>
-                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "0.75rem", marginBottom: "0.5rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "baseline",
+                    gap: "0.75rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
                   <h2
                     style={{
                       fontFamily: "var(--font-editorial)",
@@ -189,17 +231,34 @@ export default function ProjectsPage() {
                 </div>
                 <p
                   className="type-body"
-                  style={{ color: "var(--color-mutedForeground)", maxWidth: "58ch", fontSize: "0.875rem", marginBottom: "0.75rem" }}
+                  style={{
+                    color: "var(--color-mutedForeground)",
+                    maxWidth: "58ch",
+                    fontSize: "0.875rem",
+                    marginBottom: "0.75rem",
+                  }}
                 >
                   {p.desc}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
+                  {p.tags.map((t) => (
+                    <span key={t} className="tag">
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </div>
 
               {/* Right — year + role + links */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.5rem", paddingTop: "0.15rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  gap: "0.5rem",
+                  paddingTop: "0.15rem",
+                }}
+              >
                 <span className="type-index">{p.year}</span>
                 <span
                   className="type-label"
@@ -220,9 +279,17 @@ export default function ProjectsPage() {
                       rel="noopener noreferrer"
                       aria-label="GitHub"
                       onClick={(e) => e.stopPropagation()}
-                      style={{ color: "var(--color-mutedForeground)", textDecoration: "none", transition: "color 0.2s ease" }}
-                      onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-foreground)")}
-                      onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-mutedForeground)")}
+                      style={{
+                        color: "var(--color-mutedForeground)",
+                        textDecoration: "none",
+                        transition: "color 0.2s ease",
+                      }}
+                      onMouseEnter={(e) =>
+                        ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-foreground)")
+                      }
+                      onMouseLeave={(e) =>
+                        ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-mutedForeground)")
+                      }
                     >
                       <AiOutlineGithub size={16} />
                     </a>

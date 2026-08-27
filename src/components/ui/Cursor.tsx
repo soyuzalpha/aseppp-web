@@ -7,11 +7,14 @@ export default function Cursor() {
   const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only on fine pointer devices
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
+    let mouseX = 0,
+      mouseY = 0;
+    let ringX = 0,
+      ringY = 0;
+    let prevRingX = 0,
+      prevRingY = 0;
     let raf: number;
 
     const onMove = (e: MouseEvent) => {
@@ -26,11 +29,27 @@ export default function Cursor() {
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const tick = () => {
-      ringX = lerp(ringX, mouseX, 0.12);
-      ringY = lerp(ringY, mouseY, 0.12);
+      prevRingX = ringX;
+      prevRingY = ringY;
+      ringX = lerp(ringX, mouseX, 0.14);
+      ringY = lerp(ringY, mouseY, 0.14);
+
+      const vx = ringX - prevRingX;
+      const vy = ringY - prevRingY;
+      const speed = Math.min(Math.hypot(vx, vy), 40);
+      const angle = Math.atan2(vy, vx) * (180 / Math.PI);
+      const stretch = 1 + speed / 40; // up to ~2x
+      const squeeze = 1 - (speed / 40) * 0.35;
+
       if (ringRef.current) {
         ringRef.current.style.left = `${ringX}px`;
         ringRef.current.style.top = `${ringY}px`;
+        ringRef.current.style.transform = `
+          translate(-50%, -50%)
+          rotate(${angle}deg)
+          scaleX(${stretch})
+          scaleY(${squeeze})
+        `;
       }
       raf = requestAnimationFrame(tick);
     };
@@ -45,7 +64,6 @@ export default function Cursor() {
       el.addEventListener("mouseleave", onLeave);
     });
 
-    // Re-bind on DOM changes
     const observer = new MutationObserver(() => {
       document.querySelectorAll("a, button, [role='button']").forEach((el) => {
         el.addEventListener("mouseenter", onEnter);

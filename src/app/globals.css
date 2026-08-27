@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Local Fonts ─────────────────────────────────────────────── */
+@font-face {
+  font-family: "Gilmer-Regular";
+  src: url("/fonts/Gilmer-Regular.otf");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gilmer-Outline";
+  src: url("/fonts/Gilmer-Outline.otf");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gilmer-Bold";
+  src: url("/fonts/Gilmer-Bold.otf");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gilmer-Medium";
+  src: url("/fonts/Gilmer-Medium.otf");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hack";
+  src: url("/fonts/Hack-NF.ttf");
+  font-display: swap;
+}
+
+/* ─── Design tokens ───────────────────────────────────────────── */
+:root {
+  /* colors — light */
+  --color-background:        #f4f3ef;
+  --color-foreground:        #1a1a1a;
+  --color-primary:           #1a1a1a;
+  --color-primaryForeground: #f4f3ef;
+  --color-secondary:         #e8e6e1;
+  --color-secondaryForeground: #1a1a1a;
+  --color-muted:             #e8e6e1;
+  --color-mutedForeground:   #787672;
+  --color-accent:            #c84b31;
+  --color-accentForeground:  #f4f3ef;
+  --color-border:            #d4d2cd;
+  --color-card:              #edebe6;
+  --color-cardForeground:    #1a1a1a;
+  --color-ring:              #1a1a1a;
+
+  /* typography */
+  --font-editorial: "Gilmer-Bold", "Inter", serif;
+  --font-outline:   "Gilmer-Outline", "Inter", serif;
+  --font-body:      "Inter", system-ui, sans-serif;
+  --font-mono:      "Hack", "Courier New", monospace;
+  --font-medium:    "Gilmer-Medium", "Inter", sans-serif;
+
+  /* grid */
+  --col-max: 1200px;
+  --col-pad: clamp(1.25rem, 5vw, 4rem);
+
+  /* timing */
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dark {
+  --color-background:        #111110;
+  --color-foreground:        #f0ede8;
+  --color-primary:           #f0ede8;
+  --color-primaryForeground: #111110;
+  --color-secondary:         #1e1e1c;
+  --color-secondaryForeground: #f0ede8;
+  --color-muted:             #1e1e1c;
+  --color-mutedForeground:   #7a7875;
+  --color-accent:            #e05c3f;
+  --color-accentForeground:  #111110;
+  --color-border:            #2a2a28;
+  --color-card:              #181816;
+  --color-cardForeground:    #f0ede8;
+  --color-ring:              #f0ede8;
+}
+
+/* catppuccin override light */
+html[data-theme="catppuccin"]:not(.dark) {
+  --color-accent: #1e66f5;
+}
+html[data-theme="catppuccin"].dark {
+  --color-accent: #89b4fa;
+}
+
+/* ─── Base reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─── Custom cursor ───────────────────────────────────────────── */
+@media (pointer: fine) {
+  body { cursor: none; }
+  a, button, [role="button"], input, textarea, select, label {
+    cursor: none;
+  }
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-foreground); }
+
+::selection {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+/* ─── Layout helpers ──────────────────────────────────────────── */
+.col {
+  max-width: var(--col-max);
+  margin-inline: auto;
+  padding-inline: var(--col-pad);
+}
+
+/* ─── Typography scale ────────────────────────────────────────── */
+
+/* Display — enormous, identity-defining */
+.type-display {
+  font-family: var(--font-editorial);
+  font-size: clamp(4.5rem, 14vw, 14rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+
+/* Display outline variant */
+.type-display-outline {
+  font-family: var(--font-outline);
+  font-size: clamp(4.5rem, 14vw, 14rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  font-weight: 400;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-foreground);
+}
+
+/* Section title */
+.type-title {
+  font-family: var(--font-editorial);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+/* Section label — small caps index */
+.type-label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-mutedForeground);
+}
+
+/* Body editorial */
+.type-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9375rem, 1.2vw, 1.125rem);
+  line-height: 1.75;
+  font-weight: 400;
+}
+
+/* Mono */
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+}
+
+/* Index number */
+.type-index {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--color-mutedForeground);
+}
+
+/* ─── Horizontal rule ─────────────────────────────────────────── */
+.rule {
+  width: 100%;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ─── Animations ──────────────────────────────────────────────── */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes marquee-ltr {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes line-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes reveal-up {
+  from { clip-path: inset(100% 0 0 0); transform: translateY(8px); }
+  to   { clip-path: inset(0% 0 0 0); transform: translateY(0); }
+}
+
+.animate-slide-down  { animation: slideDown 0.35s var(--ease-out-expo) forwards; }
+.animate-fade-up     { animation: fadeUp 0.7s var(--ease-out-expo) forwards; }
+.animate-marquee     { animation: marquee-ltr 32s linear infinite; }
+.animate-line-grow   { animation: line-grow 1s var(--ease-out-expo) forwards; transform-origin: left; }
+
+/* ─── Cursor dot ──────────────────────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-foreground);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-foreground);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s var(--ease-out-expo),
+              width 0.3s ease, height 0.3s ease, border-color 0.2s ease;
+  mix-blend-mode: difference;
+  opacity: 0.5;
+}
+
+/* hover states for cursor */
+body.cursor-hover .cursor-dot {
+  width: 16px; height: 16px;
+  background: var(--color-accent);
+}
+body.cursor-hover .cursor-ring {
+  width: 56px; height: 56px;
+  opacity: 0.25;
+}
+
+/* ─── Horizontal scroll track ─────────────────────────────────── */
+.h-scroll-track {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 1px;
+}
+.h-scroll-track::-webkit-scrollbar { display: none; }
+
+.h-scroll-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* ─── Link underline draw ─────────────────────────────────────── */
+.link-draw {
+  position: relative;
+  text-decoration: none;
+}
+.link-draw::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.link-draw:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ─── Accent line ─────────────────────────────────────────────── */
+.accent-line {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--color-accent);
+  vertical-align: middle;
+  border-radius: 1px;
+}
+
+/* ─── Tag pill ────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-mutedForeground);
+  font-weight: 500;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.tag:hover {
+  border-color: var(--color-foreground);
+  color: var(--color-foreground);
+}
+
+/* ─── Glass ───────────────────────────────────────────────────── */
+.glass {
+  background: color-mix(in srgb, var(--color-card) 65%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+}
+
+/* ─── Visually hidden ─────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ─── Glass panels ───────────────────────────────────────────── */
+.glass-panel {
+  background: color-mix(in srgb, var(--color-card) 70%, transparent);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+}
+
+.glass-panel-strong {
+  background: color-mix(in srgb, var(--color-card) 88%, transparent);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.glass-hover {
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s var(--ease-spring);
+}
+.glass-hover:hover {
+  background: color-mix(in srgb, var(--color-card) 90%, transparent);
+  border-color: var(--color-foreground);
+  transform: translateY(-3px);
+}
+
+/* ─── Section glass card ──────────────────────────────────────── */
+.section-card {
+  background: color-mix(in srgb, var(--color-card) 60%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  padding: 1.5rem;
+}

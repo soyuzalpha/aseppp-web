@@ -1,19 +1,27 @@
-const { colors } = require('./config.json');
-
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'class',
   theme: {
-    colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      ...colors,
+    extend: {
+      colors: {
+        background: "var(--color-background)",
+        foreground: "var(--color-foreground)",
+        primary: "var(--color-primary)",
+        "primary-foreground": "var(--color-primaryForeground)",
+        secondary: "var(--color-secondary)",
+        "secondary-foreground": "var(--color-secondaryForeground)",
+        muted: "var(--color-muted)",
+        "muted-foreground": "var(--color-mutedForeground)",
+        accent: "var(--color-accent)",
+        "accent-foreground": "var(--color-accentForeground)",
+        border: "var(--color-border)",
+        card: "var(--color-card)",
+        "card-foreground": "var(--color-cardForeground)",
+        ring: "var(--color-ring)",
+      },
     },
-    extend: {},
   },
   variants: {
     extend: {},

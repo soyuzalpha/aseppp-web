@@ -64,14 +64,12 @@ export default function AboutPage() {
 
         {/* ── Intro block ── */}
         <div
-          className="col reveal"
+          className="col reveal split"
           style={{
             paddingBlock: "3.5rem",
             borderBottom: "1px solid var(--color-border)",
-            display: "grid",
-            gridTemplateColumns: "clamp(7rem, 15vw, 11rem) 1fr",
-            gap: "3rem",
-            alignItems: "start",
+            ["--split-a" as string]: "clamp(7rem, 15vw, 11rem)",
+            ["--split-gap" as string]: "3rem",
           }}
         >
           <div style={{ aspectRatio: "1", overflow: "hidden" }}>
@@ -157,12 +155,11 @@ export default function AboutPage() {
           {EXP.map((e, i) => (
             <div
               key={i}
-              className="reveal"
+              className="reveal split-3"
               style={{
-                display: "grid",
-                gridTemplateColumns: "clamp(8rem, 16vw, 13rem) 1fr clamp(6rem, 12vw, 10rem)",
-                gap: "2rem",
-                alignItems: "baseline",
+                ["--split-a" as string]: "clamp(8rem, 16vw, 13rem)",
+                ["--split-b" as string]: "clamp(6rem, 12vw, 10rem)",
+                ["--split-gap" as string]: "2rem",
                 paddingBlock: "1.25rem",
                 borderBottom: "1px solid var(--color-border)",
               }}
@@ -192,12 +189,11 @@ export default function AboutPage() {
           {EDU.map((e, i) => (
             <div
               key={i}
-              className="reveal"
+              className="reveal split-3"
               style={{
-                display: "grid",
-                gridTemplateColumns: "clamp(8rem, 16vw, 13rem) 1fr clamp(6rem, 12vw, 10rem)",
-                gap: "2rem",
-                alignItems: "baseline",
+                ["--split-a" as string]: "clamp(8rem, 16vw, 13rem)",
+                ["--split-b" as string]: "clamp(6rem, 12vw, 10rem)",
+                ["--split-gap" as string]: "2rem",
                 paddingBlock: "1.25rem",
                 borderBottom: "1px solid var(--color-border)",
               }}

@@ -149,6 +149,7 @@ export default function ProjectsPage() {
             <button
               key={r}
               onClick={() => setFilter(r)}
+              className="tap-target"
               style={{
                 background: "none",
                 border: "none",
@@ -174,14 +175,10 @@ export default function ProjectsPage() {
             <Link
               key={p.slug}
               href={`/project/${p.slug}`}
-              className="project-row"
+              className="project-row list-row"
               style={{
-                display: "grid",
                 borderBottom: "1px solid var(--color-border)",
                 paddingBlock: "1.75rem",
-                gridTemplateColumns: "2.5rem 1fr auto",
-                gap: "1.5rem 2rem",
-                alignItems: "start",
                 textDecoration: "none",
                 transition: "background 0.15s ease",
               }}
@@ -223,7 +220,7 @@ export default function ProjectsPage() {
                     style={{
                       color: "var(--color-accent)",
                       border: "1px solid var(--color-border)",
-                      borderRadius: "999px",
+                      borderRadius: "2px",
                       padding: "0.15rem 0.6rem",
                     }}
                   >
@@ -251,22 +248,14 @@ export default function ProjectsPage() {
               </div>
 
               {/* Right — year + role + links */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                  gap: "0.5rem",
-                  paddingTop: "0.15rem",
-                }}
-              >
+              <div className="list-row-meta">
                 <span className="type-index">{p.year}</span>
                 <span
                   className="type-label"
                   style={{
                     color: "var(--color-mutedForeground)",
                     border: "1px solid var(--color-border)",
-                    borderRadius: "999px",
+                    borderRadius: "2px",
                     padding: "0.15rem 0.6rem",
                   }}
                 >

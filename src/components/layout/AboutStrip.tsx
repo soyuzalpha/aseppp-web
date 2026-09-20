@@ -34,7 +34,7 @@ export default function AboutStrip() {
   }, []);
 
   return (
-    <section ref={ref} aria-labelledby="about-label" style={{ paddingBlock: "5rem" }}>
+    <section ref={ref} aria-labelledby="about-label" className="section">
       {/* ── Row 1 — label + number ── */}
       <div
         className="col flex items-baseline justify-between pb-5"
@@ -48,10 +48,10 @@ export default function AboutStrip() {
 
       {/* ── Row 2 — profile + body ── */}
       <div
-        className="col grid gap-10 pt-10"
+        className="col split pt-10"
         style={{
-          gridTemplateColumns: "clamp(12rem, 25vw, 20rem) 1fr",
-          gap: "4rem",
+          ["--split-a" as string]: "clamp(12rem, 25vw, 20rem)",
+          ["--split-gap" as string]: "4rem",
         }}
       >
         {/* Photo */}
@@ -59,6 +59,7 @@ export default function AboutStrip() {
           className="about-item"
           style={{
             width: "100%",
+            maxWidth: "20rem",
             aspectRatio: "1",
             overflow: "hidden",
             borderRadius: "4px",
@@ -105,38 +106,25 @@ export default function AboutStrip() {
       </div>
 
       {/* ── Row 3 — facts strip ── */}
-      <div
-        className="col mt-10 grid"
-        style={{
-          gridTemplateColumns: `repeat(${FACTS.length}, 1fr)`,
-          borderTop: "1px solid var(--color-border)",
-        }}
-      >
-        {FACTS.map(({ label, value }, i) => (
-          <div
-            key={label}
-            className="about-item py-5"
-            style={{
-              borderRight: i < FACTS.length - 1 ? "1px solid var(--color-border)" : "none",
-              paddingInline: i === 0 ? "0 1.5rem" : "1.5rem",
-              // background: "color-mix(in srgb, var(--color-card) 60%, transparent)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-            }}
-          >
-            <p className="type-index mb-1">{label}</p>
-            <p
-              style={{
-                fontFamily: "var(--font-medium)",
-                fontSize: "clamp(0.9rem, 1.4vw, 1.1rem)",
-                color: "var(--color-foreground)",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {value}
-            </p>
-          </div>
-        ))}
+      <div className="col mt-10">
+        <div className="facts">
+          {FACTS.map(({ label, value }) => (
+            <div key={label} className="about-item">
+              <p className="type-label mb-1" style={{ fontSize: "0.625rem" }}>
+                {label}
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "clamp(0.8125rem, 1.2vw, 0.9375rem)",
+                  color: "var(--color-foreground)",
+                }}
+              >
+                {value}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

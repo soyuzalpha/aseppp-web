@@ -212,14 +212,10 @@ export default function PostsPage() {
             <Link
               key={p.slug}
               href={`/posts/${p.slug}`}
-              className="post-row"
+              className="post-row list-row"
               style={{
-                display: "grid",
                 borderBottom: "1px solid var(--color-border)",
                 paddingBlock: "1.5rem",
-                gridTemplateColumns: "2.5rem 1fr auto",
-                gap: "1rem 2rem",
-                alignItems: "start",
                 textDecoration: "none",
                 transition: "background 0.15s ease",
               }}
@@ -251,7 +247,7 @@ export default function PostsPage() {
                 </div>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.25rem", paddingTop: "0.1rem" }}>
+              <div className="list-row-meta">
                 <span className="type-index">{p.date}</span>
                 <span className="type-index">{p.readTime} min</span>
                 <ArrowUpRight size={13} strokeWidth={1.5} style={{ color: "var(--color-mutedForeground)", marginTop: "0.25rem" }} />

@@ -48,7 +48,7 @@ export default function Stack() {
   }, []);
 
   return (
-    <section ref={secRef} aria-labelledby="stack-label" style={{ paddingBlock: "5rem" }}>
+    <section ref={secRef} aria-labelledby="stack-label" className="section">
       {/* Header row */}
       <div
         className="col flex items-baseline justify-between pb-5"
@@ -65,10 +65,11 @@ export default function Stack() {
         {STACK.map(({ category, items }) => (
           <div
             key={category}
-            className="stack-row grid items-start gap-8 py-5"
+            className="stack-row split py-5"
             style={{
               borderBottom: "1px solid var(--color-border)",
-              gridTemplateColumns: "clamp(7rem, 14vw, 11rem) 1fr",
+              ["--split-a" as string]: "clamp(7rem, 14vw, 11rem)",
+              ["--split-gap" as string]: "2rem",
               transition: "background 0.2s ease",
             }}
             onMouseEnter={(e) => {

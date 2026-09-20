@@ -80,7 +80,7 @@ export default function Work() {
   }, []);
 
   return (
-    <section ref={secRef} aria-labelledby="work-label" style={{ paddingBlock: "5rem" }}>
+    <section ref={secRef} aria-labelledby="work-label" className="section">
       {/* Header */}
       <div
         ref={headRef}
@@ -146,7 +146,7 @@ export default function Work() {
                 style={{
                   color: "var(--color-accent)",
                   border: "1px solid var(--color-border)",
-                  borderRadius: "999px",
+                  borderRadius: "2px",
                   padding: "0.2rem 0.7rem",
                 }}
               >

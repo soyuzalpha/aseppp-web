@@ -167,13 +167,8 @@ export default function PostDetail() {
           </Link>
 
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr clamp(12rem, 22vw, 18rem)",
-              gap: "3rem",
-              alignItems: "start",
-              minWidth: 0,
-            }}
+            className="split-aside"
+            style={{ ["--split-gap" as string]: "3rem", minWidth: 0 }}
           >
             {/* Title */}
             <div>
@@ -256,14 +251,8 @@ export default function PostDetail() {
 
         {/* ── Body ── */}
         <div
-          className="col post-content"
-          style={{
-            paddingBlock: "3rem",
-            display: "grid",
-            gridTemplateColumns: "1fr clamp(12rem, 22vw, 18rem)",
-            gap: "3rem",
-            alignItems: "start",
-          }}
+          className="col post-content split-aside"
+          style={{ paddingBlock: "3rem", ["--split-gap" as string]: "3rem" }}
         >
           {/* Article body */}
           <article style={{ minWidth: 0 }}>

@@ -204,11 +204,9 @@ export default function ProjectDetail() {
           </Link>
 
           <div
+            className="split-aside"
             style={{
-              display: "grid",
-              gridTemplateColumns: "1fr clamp(12rem, 22vw, 18rem)",
-              gap: "3rem",
-              alignItems: "start",
+              ["--split-gap" as string]: "3rem",
             }}
           >
             {/* Title block */}
@@ -292,13 +290,10 @@ export default function ProjectDetail() {
 
         {/* ── Body — two column ── */}
         <div
-          className="col proj-content"
+          className="col proj-content split-aside"
           style={{
             paddingBlock: "3rem",
-            display: "grid",
-            gridTemplateColumns: "1fr clamp(12rem, 22vw, 18rem)",
-            gap: "3rem",
-            alignItems: "start",
+            ["--split-gap" as string]: "3rem",
           }}
         >
           {/* Main content */}

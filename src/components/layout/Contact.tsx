@@ -41,7 +41,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <section ref={secRef} aria-labelledby="contact-label" style={{ paddingBlock: "5rem 6rem" }}>
+    <section ref={secRef} aria-labelledby="contact-label" className="section">
       {/* Header row */}
       <div
         className="col flex items-baseline justify-between pb-5"
@@ -85,8 +85,11 @@ export default function Contact() {
             className="link-draw"
             style={{
               display: "flex",
+              flexWrap: "wrap",
               alignItems: "baseline",
               justifyContent: "space-between",
+              columnGap: "1.5rem",
+              rowGap: "0.25rem",
               paddingBlock: "1.2rem",
               borderBottom: "1px solid var(--color-border)",
               textDecoration: "none",
@@ -104,7 +107,7 @@ export default function Contact() {
             <span
               style={{
                 fontFamily: "var(--font-medium)",
-                fontSize: "clamp(0.875rem, 1.4vw, 1.05rem)",
+                fontSize: "clamp(0.75rem, 1.4vw, 1.05rem)",
                 letterSpacing: "-0.01em",
                 color: "inherit",
               }}

@@ -25,7 +25,7 @@ export default function Footer() {
     >
       <p className="type-index">© {new Date().getFullYear()} Asep Saepudin</p>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", marginTop: "0.5rem" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
         {SOCIALS.map(({ href, icon, label }) => (
           <a
             key={label}
@@ -33,6 +33,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
+            className="icon-hit"
             style={{
               color: "var(--color-mutedForeground)",
               textDecoration: "none",
@@ -48,7 +49,7 @@ export default function Footer() {
         <a
           href="mailto:asepp.saepudiin@gmail.com"
           className="type-label link-draw"
-          style={{ color: "var(--color-mutedForeground)", textDecoration: "none" }}
+          style={{ color: "var(--color-mutedForeground)", textDecoration: "none", overflowWrap: "anywhere", minWidth: 0 }}
         >
           asepp.saepudiin@gmail.com
         </a>

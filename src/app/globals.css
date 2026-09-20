@@ -15,7 +15,7 @@
   --color-secondaryForeground: #1c1c1a;
   --color-muted: #ececea;
   --color-mutedForeground: #8a8880;
-  --color-accent: #3f8a6e;
+  --color-accent: #43ff88;
   --color-accentForeground: #f7f6f2;
   --color-accent-2: #c98a2d;
   --color-border: #dedcd5;
@@ -49,7 +49,7 @@
   --color-secondaryForeground: #e8e6e1;
   --color-muted: #1e1e1c;
   --color-mutedForeground: #8a887e;
-  --color-accent: #5cab8b;
+  --color-accent: #43ff88;
   --color-accentForeground: #131311;
   --color-accent-2: #d9a04a;
   --color-border: #2a2a27;
@@ -86,6 +86,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overflow-wrap: break-word;
   line-height: 1.6;
 }
 
@@ -132,26 +133,145 @@ body {
   padding-inline: var(--col-pad);
 }
 
+/* ─── Responsive layout ───────────────────────────────────────── */
+
+/* Fluid section rhythm — replaces a flat 5rem block */
+.section {
+  padding-block: clamp(3rem, 8vw, 5rem);
+}
+
+/* Two-column splits. Per-instance column widths come from inline
+   --split-a / --split-b / --split-gap; the breakpoint decides when
+   they apply, so a single class serves every variant. */
+.split {
+  display: grid;
+  gap: var(--split-gap, 2rem);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+@media (min-width: 40rem) {
+  .split {
+    grid-template-columns: var(--split-a, clamp(7rem, 15vw, 11rem)) minmax(0, 1fr);
+  }
+}
+
+/* Three-column rows — stack to one column, three only from 48rem */
+.split-3 {
+  display: grid;
+  gap: var(--split-gap, 1.5rem);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 48rem) {
+  .split-3 {
+    grid-template-columns: var(--split-a) minmax(0, 1fr) var(--split-b);
+    align-items: baseline;
+  }
+}
+
+/* Content + sidebar (detail pages) — stacks under 48rem */
+.split-aside {
+  display: grid;
+  gap: var(--split-gap, 2rem);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+@media (min-width: 48rem) {
+  .split-aside {
+    grid-template-columns: minmax(0, 1fr) clamp(12rem, 22vw, 18rem);
+  }
+}
+
+/* Numbered list rows — trailing meta drops to its own line on mobile */
+.list-row {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+  align-items: start;
+}
+.list-row-meta {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+@media (min-width: 40rem) {
+  .list-row {
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    gap: 1rem 2rem;
+  }
+  .list-row-meta {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+/* Fact strip — 2-up on mobile, up to 5-up on desktop. Dividers come
+   from the 1px grid gap over a border-coloured background, so they
+   stay correct when the strip wraps onto several rows. */
+.facts {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(min(50%, 8rem), 1fr));
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+}
+.facts > * {
+  background: var(--color-card);
+  padding: 0.9rem 1.1rem;
+}
+
+/* Coarse pointers get real tap targets. Links and icon-only controls are
+   text-sized, so the hit area grows with an invisible overlay rather than
+   padding — nothing moves, and neighbouring targets stay 36px apart. */
+@media (pointer: coarse) {
+  .tag {
+    min-height: 44px;
+  }
+  .tap-target {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .tap-input {
+    min-height: 44px;
+  }
+  .link-draw::before,
+  .icon-hit::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+  }
+  .icon-hit {
+    position: relative;
+  }
+}
+
 /* ─── Typography scale ────────────────────────────────────────── */
 
 /* Display — enormous, identity-defining */
 .type-display {
   font-family: var(--font-editorial);
-  font-size: clamp(3rem, 10vw, 9rem);
+  font-size: clamp(2rem, 8vw, 8rem);
   line-height: 0.95;
   letter-spacing: -0.01em;
   font-weight: 400;
   text-transform: uppercase;
+  overflow-wrap: break-word;
 }
 
 /* Display outline variant */
 .type-display-outline {
   font-family: var(--font-outline);
-  font-size: clamp(3rem, 10vw, 9rem);
+  font-size: clamp(2rem, 8vw, 8rem);
   line-height: 0.95;
   letter-spacing: -0.01em;
   font-weight: 400;
   text-transform: uppercase;
+  overflow-wrap: break-word;
   color: transparent;
   -webkit-text-stroke: 1.5px var(--color-foreground);
 }
@@ -340,6 +460,24 @@ body.cursor-hover .cursor-ring {
 }
 .h-scroll-track::-webkit-scrollbar {
   display: none;
+}
+
+/* Mouse users can't swipe — show them there's more to scroll */
+@media (pointer: fine) {
+  .h-scroll-track {
+    scrollbar-width: thin;
+    padding-bottom: 1.5rem;
+  }
+  .h-scroll-track::-webkit-scrollbar {
+    display: block;
+    height: 4px;
+  }
+  .h-scroll-track::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+  }
+  .h-scroll-track::-webkit-scrollbar-thumb:hover {
+    background: var(--color-foreground);
+  }
 }
 
 .h-scroll-item {

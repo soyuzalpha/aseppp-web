@@ -105,6 +105,7 @@ export default function PicsPage() {
             <button
               key={c}
               onClick={() => setCat(c)}
+              className="tap-target"
               style={{
                 background: "none",
                 border: "none",

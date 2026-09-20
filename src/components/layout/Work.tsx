@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,9 +87,8 @@ export default function Work() {
         className="col flex items-baseline justify-between pb-5"
         style={{ borderBottom: "1px solid var(--color-border)" }}
       >
-        <span id="work-label" className="type-label">
-          <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>02</span>
-          Selected work
+        <span id="work-label">
+          <SectionLabel n="02">Selected work</SectionLabel>
         </span>
         <Link
           href="/project"

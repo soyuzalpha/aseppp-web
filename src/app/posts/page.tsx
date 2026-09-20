@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/layout/Footer";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 type Post = {
   n: string;
@@ -108,7 +109,9 @@ export default function PostsPage() {
           className="col"
           style={{ paddingTop: "3rem", paddingBottom: "2rem", borderBottom: "1px solid var(--color-border)" }}
         >
-          <p className="type-label mb-3" style={{ color: "var(--color-accent)" }}>Writing</p>
+          <p className="mb-3">
+            <SectionLabel n="03">Writing</SectionLabel>
+          </p>
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <h1 className="type-title page-title" style={{ color: "var(--color-foreground)" }}>
               Posts

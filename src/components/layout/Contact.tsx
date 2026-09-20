@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AiOutlineGithub, AiFillLinkedin, AiOutlineInstagram } from "react-icons/ai";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,9 +47,8 @@ export default function Contact() {
         className="col flex items-baseline justify-between pb-5"
         style={{ borderBottom: "1px solid var(--color-border)" }}
       >
-        <span id="contact-label" className="type-label">
-          <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>04</span>
-          Contact
+        <span id="contact-label">
+          <SectionLabel n="04">Contact</SectionLabel>
         </span>
       </div>
 

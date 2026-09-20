@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
-import Cursor from "@/components/ui/Cursor";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
@@ -15,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <Cursor />
+          {/* <Cursor /> */}
           <Header />
           <main>{children}</main>
         </ThemeProvider>

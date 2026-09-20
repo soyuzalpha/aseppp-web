@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,9 +54,8 @@ export default function Stack() {
         className="col flex items-baseline justify-between pb-5"
         style={{ borderBottom: "1px solid var(--color-border)" }}
       >
-        <span id="stack-label" className="type-label">
-          <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>03</span>
-          Stack
+        <span id="stack-label">
+          <SectionLabel n="03">Stack</SectionLabel>
         </span>
         <span className="type-index">{STACK.reduce((s, c) => s + c.items.length, 0)} tools</span>
       </div>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { X, ZoomIn } from "lucide-react";
 import Footer from "@/components/layout/Footer";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 /* ─── Photo data ────────────────────────────────────────────────
    In production these would come from a CMS or Cloudinary.
@@ -77,7 +78,9 @@ export default function PicsPage() {
           className="col"
           style={{ paddingTop: "3rem", paddingBottom: "2rem", borderBottom: "1px solid var(--color-border)" }}
         >
-          <p className="type-label mb-3" style={{ color: "var(--color-accent)" }}>Hobby</p>
+          <p className="mb-3">
+            <SectionLabel n="04">Hobby</SectionLabel>
+          </p>
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <h1 className="type-title page-title" style={{ color: "var(--color-foreground)" }}>
               Pics

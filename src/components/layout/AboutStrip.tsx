@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,9 +40,8 @@ export default function AboutStrip() {
         className="col flex items-baseline justify-between pb-5"
         style={{ borderBottom: "1px solid var(--color-border)" }}
       >
-        <span id="about-label" className="type-label">
-          <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>01</span>
-          About
+        <span id="about-label">
+          <SectionLabel n="01">About</SectionLabel>
         </span>
         <span className="type-index">asep saepudin</span>
       </div>

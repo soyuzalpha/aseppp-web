@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Footer from "@/components/layout/Footer";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,8 +54,8 @@ export default function AboutPage() {
             borderBottom: "1px solid var(--color-border)",
           }}
         >
-          <p className="type-label mb-3" style={{ color: "var(--color-accent)" }}>
-            About
+          <p className="mb-3">
+            <SectionLabel n="01">About</SectionLabel>
           </p>
           <h1 className="type-title reveal" style={{ color: "var(--color-foreground)" }}>
             Asep Saepudin
@@ -68,33 +69,20 @@ export default function AboutPage() {
             paddingBlock: "3.5rem",
             borderBottom: "1px solid var(--color-border)",
             display: "grid",
-            gridTemplateColumns: "clamp(11rem, 22vw, 18rem) 1fr",
+            gridTemplateColumns: "clamp(7rem, 15vw, 11rem) 1fr",
             gap: "3rem",
             alignItems: "start",
           }}
         >
-          <div
-            style={{
-              width: "100%",
-              aspectRatio: "1",
-              overflow: "hidden",
-            }}
-          >
+          <div style={{ aspectRatio: "1", overflow: "hidden" }}>
             <Image
               src="/profile_picture.png"
               alt="Asep Saepudin"
               width={400}
               height={400}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top",
-              }}
-              className="rounded-md"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
             />
           </div>
-
           <div>
             <p
               className="type-body"

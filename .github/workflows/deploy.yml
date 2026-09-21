@@ -1,9 +1,12 @@
-name: Deploy aseppp-web
+name: CI/CD
 
 on:
   push:
     branches:
       - main
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
@@ -11,32 +14,77 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm exec tsc --noEmit
+
+      - name: Next.js build
+        run: pnpm build
 
       - name: Build Docker image
-        run: docker build -t aseppp-web:latest .
+        run: docker build -t aseppp-web:${{ github.sha }} .
 
-      - name: Replace container
+      - name: Start test container
         run: |
-          docker stop aseppp-web 2>/dev/null || true
-          docker rm aseppp-web 2>/dev/null || true
+          docker rm -f aseppp-web-test 2>/dev/null || true
+
+          docker run -d \
+            --name aseppp-web-test \
+            -p 127.0.0.1:5100:5000 \
+            aseppp-web:${{ github.sha }}
+
+      - name: Test container health
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:5100 > /dev/null; then
+              echo "Test container is healthy"
+              exit 0
+            fi
+
+            sleep 2
+          done
+
+          echo "Test container failed"
+          docker logs aseppp-web-test --tail 100
+          exit 1
+
+      - name: Deploy production
+        run: |
+          docker rm -f aseppp-web 2>/dev/null || true
 
           docker run -d \
             --name aseppp-web \
             --restart unless-stopped \
             -p 127.0.0.1:5000:5000 \
-            aseppp-web:latest
+            aseppp-web:${{ github.sha }}
 
-      - name: Health check
+      - name: Production health check
         run: |
-          for i in {1..15}; do
+          for i in {1..30}; do
             if curl -fsS http://127.0.0.1:5000 > /dev/null; then
-              echo "Deployment successful"
+              echo "Production deployment successful"
               exit 0
             fi
+
             sleep 2
           done
 
-          echo "Deployment failed"
-          docker logs aseppp-web --tail 50
+          echo "Production deployment failed"
+          docker logs aseppp-web --tail 100
           exit 1
+
+      - name: Cleanup test container
+        if: always()
+        run: docker rm -f aseppp-web-test 2>/dev/null || true

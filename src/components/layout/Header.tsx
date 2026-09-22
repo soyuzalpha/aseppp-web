@@ -44,7 +44,7 @@ export default function Header() {
             href="/"
             className="type-mono"
             style={{
-              color: "var(--color-accent)",
+              // color: "var(--color-accent)",
               fontSize: "0.8rem",
               letterSpacing: "0.12em",
               textDecoration: "none",

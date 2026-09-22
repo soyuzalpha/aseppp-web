@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FACTS = [
   { label: "Age", value: "26" },
-  { label: "Location", value: "Bandung, ID" },
+  { label: "Location", value: "Tangerang Selatan, ID" },
   { label: "Experience", value: "3+ years" },
   { label: "Focus", value: "Fullstack Web" },
   { label: "Status", value: "Open to work" },

@@ -18,7 +18,7 @@ const SOCIALS = [
 
 const FACTS = [
   { label: "ROLE", value: "Fullstack Web Developer" },
-  { label: "BASE", value: "Bandung, Indonesia" },
+  { label: "BASE", value: "Tangerang Selatan, Indonesia" },
   { label: "STACK", value: "React · Next.js · Node · TS" },
   { label: "STATUS", value: "Open to work" },
 ];
@@ -136,22 +136,15 @@ export default function Hero() {
           }}
         >
           {/* Label row */}
-          <SectionLabel n="01">FULLSTACK DEVELOPER · BANDUNG, ID</SectionLabel>
+          <SectionLabel n="01">FULLSTACK DEVELOPER · Tangerang Selatan, ID</SectionLabel>
 
           {/* Name */}
-          <h1
-            id="hero-name"
-            className="type-display"
-            style={{ color: "var(--color-foreground)" }}
-          >
+          <h1 id="hero-name" className="type-display" style={{ color: "var(--color-foreground)" }}>
             ASEP SAEPUDIN<span style={{ color: "var(--color-accent)" }}>.</span>
           </h1>
 
           {/* Tagline */}
-          <p
-            className="type-body"
-            style={{ color: "var(--color-mutedForeground)", maxWidth: "52ch" }}
-          >
+          <p className="type-body" style={{ color: "var(--color-mutedForeground)", maxWidth: "52ch" }}>
             I build scalable web applications — clean backends, pixel-perfect frontends, things that ship and last.
           </p>
 

@@ -86,9 +86,9 @@ export default function AboutPage() {
               className="type-body"
               style={{ color: "var(--color-foreground)", maxWidth: "54ch", marginBottom: "1.25rem" }}
             >
-              I&apos;m a fullstack developer from Bandung, Indonesia. I care deeply about the work — not just shipping
-              things, but shipping things right. That means clean architecture, thoughtful APIs, accessible interfaces,
-              and code that future-me won&apos;t curse.
+              I&apos;m a fullstack developer from Tangerang Selatan, Indonesia. I care deeply about the work — not just
+              shipping things, but shipping things right. That means clean architecture, thoughtful APIs, accessible
+              interfaces, and code that future-me won&apos;t curse.
             </p>
             <p className="type-body" style={{ color: "var(--color-mutedForeground)", maxWidth: "54ch" }}>
               I specialize in the Node.js + React ecosystem but I&apos;m not religious about tools — I use what makes

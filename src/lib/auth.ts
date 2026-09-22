@@ -58,16 +58,26 @@ export async function isAdmin(): Promise<boolean> {
   return timingSafeEqual(Buffer.from(got), Buffer.from(expected));
 }
 
-export async function startSession(): Promise<void> {
+export async function startSession(req: Request): Promise<void> {
   const value = token();
   if (!value) return;
   (await cookies()).set(COOKIE, value, {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    // Must follow the protocol the browser actually used, not NODE_ENV. A
+    // Secure cookie is silently dropped on a non-HTTPS origin (LAN IP, or a
+    // host other than localhost), which looks exactly like a wrong password:
+    // the login returns 200, no cookie is stored, and the page never changes.
+    // The tunnel terminates TLS, so the original scheme is in x-forwarded-proto.
+    secure: isHttps(req),
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
   });
+}
+
+function isHttps(req: Request): boolean {
+  const forwarded = req.headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
+  return (forwarded || new URL(req.url).protocol.replace(":", "")) === "https";
 }
 
 export async function endSession(): Promise<void> {

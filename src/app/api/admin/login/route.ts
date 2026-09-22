@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   if (!checkPassword(String(body.password ?? ""))) {
     return Response.json({ error: "Wrong password" }, { status: 401 });
   }
-  await startSession();
+  await startSession(req);
   return Response.json({ ok: true });
 }
 

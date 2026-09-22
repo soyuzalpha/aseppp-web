@@ -19,8 +19,19 @@ export default function LoginForm() {
       body: JSON.stringify({ password }),
     });
     setBusy(false);
-    if (res.ok) router.refresh();
-    else setError("Wrong password");
+    if (!res.ok) {
+      setError("Wrong password");
+      return;
+    }
+    // A browser can accept the login and still refuse the session cookie (for
+    // instance a Secure cookie on a non-HTTPS origin). That failure is
+    // otherwise invisible: nothing changes and no error appears. Confirm the
+    // session works before refreshing into the admin UI.
+    if ((await fetch("/api/admin/photos")).ok) {
+      router.refresh();
+    } else {
+      setError("Signed in, but the browser did not keep the session cookie. Open the site over HTTPS.");
+    }
   }
 
   return (

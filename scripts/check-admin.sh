@@ -8,7 +8,7 @@ fail=0
 
 # Touch the admin page first: it generates storage/admin.password on first run.
 curl -s -m 20 -o /dev/null "$BASE/admin"
-PASS=$(cat storage/admin.password)
+PASS=${ADMIN_PASSWORD:-$(cat storage/admin.password 2>/dev/null)}
 
 check() { # label expected actual
   if [ "$2" = "$3" ]; then echo "ok   $1"; else echo "FAIL $1 (expected $2, got $3)"; fail=1; fi
@@ -58,7 +58,7 @@ check "new category is in the filter" "E2E" "$(curl -s -m 10 $BASE/pics | grep -
 
 echo "── upload guards ──"
 check "bad category rejected" 400 "$(code -b "$JAR" -X POST -F "file=@$PNG" -F "cat=../evil" $BASE/api/admin/upload)"
-check "bad extension rejected" 400 "$(code -b "$JAR" -X POST -F "file=@storage/admin.password" -F "cat=E2E" $BASE/api/admin/upload)"
+check "bad extension rejected" 400 "$(code -b "$JAR" -X POST -F "file=@$0" -F "cat=E2E" $BASE/api/admin/upload)"
 check "unauth upload rejected" 401 "$(code -X POST -F "file=@$PNG" -F "cat=E2E" $BASE/api/admin/upload)"
 
 echo "── media guards ──"

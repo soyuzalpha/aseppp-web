@@ -1,0 +1,751 @@
+{
+  "photos": [
+    {
+      "src": "https://picsum.photos/seed/bw1/800/1000",
+      "alt": "Mountain landscape at dawn",
+      "cat": "Nature",
+      "w": 1,
+      "h": 2,
+      "sort": 0
+    },
+    {
+      "src": "https://picsum.photos/seed/city2/900/600",
+      "alt": "Urban street at night",
+      "cat": "Urban",
+      "w": 2,
+      "h": 1,
+      "sort": 1
+    },
+    {
+      "src": "https://picsum.photos/seed/cafe3/700/700",
+      "alt": "Coffee morning ritual",
+      "cat": "Daily",
+      "w": 1,
+      "h": 1,
+      "sort": 2
+    },
+    {
+      "src": "https://picsum.photos/seed/road4/900/600",
+      "alt": "Long road through rice fields",
+      "cat": "Travel",
+      "w": 2,
+      "h": 1,
+      "sort": 3
+    },
+    {
+      "src": "https://picsum.photos/seed/fog5/800/900",
+      "alt": "Foggy forest path",
+      "cat": "Nature",
+      "w": 1,
+      "h": 2,
+      "sort": 4
+    },
+    {
+      "src": "https://picsum.photos/seed/mkt6/700/700",
+      "alt": "Traditional market scene",
+      "cat": "Daily",
+      "w": 1,
+      "h": 1,
+      "sort": 5
+    },
+    {
+      "src": "https://picsum.photos/seed/sea7/900/600",
+      "alt": "Coastline golden hour",
+      "cat": "Travel",
+      "w": 2,
+      "h": 1,
+      "sort": 6
+    },
+    {
+      "src": "https://picsum.photos/seed/desk8/700/900",
+      "alt": "Developer workspace",
+      "cat": "Daily",
+      "w": 1,
+      "h": 2,
+      "sort": 7
+    },
+    {
+      "src": "https://picsum.photos/seed/lake9/700/700",
+      "alt": "Still lake reflection",
+      "cat": "Nature",
+      "w": 1,
+      "h": 1,
+      "sort": 8
+    },
+    {
+      "src": "https://picsum.photos/seed/back10/900/600",
+      "alt": "Backstreet alley discovery",
+      "cat": "Urban",
+      "w": 2,
+      "h": 1,
+      "sort": 9
+    },
+    {
+      "src": "https://picsum.photos/seed/rain11/700/700",
+      "alt": "Rain on the window",
+      "cat": "Daily",
+      "w": 1,
+      "h": 1,
+      "sort": 10
+    },
+    {
+      "src": "https://picsum.photos/seed/hill12/800/900",
+      "alt": "Terraced hill at sunset",
+      "cat": "Travel",
+      "w": 1,
+      "h": 2,
+      "sort": 11
+    }
+  ],
+  "posts": [
+    {
+      "slug": "theme-system-nextjs",
+      "title": "Building a theme system with CSS variables in Next.js",
+      "date": "Aug 2024",
+      "readTime": 8,
+      "tags": [
+        "Next.js",
+        "CSS",
+        "React"
+      ],
+      "excerpt": "How to build a flexible multi-theme system using CSS custom properties and React context — no libraries required.",
+      "featured": 1,
+      "body": [
+        {
+          "type": "p",
+          "content": "CSS custom properties (variables) are the most underrated tool in a frontend developer's arsenal. Combined with React context, they let you build a theme system that is fast, flexible, and requires zero runtime overhead."
+        },
+        {
+          "type": "h2",
+          "content": "Why not a library?"
+        },
+        {
+          "type": "p",
+          "content": "Libraries like Styled-Components, Emotion, or even Stitches add kilobytes of runtime JavaScript to solve a problem that CSS already solves natively. CSS variables update instantly, cascade correctly, and work with any styling approach — Tailwind, CSS Modules, inline styles, whatever you prefer."
+        },
+        {
+          "type": "h2",
+          "content": "The structure"
+        },
+        {
+          "type": "p",
+          "content": "The system has three layers: design tokens as CSS variables on :root, a theme map in TypeScript, and a React context that applies the chosen theme's values to the DOM."
+        },
+        {
+          "type": "code",
+          "content": ":root {\n  --color-background: #f4f3ef;\n  --color-foreground: #1a1a1a;\n  --color-accent: #c84b31;\n}\n\n.dark {\n  --color-background: #111110;\n  --color-foreground: #f0ede8;\n  --color-accent: #e05c3f;\n}"
+        },
+        {
+          "type": "h2",
+          "content": "The React context"
+        },
+        {
+          "type": "p",
+          "content": "The ThemeProvider reads localStorage on mount, applies the chosen theme's variables directly to document.documentElement, and exposes setTheme and toggleMode to child components. No re-renders required for color changes — the CSS variable update handles everything."
+        },
+        {
+          "type": "code",
+          "content": "useEffect(() => {\n  const root = document.documentElement;\n  Object.entries(colors).forEach(([key, value]) => {\n    root.style.setProperty(`--color-${key}`, value);\n  });\n}, [colors]);"
+        },
+        {
+          "type": "h2",
+          "content": "Multiple themes, same system"
+        },
+        {
+          "type": "p",
+          "content": "Because every color in the UI reads from a CSS variable, adding a new theme is just adding a new object to the theme map. No component changes needed. This is the power of separating data from presentation."
+        },
+        {
+          "type": "blockquote",
+          "content": "The best theme system is the one you forget is there — it just works, for every theme, everywhere."
+        },
+        {
+          "type": "h2",
+          "content": "Performance"
+        },
+        {
+          "type": "p",
+          "content": "CSS variable updates happen in a single paint. No JavaScript reconciliation. No virtual DOM diffing. The browser handles it natively. This is why theme switching feels instant — because it is."
+        },
+        {
+          "type": "ul",
+          "content": [
+            "No flicker on initial load when using localStorage + SSR",
+            "Works with Tailwind's dark: variant via the .dark class",
+            "Each theme can override any subset of variables",
+            "Type-safe via TypeScript interfaces"
+          ]
+        }
+      ],
+      "sort": 0
+    },
+    {
+      "slug": "gsap-scroll-animations",
+      "title": "GSAP scroll animations that actually feel good",
+      "date": "Jul 2024",
+      "readTime": 6,
+      "tags": [
+        "GSAP",
+        "Animation"
+      ],
+      "excerpt": "Practical patterns for smooth, purposeful scroll-triggered animations in React without over-engineering.",
+      "featured": 0,
+      "body": [
+        {
+          "type": "p",
+          "content": "Most scroll animations I see on portfolios fall into one of two traps: either they're so subtle you barely notice them, or they're so aggressive that the page feels broken. Good scroll animation has one job: direct attention to what matters, when it matters."
+        },
+        {
+          "type": "h2",
+          "content": "The golden rule"
+        },
+        {
+          "type": "p",
+          "content": "Animate things that benefit from animation. A heading appearing as you scroll to it is meaningful — the motion reinforces that this content is new. A button spinning on hover is noise."
+        },
+        {
+          "type": "h2",
+          "content": "Setting up GSAP with React"
+        },
+        {
+          "type": "p",
+          "content": "The critical thing in React is using gsap.context() to scope your animations and calling ctx.revert() on cleanup. This prevents memory leaks and stale animation state on route changes."
+        },
+        {
+          "type": "code",
+          "content": "useEffect(() => {\n  const ctx = gsap.context(() => {\n    gsap.from('.card', {\n      y: 40,\n      opacity: 0,\n      stagger: 0.08,\n      duration: 0.7,\n      ease: 'expo.out',\n      scrollTrigger: {\n        trigger: '.cards',\n        start: 'top 85%',\n      },\n    });\n  }, ref);\n  return () => ctx.revert();\n}, []);"
+        },
+        {
+          "type": "h2",
+          "content": "Easing matters more than duration"
+        },
+        {
+          "type": "p",
+          "content": "expo.out is your best friend. It starts fast and decelerates naturally — the way physical objects actually move. A 0.7s expo.out feels snappier than a 0.3s linear animation."
+        },
+        {
+          "type": "blockquote",
+          "content": "Duration is how long. Easing is how it feels. Get the easing right and the duration barely matters."
+        }
+      ],
+      "sort": 1
+    },
+    {
+      "slug": "nodejs-api-best-practices",
+      "title": "Node.js API architecture for 2024",
+      "date": "Jun 2024",
+      "readTime": 10,
+      "tags": [
+        "Node.js",
+        "Backend"
+      ],
+      "excerpt": "Rate limiting, structured error handling, input validation, and logging patterns I use in every production API.",
+      "featured": 0,
+      "body": [
+        {
+          "type": "p",
+          "content": "I've built Node.js APIs for startups, agencies, and solo projects. After enough production incidents, you develop opinions. These are mine — battle-tested patterns that I now apply from day one."
+        },
+        {
+          "type": "h2",
+          "content": "Structured error handling"
+        },
+        {
+          "type": "p",
+          "content": "Every API error should have a machine-readable code, a human-readable message, and an HTTP status. Never throw raw Error objects — create an AppError class that serializes cleanly."
+        },
+        {
+          "type": "code",
+          "content": "class AppError extends Error {\n  constructor(\n    public code: string,\n    public message: string,\n    public status: number = 400,\n  ) {\n    super(message);\n  }\n}\n\n// Usage\nthrow new AppError('USER_NOT_FOUND', 'No user with that ID', 404);"
+        },
+        {
+          "type": "h2",
+          "content": "Input validation at the boundary"
+        },
+        {
+          "type": "p",
+          "content": "Validate every request before it touches business logic. I use Zod because it gives you TypeScript types for free from the same schema definition. The parse happens in middleware — if it fails, a 400 is returned automatically."
+        },
+        {
+          "type": "h2",
+          "content": "Rate limiting is not optional"
+        },
+        {
+          "type": "p",
+          "content": "express-rate-limit with a Redis store. Different limits for different routes — auth endpoints get stricter limits than read-only data endpoints. Apply it globally with a more generous default, then tighten specific routes."
+        },
+        {
+          "type": "ul",
+          "content": [
+            "100 req/15min for most routes",
+            "10 req/15min for /auth/* routes",
+            "5 req/hour for password reset",
+            "Separate limits for authenticated vs anonymous"
+          ]
+        },
+        {
+          "type": "blockquote",
+          "content": "Your API is only as reliable as its weakest boundary. Most attacks target the boundary."
+        }
+      ],
+      "sort": 2
+    },
+    {
+      "slug": "switched-to-tailwind",
+      "title": "Why I stopped using CSS Modules",
+      "date": "May 2024",
+      "readTime": 5,
+      "tags": [
+        "CSS",
+        "DX"
+      ],
+      "excerpt": "My honest take after 2 years of Tailwind on real projects — what I love, what I don't, and when I'd choose something else.",
+      "featured": 0,
+      "body": [],
+      "sort": 3
+    },
+    {
+      "slug": "typescript-patterns-react",
+      "title": "TypeScript patterns every React developer should know",
+      "date": "Mar 2024",
+      "readTime": 7,
+      "tags": [
+        "TypeScript",
+        "React"
+      ],
+      "excerpt": "Discriminated unions, template literal types, and other TS patterns that make your React code genuinely safer.",
+      "featured": 0,
+      "body": [],
+      "sort": 4
+    },
+    {
+      "slug": "nextjs-app-router",
+      "title": "Understanding the Next.js App Router",
+      "date": "Feb 2024",
+      "readTime": 9,
+      "tags": [
+        "Next.js"
+      ],
+      "excerpt": "Server components, parallel routes, loading states, and data fetching — a practical breakdown of what actually matters.",
+      "featured": 0,
+      "body": [],
+      "sort": 5
+    }
+  ],
+  "projects": [
+    {
+      "slug": "ecommerce-platform",
+      "n": "01",
+      "title": "E-Commerce Platform",
+      "year": "2024",
+      "role": "Fullstack",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "Node.js",
+        "Stripe",
+        "PostgreSQL"
+      ],
+      "github": "https://github.com/soyuzalpha",
+      "live": null,
+      "desc": "Full-stack storefront with product catalog, cart, Stripe checkout, order management, and admin dashboard. Handles 10k+ SKUs.",
+      "summary": "A production-grade e-commerce platform built for a retail client. Supports 10k+ SKUs, multi-variant products, real-time inventory, and a full admin dashboard — built in 6 weeks from scratch.",
+      "challenge": "The client had an existing Shopify store that was expensive, hard to customize, and couldn't support their specific multi-warehouse inventory logic. They needed ownership of the stack.",
+      "solution": "Built a custom Next.js storefront with App Router for SSR/SSG, a Node.js/Express backend with Prisma ORM, and Stripe for payments. The admin panel is a separate React SPA with role-based access.",
+      "outcome": "Reduced monthly platform cost by 80%. Checkout conversion rate improved by 12% after optimizing the funnel. Page load times under 1.2s for product pages.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js 14",
+            "Tailwind CSS",
+            "React Query",
+            "Zustand"
+          ]
+        },
+        {
+          "layer": "Backend",
+          "tools": [
+            "Node.js",
+            "Express",
+            "Prisma ORM",
+            "PostgreSQL"
+          ]
+        },
+        {
+          "layer": "Payments",
+          "tools": [
+            "Stripe",
+            "Webhooks",
+            "Stripe Elements"
+          ]
+        },
+        {
+          "layer": "Infra",
+          "tools": [
+            "Vercel (frontend)",
+            "Railway (backend)",
+            "Cloudinary (images)"
+          ]
+        }
+      ],
+      "related": [
+        "ops-dashboard",
+        "blog-cms"
+      ],
+      "sort": 0
+    },
+    {
+      "slug": "ops-dashboard",
+      "n": "02",
+      "title": "Ops Dashboard",
+      "year": "2024",
+      "role": "Fullstack",
+      "status": "Live",
+      "tags": [
+        "React",
+        "Socket.io",
+        "Redis",
+        "TypeScript"
+      ],
+      "github": "https://github.com/soyuzalpha",
+      "live": null,
+      "desc": "Real-time logistics monitoring with WebSocket updates, interactive charts, and role-based access control. 50k+ daily requests in production.",
+      "summary": "Real-time operations dashboard for a logistics company — tracking vehicle locations, delivery statuses, and fleet performance metrics. Handles 50k+ requests per day with sub-100ms updates.",
+      "challenge": "The ops team was working with spreadsheets and delayed email reports. By the time they knew about a delivery issue, it was too late to intervene.",
+      "solution": "Built a WebSocket-powered dashboard with Socket.io, Redis pub/sub for message fanout, and Chart.js for live-updating metric charts. Role-based access for drivers, dispatchers, and managers.",
+      "outcome": "Mean response time to delivery issues dropped from 45 minutes to under 3 minutes. Zero downtime in 8 months of production.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "React",
+            "TypeScript",
+            "Chart.js",
+            "Tailwind CSS"
+          ]
+        },
+        {
+          "layer": "Real-time",
+          "tools": [
+            "Socket.io",
+            "Redis Pub/Sub"
+          ]
+        },
+        {
+          "layer": "Backend",
+          "tools": [
+            "Node.js",
+            "Express",
+            "PostgreSQL",
+            "Prisma"
+          ]
+        },
+        {
+          "layer": "Auth",
+          "tools": [
+            "JWT",
+            "RBAC middleware"
+          ]
+        }
+      ],
+      "related": [
+        "ecommerce-platform",
+        "api-boilerplate"
+      ],
+      "sort": 1
+    },
+    {
+      "slug": "api-boilerplate",
+      "n": "03",
+      "title": "REST API Boilerplate",
+      "year": "2023",
+      "role": "Backend",
+      "status": "Open source",
+      "tags": [
+        "Node.js",
+        "Express",
+        "Prisma",
+        "Jest"
+      ],
+      "github": "https://github.com/soyuzalpha",
+      "live": null,
+      "desc": "Production-ready Node.js API starter with JWT auth, rate limiting, input validation, Swagger docs, and 90%+ test coverage.",
+      "summary": "A production-ready Node.js API starter kit that I open-sourced after using a similar pattern across 5+ client projects. Skip the boilerplate, start with architecture.",
+      "challenge": "Every new project started with the same two weeks of setup: auth, validation, error handling, logging, rate limiting. Time that should be spent on product.",
+      "solution": "Codified my best patterns into a single, well-documented starter. Includes layered architecture (router → controller → service → repository), Zod validation, structured JSON logging with Pino, and a complete test suite template.",
+      "outcome": "Used as the starting point for 3 client projects. Estimated 12-15 hours saved per project in initial setup.",
+      "stack": [
+        {
+          "layer": "Runtime",
+          "tools": [
+            "Node.js",
+            "Express"
+          ]
+        },
+        {
+          "layer": "Database",
+          "tools": [
+            "PostgreSQL",
+            "Prisma ORM"
+          ]
+        },
+        {
+          "layer": "Validation",
+          "tools": [
+            "Zod"
+          ]
+        },
+        {
+          "layer": "Auth",
+          "tools": [
+            "JWT",
+            "bcryptjs"
+          ]
+        },
+        {
+          "layer": "Testing",
+          "tools": [
+            "Jest",
+            "Supertest"
+          ]
+        },
+        {
+          "layer": "Logging",
+          "tools": [
+            "Pino",
+            "pino-http"
+          ]
+        }
+      ],
+      "related": [
+        "ops-dashboard",
+        "ecommerce-platform"
+      ],
+      "sort": 2
+    },
+    {
+      "slug": "blog-cms",
+      "n": "04",
+      "title": "Blog CMS",
+      "year": "2023",
+      "role": "Frontend",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "MDX",
+        "Vercel",
+        "Tailwind"
+      ],
+      "github": "https://github.com/soyuzalpha",
+      "live": null,
+      "desc": "Headless CMS with MDX content, tag system, full-text search, and Incremental Static Regeneration. Sub-800ms load time.",
+      "summary": "A fast, minimal headless blog for a tech writer. MDX content, tag taxonomy, full-text search, reading time estimates, and an RSS feed. Loads under 800ms globally.",
+      "challenge": "The client wanted to write in Markdown with custom components, needed SEO out of the box, and didn't want to pay for a CMS subscription.",
+      "solution": "Next.js App Router with MDX processing via next-mdx-remote. Content lives in a /posts directory as .mdx files. ISR regenerates pages when content changes. Built-in search uses a client-side index.",
+      "outcome": "Core Web Vitals: LCP 0.8s, CLS 0, FID < 10ms. 95/100 Lighthouse performance score.",
+      "stack": [
+        {
+          "layer": "Framework",
+          "tools": [
+            "Next.js 14",
+            "App Router",
+            "ISR"
+          ]
+        },
+        {
+          "layer": "Content",
+          "tools": [
+            "MDX",
+            "next-mdx-remote",
+            "gray-matter"
+          ]
+        },
+        {
+          "layer": "Styling",
+          "tools": [
+            "Tailwind CSS",
+            "Typography plugin"
+          ]
+        },
+        {
+          "layer": "Search",
+          "tools": [
+            "Fuse.js (client-side)"
+          ]
+        }
+      ],
+      "related": [
+        "portfolio",
+        "ecommerce-platform"
+      ],
+      "sort": 3
+    },
+    {
+      "slug": "task-manager",
+      "n": "05",
+      "title": "Task Manager",
+      "year": "2023",
+      "role": "Fullstack",
+      "status": "Live",
+      "tags": [
+        "React",
+        "Redux",
+        "Node.js",
+        "Socket.io"
+      ],
+      "github": "https://github.com/soyuzalpha",
+      "live": null,
+      "desc": "Drag-and-drop kanban board with real-time team updates via WebSocket, notifications, and user authentication.",
+      "summary": "A collaborative kanban board for small teams — drag-and-drop cards, real-time sync across users, notifications, and project-based workspaces.",
+      "challenge": "The team was using Trello but needed custom fields, time tracking, and tighter integration with their internal tools. SaaS options were either too expensive or too complex.",
+      "solution": "Custom kanban with React DnD, Socket.io for real-time sync (optimistic UI + server reconciliation), and a PostgreSQL backend with normalized board/column/card schema.",
+      "outcome": "Deployed for a 12-person team. Average task completion tracking improved by 40% in the first month.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "React",
+            "Redux Toolkit",
+            "React DnD",
+            "Tailwind"
+          ]
+        },
+        {
+          "layer": "Real-time",
+          "tools": [
+            "Socket.io",
+            "Optimistic updates"
+          ]
+        },
+        {
+          "layer": "Backend",
+          "tools": [
+            "Node.js",
+            "Express",
+            "PostgreSQL"
+          ]
+        },
+        {
+          "layer": "Auth",
+          "tools": [
+            "JWT",
+            "Refresh tokens"
+          ]
+        }
+      ],
+      "related": [
+        "ops-dashboard",
+        "api-boilerplate"
+      ],
+      "sort": 4
+    },
+    {
+      "slug": "analytics-dashboard",
+      "n": "06",
+      "title": "Analytics Dashboard",
+      "year": "2024",
+      "role": "Frontend",
+      "status": "WIP",
+      "tags": [
+        "React",
+        "Chart.js",
+        "TypeScript"
+      ],
+      "github": "https://github.com/soyuzalpha",
+      "live": null,
+      "desc": "Data visualization dashboard with filterable charts, date range pickers, and CSV/PDF export. Built for a logistics client.",
+      "summary": "A data visualization dashboard for a logistics client — filterable time-series charts, KPI cards, date range pickers, and one-click CSV/PDF exports.",
+      "challenge": "The client had data scattered across 3 systems and was exporting to Excel weekly to build manual reports. Each report took 3-4 hours.",
+      "solution": "Built a dashboard that pulls from a single aggregated API endpoint. Chart.js for interactive visualizations, date-fns for range calculations, and jsPDF for on-demand PDF reports.",
+      "outcome": "Still in development — targeting 90% reduction in time spent on weekly reporting.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "React",
+            "TypeScript",
+            "Chart.js",
+            "Tailwind"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "REST API integration",
+            "date-fns"
+          ]
+        },
+        {
+          "layer": "Export",
+          "tools": [
+            "jsPDF",
+            "PapaParse (CSV)"
+          ]
+        }
+      ],
+      "related": [
+        "ops-dashboard",
+        "task-manager"
+      ],
+      "sort": 5
+    },
+    {
+      "slug": "portfolio",
+      "n": "07",
+      "title": "This Portfolio",
+      "year": "2024",
+      "role": "Design + Dev",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "GSAP",
+        "TypeScript"
+      ],
+      "github": "https://github.com/soyuzalpha",
+      "live": "/",
+      "desc": "The site you're on — editorial layout, custom cursor, multi-theme system, GSAP scroll animations, horizontal scroll projects.",
+      "summary": "You're looking at it. Editorial typographic design, custom cursor with mix-blend-mode difference, multi-theme system with 9 themes, GSAP scroll animations, horizontal scroll projects, full-viewport hero, and a photos gallery.",
+      "challenge": "Every developer portfolio looks the same — hero photo, feature cards, project grid, contact form. I wanted something with a strong visual identity that felt personal.",
+      "solution": "Threw out the template. Built around a magazine editorial concept: oversized type as the UI, numbered sections, horizontal scroll, glass panels as the only decoration, and a cursor that inverts colors underneath it.",
+      "outcome": "You're here. I'd call that a success.",
+      "stack": [
+        {
+          "layer": "Framework",
+          "tools": [
+            "Next.js 14",
+            "App Router"
+          ]
+        },
+        {
+          "layer": "Styling",
+          "tools": [
+            "Tailwind CSS",
+            "CSS variables",
+            "Custom design system"
+          ]
+        },
+        {
+          "layer": "Animation",
+          "tools": [
+            "GSAP",
+            "ScrollTrigger"
+          ]
+        },
+        {
+          "layer": "Theme",
+          "tools": [
+            "React context",
+            "CSS custom properties",
+            "9 themes"
+          ]
+        }
+      ],
+      "related": [
+        "blog-cms",
+        "ecommerce-platform"
+      ],
+      "sort": 6
+    }
+  ]
+}

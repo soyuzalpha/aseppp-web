@@ -34,4 +34,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# uploaded content + sqlite database (lives on the host, mounted into the container)
+/storage
+
 pnpm-workspace.yaml

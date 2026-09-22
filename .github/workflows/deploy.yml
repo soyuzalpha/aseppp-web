@@ -42,6 +42,7 @@ jobs:
 
           docker run -d \
             --name aseppp-web-test \
+            -v /srv/aseppp-web/storage:/app/storage \
             -p 127.0.0.1:5100:5000 \
             aseppp-web:${{ github.sha }}
 
@@ -62,11 +63,15 @@ jobs:
 
       - name: Deploy production
         run: |
+          sudo mkdir -p /srv/aseppp-web/storage
+          sudo chown "$(id -u):$(id -g)" /srv/aseppp-web/storage
+
           docker rm -f aseppp-web 2>/dev/null || true
 
           docker run -d \
             --name aseppp-web \
             --restart unless-stopped \
+            -v /srv/aseppp-web/storage:/app/storage \
             -p 127.0.0.1:5000:5000 \
             aseppp-web:${{ github.sha }}
 

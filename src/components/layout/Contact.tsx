@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const LINKS = [
   { label: "Email", href: "mailto:asepp.saepudiin@gmail.com", display: "asepp.saepudiin@gmail.com" },
-  { label: "GitHub", href: "https://github.com/aseppp", display: "github.com/aseppp" },
+  { label: "GitHub", href: "https://github.com/soyuzalpha", display: "github.com/soyuzalpha" },
   { label: "LinkedIn", href: "https://linkedin.com/in/aseppp", display: "linkedin.com/in/aseppp" },
 ];
 

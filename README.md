@@ -80,5 +80,5 @@ pnpm exec next start -p 5101 &
 lint, typecheck, build, docker build, boot a test container, health check, then
 replace the production container.
 
-Both containers bind `-v /srv/aseppp-web/storage:/app/storage`, so the database
+Both containers bind `-v ~/aseppp-web/storage:/app/storage`, so the database
 and uploaded photos live on the host and outlive the image.

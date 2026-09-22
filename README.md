@@ -33,12 +33,17 @@ blank site.
 
 `/admin` — single password, no username.
 
-The password comes from `ADMIN_PASSWORD` if set, otherwise it is generated
-into `storage/admin.password` on first visit and printed to the server log:
+The password lives in `~/aseppp-web/storage/admin.password` on the host, or in
+`storage/admin.password` when running locally:
 
 ```bash
-cat storage/admin.password
+cat ~/aseppp-web/storage/admin.password
 ```
+
+Set `ADMIN_PASSWORD` in the environment to override the file. CI generates the
+file on first deploy; locally the app generates it on first visit and logs the
+path. It is created by whoever starts the process, which is why CI makes it —
+a container runs as root, and a root-owned file cannot be read from the host.
 
 From there you can:
 

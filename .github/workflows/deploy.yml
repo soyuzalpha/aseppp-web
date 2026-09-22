@@ -12,6 +12,9 @@ jobs:
   deploy:
     runs-on: self-hosted
 
+    # Database and uploaded photos live on the host, so they outlive the image
+    # that wrote them. Under $HOME because the runner user has no sudo, and a
+    # container-created directory would end up root-owned.
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -33,25 +36,40 @@ jobs:
       - name: Next.js build
         run: pnpm build
 
+      - name: Prepare storage
+        run: |
+          STORAGE_DIR="$HOME/aseppp-web/storage"
+          echo "STORAGE_DIR=$STORAGE_DIR" >> "$GITHUB_ENV"
+          mkdir -p "$STORAGE_DIR"
+
+          # Generated here rather than by the app: the container runs as root,
+          # so a password it created would be root-only and unreadable from the
+          # host. Creating it as the runner user keeps it readable.
+          if [ ! -f "$STORAGE_DIR/admin.password" ]; then
+            head -c 48 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 24 > "$STORAGE_DIR/admin.password"
+            echo "Generated admin password at $STORAGE_DIR/admin.password"
+          fi
+
+          chmod 600 "$STORAGE_DIR/admin.password"
+
       - name: Build Docker image
         run: docker build -t aseppp-web:${{ github.sha }} .
 
       - name: Start test container
         run: |
-          mkdir -p "$HOME/aseppp-web/storage"
-
           docker rm -f aseppp-web-test 2>/dev/null || true
 
           docker run -d \
             --name aseppp-web-test \
-            -v "$HOME/aseppp-web/storage:/app/storage" \
+            -v "$STORAGE_DIR:/app/storage" \
             -p 127.0.0.1:5100:5000 \
             aseppp-web:${{ github.sha }}
 
+      # /pics reads the database, so this also proves the volume is usable.
       - name: Test container health
         run: |
           for i in {1..30}; do
-            if curl -fsS http://127.0.0.1:5100 > /dev/null; then
+            if curl -fsS http://127.0.0.1:5100/pics > /dev/null; then
               echo "Test container is healthy"
               exit 0
             fi
@@ -65,21 +83,19 @@ jobs:
 
       - name: Deploy production
         run: |
-          mkdir -p "$HOME/aseppp-web/storage"
-
           docker rm -f aseppp-web 2>/dev/null || true
 
           docker run -d \
             --name aseppp-web \
             --restart unless-stopped \
-            -v "$HOME/aseppp-web/storage:/app/storage" \
+            -v "$STORAGE_DIR:/app/storage" \
             -p 127.0.0.1:5000:5000 \
             aseppp-web:${{ github.sha }}
 
       - name: Production health check
         run: |
           for i in {1..30}; do
-            if curl -fsS http://127.0.0.1:5000 > /dev/null; then
+            if curl -fsS http://127.0.0.1:5000/pics > /dev/null; then
               echo "Production deployment successful"
               exit 0
             fi

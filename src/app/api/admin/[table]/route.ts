@@ -1,4 +1,6 @@
-import { getDb, listPhotos, listPosts, listProjects } from "@/lib/db";
+import { unlink } from "node:fs/promises";
+import path from "node:path";
+import { getDb, listPhotos, listPosts, listProjects, STORAGE_DIR } from "@/lib/db";
 import { isAdmin } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -127,6 +129,21 @@ export async function DELETE(
 
   const id = Number(new URL(req.url).searchParams.get("id"));
   if (!Number.isInteger(id)) return Response.json({ error: "id required" }, { status: 400 });
+
+  // Deleting a photo also drops its file, otherwise every removed row leaves
+  // an unreachable image behind and the volume only ever grows.
+  if (table === "photos") {
+    const row = getDb().prepare("SELECT src FROM photos WHERE id = ?").get(id) as
+      | { src: string }
+      | undefined;
+    if (row?.src.startsWith("/media/")) {
+      const rel = row.src.slice("/media/".length);
+      const file = path.resolve(STORAGE_DIR, rel);
+      if (file.startsWith(STORAGE_DIR + path.sep)) {
+        await unlink(file).catch(() => {});
+      }
+    }
+  }
 
   getDb().prepare(`DELETE FROM ${table} WHERE id = ?`).run(id);
   return Response.json({ ok: true });

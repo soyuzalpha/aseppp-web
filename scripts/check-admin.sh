@@ -72,6 +72,7 @@ check "unknown table 404" 404 "$(code -b "$JAR" $BASE/api/admin/whatever)"
 
 echo "── delete ──"
 check "delete photo" 200 "$(code -b "$JAR" -X DELETE "$BASE/api/admin/photos?id=$PID")"
+check "photo file removed too" 404 "$(code $BASE$SRC)"
 check "delete post" 200 "$(code -b "$JAR" -X DELETE "$BASE/api/admin/posts?id=$ID")"
 check "post gone" 404 "$(code $BASE/posts/e2e-check)"
 check "duplicate slug rejected" 400 "$(code -b "$JAR" -X POST -H 'Content-Type: application/json' -d '{"slug":"portfolio","title":"dupe"}' $BASE/api/admin/projects)"

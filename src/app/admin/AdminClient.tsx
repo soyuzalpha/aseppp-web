@@ -226,7 +226,7 @@ export default function AdminClient() {
       <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
         <p className="type-label" style={{ color: "var(--color-accent)" }}>Admin</p>
         <button
-          className="type-index"
+          className="type-index tap-target"
           style={{ cursor: "default", color: "var(--color-mutedForeground)" }}
           onClick={async () => {
             await fetch("/api/admin/login", { method: "DELETE" });
@@ -242,7 +242,7 @@ export default function AdminClient() {
           <button
             key={t}
             onClick={() => setTab(t)}
-            className="type-label"
+            className="type-label tap-target"
             style={{
               cursor: "default",
               background: "none",
@@ -272,7 +272,8 @@ export default function AdminClient() {
               placeholder="Category (e.g. Nature)"
               value={cat}
               onChange={(e) => setCat(e.target.value)}
-              style={{ ...box, width: "16rem" }}
+              className="tap-input"
+              style={{ ...box, maxWidth: "16rem" }}
             />
             <datalist id="photo-cats">
               {cats.map((c) => (
@@ -288,7 +289,7 @@ export default function AdminClient() {
                 if (e.target.files?.length) upload(e.target.files);
                 e.target.value = "";
               }}
-              className="type-index"
+              className="type-index tap-input"
             />
           </div>
 
@@ -311,6 +312,7 @@ export default function AdminClient() {
                   <input
                     defaultValue={String(p.alt)}
                     aria-label="Alt text"
+                    className="tap-input"
                     onBlur={(e) =>
                       e.target.value !== p.alt &&
                       send("PATCH", "/api/admin/photos", { id: p.id, alt: e.target.value })
@@ -321,6 +323,7 @@ export default function AdminClient() {
                     <input
                       defaultValue={String(p.cat)}
                       aria-label="Category"
+                      className="tap-input"
                       onBlur={(e) =>
                         e.target.value !== p.cat &&
                         send("PATCH", "/api/admin/photos", { id: p.id, cat: e.target.value })
@@ -329,7 +332,7 @@ export default function AdminClient() {
                     />
                     <button
                       onClick={() => remove(p.id)}
-                      className="type-index"
+                      className="type-index tap-target"
                       style={{ cursor: "default", color: "var(--color-accent)", flexShrink: 0 }}
                     >
                       Delete
@@ -344,12 +347,19 @@ export default function AdminClient() {
 
       {/* ── Posts / Projects ── */}
       {editable && (
-        <div style={{ paddingBlock: "1.5rem", display: "grid", gridTemplateColumns: "minmax(0, 22rem) minmax(0, 1fr)", gap: "2rem", alignItems: "start" }}>
+        <div
+          className="split"
+          style={{
+            paddingBlock: "1.5rem",
+            ["--split-a" as string]: "minmax(0, 22rem)",
+            ["--split-gap" as string]: "2rem",
+          }}
+        >
           <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
             <div className="flex items-center justify-between">
               <p className="type-index">{items.length} rows</p>
               <button
-                className="type-index"
+                className="type-index tap-target"
                 style={{ cursor: "default", color: "var(--color-accent)" }}
                 onClick={() => {
                   setEditing(null);
@@ -378,7 +388,7 @@ export default function AdminClient() {
                       setForm(toForm(tab, r));
                       setMsg("");
                     }}
-                    className="type-index"
+                    className="type-index tap-target"
                     style={{
                       cursor: "default",
                       textAlign: "left",
@@ -393,7 +403,7 @@ export default function AdminClient() {
                   </button>
                   <button
                     onClick={() => remove(r.id)}
-                    className="type-index"
+                    className="type-index tap-target"
                     style={{ cursor: "default", background: "none", border: "none", padding: 0, color: "var(--color-mutedForeground)" }}
                   >
                     ×
@@ -424,6 +434,7 @@ export default function AdminClient() {
                     rows={f.type === "body" ? 14 : f.type === "stack" ? 4 : 3}
                     value={String(form[f.k] ?? "")}
                     onChange={(e) => setForm({ ...form, [f.k]: e.target.value })}
+                    className="tap-input"
                     style={{ ...box, fontFamily: f.type === "body" ? "var(--font-mono)" : "var(--font-body)" }}
                   />
                 ) : (
@@ -431,6 +442,7 @@ export default function AdminClient() {
                     type={f.type === "number" ? "number" : "text"}
                     value={String(form[f.k] ?? "")}
                     onChange={(e) => setForm({ ...form, [f.k]: e.target.value })}
+                    className="tap-input"
                     style={box}
                   />
                 )}
@@ -439,7 +451,7 @@ export default function AdminClient() {
             <button
               onClick={save}
               disabled={busy}
-              className="type-label"
+              className="type-label tap-target"
               style={{ cursor: "default", alignSelf: "flex-start", marginTop: "0.5rem" }}
             >
               {busy ? "Saving…" : editing === null ? "Create" : "Save changes"}

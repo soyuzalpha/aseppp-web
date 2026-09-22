@@ -238,6 +238,10 @@ body {
   }
   .tap-input {
     min-height: 44px;
+    /* iOS Safari zooms the page whenever a focused field is under 16px, and
+       the admin screen is nothing but fields. Inline sizes need !important.
+       Scoped to .tap-input, which only the admin uses. */
+    font-size: 16px !important;
   }
   .link-draw::before,
   .icon-hit::before {

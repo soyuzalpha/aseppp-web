@@ -131,6 +131,8 @@ export default function AdminClient() {
   const [form, setForm] = useState<Record<string, string | boolean>>({});
   const [editing, setEditing] = useState<number | null>(null);
   const [cat, setCat] = useState("");
+  const [pending, setPending] = useState<File[]>([]);
+  const [drag, setDrag] = useState(false);
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -191,13 +193,21 @@ export default function AdminClient() {
     }
   }
 
-  async function upload(files: FileList) {
+  /** Adds dropped or picked files to the queue; the category comes next. */
+  function stage(files: FileList | null) {
+    const picked = Array.from(files ?? []).filter((f) => f.type.startsWith("image/"));
+    if (!picked.length) return;
+    setPending((prev) => [...prev, ...picked]);
+    setMsg("");
+  }
+
+  async function upload(files: File[]) {
     if (!cat.trim()) {
       setMsg("Enter a category first");
       return;
     }
     setBusy(true);
-    for (const file of Array.from(files)) {
+    for (const file of files) {
       const [w, h] = await orientation(file);
       const fd = new FormData();
       fd.append("file", file);
@@ -215,6 +225,7 @@ export default function AdminClient() {
     }
     setBusy(false);
     setMsg(`Uploaded ${files.length} file(s)`);
+    setPending([]);
     await load("photos");
   }
 
@@ -266,32 +277,84 @@ export default function AdminClient() {
       {/* ── Photos ── */}
       {tab === "photos" && (
         <>
-          <div style={{ paddingBlock: "1.5rem", display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center" }}>
-            <input
-              list="photo-cats"
-              placeholder="Category (e.g. Nature)"
-              value={cat}
-              onChange={(e) => setCat(e.target.value)}
-              className="tap-input"
-              style={{ ...box, maxWidth: "16rem" }}
-            />
-            <datalist id="photo-cats">
-              {cats.map((c) => (
-                <option key={c} value={c} />
-              ))}
-            </datalist>
+          {/* Files first, category second: the images are what you have in
+              hand, the category is a decision you make after seeing them. */}
+          <label
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDrag(true);
+            }}
+            onDragLeave={() => setDrag(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDrag(false);
+              stage(e.dataTransfer.files);
+            }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              marginBlock: "1.5rem",
+              padding: "2rem 1rem",
+              border: `1px dashed ${drag ? "var(--color-accent)" : "var(--color-border)"}`,
+              color: drag ? "var(--color-accent)" : "var(--color-mutedForeground)",
+              cursor: "default",
+            }}
+          >
             <input
               type="file"
               accept="image/*"
               multiple
               disabled={busy}
               onChange={(e) => {
-                if (e.target.files?.length) upload(e.target.files);
+                stage(e.target.files);
                 e.target.value = "";
               }}
-              className="type-index tap-input"
+              style={{ display: "none" }}
             />
-          </div>
+            <span className="type-index">
+              {pending.length
+                ? `${pending.length} image${pending.length > 1 ? "s" : ""} ready`
+                : "Drop images here, or click to choose"}
+            </span>
+          </label>
+
+          {pending.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center", paddingBottom: "1.5rem" }}>
+              <input
+                list="photo-cats"
+                placeholder="Category (e.g. Nature)"
+                value={cat}
+                onChange={(e) => setCat(e.target.value)}
+                className="tap-input"
+                style={{ ...box, maxWidth: "16rem" }}
+              />
+              <datalist id="photo-cats">
+                {cats.map((c) => (
+                  <option key={c} value={c} />
+                ))}
+              </datalist>
+              <button
+                className="type-label tap-target"
+                disabled={busy || !cat.trim()}
+                onClick={() => upload(pending)}
+                style={{ cursor: "default", color: "var(--color-accent)" }}
+              >
+                {busy ? "Uploading…" : `Upload ${pending.length}`}
+              </button>
+              <button
+                className="type-index tap-target"
+                onClick={() => {
+                  setPending([]);
+                  setMsg("");
+                }}
+                style={{ cursor: "default", color: "var(--color-mutedForeground)" }}
+              >
+                Clear
+              </button>
+            </div>
+          )}
 
           <div
             style={{

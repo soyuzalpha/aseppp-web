@@ -9,20 +9,91 @@ import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* Everything below is lifted from the CV (public/cv.pdf) — if a claim isn't
+   in there, it doesn't belong on this page. */
+
 const EXP = [
-  { period: "2023 – Present", role: "Fullstack Developer", co: "Freelance / Remote" },
-  { period: "2022 – 2023", role: "Frontend Developer", co: "Tech Agency" },
-  { period: "2020 – 2022", role: "Web Dev Intern", co: "Startup" },
+  {
+    period: "12/2024 – Present",
+    role: "Frontend Web Developer",
+    co: "PT Data Integrasi Inovasi",
+    points: [
+      "Building EMR and SIMRS applications with the developer team",
+      "Creating reusable, component-based UI",
+      "Integrating API services",
+    ],
+  },
+  {
+    period: "10/2022 – 03/2023",
+    role: "Frontend Web Developer",
+    co: "Staff Pusat PT Ganesha Operation",
+    points: [
+      "Integrating superapp microservices with Next.js",
+      "Building the Bimbel Online site and its responsive mobile layout",
+    ],
+  },
+  {
+    period: "09/2022 – 11/2022",
+    role: "Frontend & Mobile Developer",
+    co: "PT InArray Indonesia",
+    points: [
+      "Built a web warehouse management system in React JS",
+      "Built the Reksadana mobile app with Ionic React",
+    ],
+  },
+  {
+    period: "2019 – 2021",
+    role: "IT Field Support",
+    co: "PT Primacom Interbuana",
+    points: [
+      "VSAT network installation, maintenance, and troubleshooting",
+      "Monitoring network carriers to keep them healthy",
+      "Working as a team on larger network architecture",
+    ],
+  },
 ];
 
-const EDU = [{ period: "2017 – 2021", degree: "S1 Informatics", school: "University" }];
-
-const VALUES = [
-  ["Craft over shortcuts", "I care about the details other developers skip."],
-  ["Ship, then improve", "Momentum beats perfection. Iterate in public."],
-  ["Read the spec", "Accessibility, performance, and security are not optional."],
-  ["Design-aware", "Good code and good design solve the same problem."],
+const EDU = [
+  { period: "01/2022 – 03/2022", degree: "Fullstack JavaScript Bootcamp", school: "Dumbways Indonesia" },
+  { period: "2016 – 2019", degree: "Computer and Network Engineering", school: "SMK Pustek Serpong" },
 ];
+
+const SKILLS: [string, string[]][] = [
+  ["Frontend", ["HTML", "CSS", "JavaScript", "React JS", "React Native", "Next.js", "Tailwind CSS", "shadcn/ui", "Chakra UI", "Redux Toolkit"]],
+  ["Backend", ["Node.js", "Express JS", "PostgreSQL", "MongoDB", "Prisma ORM"]],
+  ["Mobile", ["React Native", "Ionic React"]],
+  ["Tools", ["Git", "GitHub", "NextAuth", "Firebase", "Figma"]],
+];
+
+const CERTS = [
+  { period: "2023", title: "JavaScript Basic", issuer: "HackerRank" },
+  { period: "2022", title: "Belajar Dasar Pemrograman Web", issuer: "Dicoding Indonesia" },
+  { period: "2021", title: "Bootcamp Fullstack JavaScript", issuer: "Dumbways Indonesia" },
+  { period: "2021", title: "Responsive Web Design", issuer: "freeCodeCamp" },
+];
+
+const LANG = [
+  { name: "Bahasa Indonesia", level: "Native" },
+  { name: "English", level: "Beginner" },
+];
+
+/* Education rows are single-line, so they keep the 3-column form. */
+const ROW_SPLIT = {
+  ["--split-a" as string]: "clamp(8rem, 16vw, 13rem)",
+  ["--split-b" as string]: "clamp(6rem, 12vw, 10rem)",
+  ["--split-gap" as string]: "2rem",
+  paddingBlock: "1.25rem",
+  borderBottom: "1px solid var(--color-border)",
+};
+
+/* Experience rows carry bullets, so they get two columns — the bullets take
+   the full width next to the dates instead of a cramped third column. */
+const EXP_SPLIT = {
+  ["--split-a" as string]: "clamp(7rem, 14vw, 11rem)",
+  ["--split-gap" as string]: "2rem",
+  paddingBlock: "1.25rem",
+  borderBottom: "1px solid var(--color-border)",
+};
 
 export default function AboutPage() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -60,6 +131,9 @@ export default function AboutPage() {
           <h1 className="type-title reveal" style={{ color: "var(--color-foreground)" }}>
             Asep Saepudin
           </h1>
+          <p className="type-index reveal" style={{ marginTop: "0.75rem" }}>
+            Frontend Developer · Serpong, Tangerang Selatan
+          </p>
         </div>
 
         {/* ── Intro block ── */}
@@ -86,19 +160,18 @@ export default function AboutPage() {
               className="type-body"
               style={{ color: "var(--color-foreground)", maxWidth: "54ch", marginBottom: "1.25rem" }}
             >
-              I&apos;m a fullstack developer from Tangerang Selatan, Indonesia. I care deeply about the work — not just
-              shipping things, but shipping things right. That means clean architecture, thoughtful APIs, accessible
-              interfaces, and code that future-me won&apos;t curse.
+              Frontend developer with 2+ years building responsive, interactive, and user-friendly web and mobile
+              applications — the frontend of an EMR/SIMRS system today, superapps and online learning platforms before
+              that.
             </p>
             <p className="type-body" style={{ color: "var(--color-mutedForeground)", maxWidth: "54ch" }}>
-              I specialize in the Node.js + React ecosystem but I&apos;m not religious about tools — I use what makes
-              the product better. Currently open to new projects and full-time roles.
+              I work mostly in the React and Node.js ecosystem: React, React Native, and Next.js on the front, Express
+              with PostgreSQL or MongoDB and Prisma behind it. Currently open to new projects and full-time roles.
             </p>
             <div style={{ marginTop: "2rem" }}>
               <a
-                href="https://drive.google.com/file/d/1ChStsEIjCPXg0NclewSZb4qry90uRLnB/view"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/cv.pdf"
+                download="CV Asep Saepudin 2025.pdf"
                 className="type-label link-draw"
                 style={{ color: "var(--color-foreground)", textDecoration: "none" }}
               >
@@ -108,10 +181,10 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* ── Values ── */}
+        {/* ── Skills ── */}
         <div className="col" style={{ paddingBlock: "3.5rem", borderBottom: "1px solid var(--color-border)" }}>
           <p className="type-label mb-8 reveal">
-            <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Values</span>
+            <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Skills</span>
           </p>
           <div
             className="grid gap-px reveal"
@@ -120,28 +193,23 @@ export default function AboutPage() {
               border: "1px solid var(--color-border)",
             }}
           >
-            {VALUES.map(([title, desc]) => (
+            {SKILLS.map(([layer, tools]) => (
               <div
-                key={title}
+                key={layer}
                 style={{
                   padding: "1.75rem",
                   borderRight: "1px solid var(--color-border)",
                   backgroundColor: "var(--color-card)",
                 }}
               >
-                <p
-                  style={{
-                    fontFamily: "var(--font-medium)",
-                    fontSize: "1rem",
-                    color: "var(--color-foreground)",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  {title}
+                <p className="type-index mb-3" style={{ color: "var(--color-accentText)" }}>
+                  {layer}
                 </p>
-                <p className="type-body" style={{ color: "var(--color-mutedForeground)", fontSize: "0.875rem" }}>
-                  {desc}
-                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {tools.map((t) => (
+                    <span key={t} className="tag">{t}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -152,52 +220,51 @@ export default function AboutPage() {
           <p className="type-label mb-8 reveal">
             <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Experience</span>
           </p>
-          {EXP.map((e, i) => (
-            <div
-              key={i}
-              className="reveal split-3"
-              style={{
-                ["--split-a" as string]: "clamp(8rem, 16vw, 13rem)",
-                ["--split-b" as string]: "clamp(6rem, 12vw, 10rem)",
-                ["--split-gap" as string]: "2rem",
-                paddingBlock: "1.25rem",
-                borderBottom: "1px solid var(--color-border)",
-              }}
-            >
+          {EXP.map((e) => (
+            <div key={e.role + e.co} className="reveal split" style={EXP_SPLIT}>
               <span className="type-index">{e.period}</span>
-              <span
-                style={{
-                  fontFamily: "var(--font-medium)",
-                  fontSize: "clamp(0.95rem, 1.3vw, 1.05rem)",
-                  color: "var(--color-foreground)",
-                }}
-              >
-                {e.role}
-              </span>
-              <span className="type-index" style={{ textAlign: "right" }}>
-                {e.co}
+              <span>
+                <span
+                  style={{
+                    display: "block",
+                    fontFamily: "var(--font-medium)",
+                    fontSize: "clamp(0.95rem, 1.3vw, 1.05rem)",
+                    color: "var(--color-foreground)",
+                  }}
+                >
+                  {e.role}
+                </span>
+                <span className="type-index" style={{ display: "block", marginTop: "0.35rem", marginBottom: "0.75rem" }}>
+                  {e.co}
+                </span>
+                <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                  {e.points.map((pt) => (
+                    <li
+                      key={pt}
+                      className="type-body"
+                      style={{
+                        color: "var(--color-mutedForeground)",
+                        fontSize: "0.8125rem",
+                        lineHeight: 1.55,
+                        marginBottom: "0.35rem",
+                      }}
+                    >
+                      — {pt}
+                    </li>
+                  ))}
+                </ul>
               </span>
             </div>
           ))}
         </div>
 
         {/* ── Education ── */}
-        <div className="col" style={{ paddingBlock: "3.5rem" }}>
+        <div className="col" style={{ paddingBlock: "3.5rem", borderBottom: "1px solid var(--color-border)" }}>
           <p className="type-label mb-8 reveal">
             <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Education</span>
           </p>
-          {EDU.map((e, i) => (
-            <div
-              key={i}
-              className="reveal split-3"
-              style={{
-                ["--split-a" as string]: "clamp(8rem, 16vw, 13rem)",
-                ["--split-b" as string]: "clamp(6rem, 12vw, 10rem)",
-                ["--split-gap" as string]: "2rem",
-                paddingBlock: "1.25rem",
-                borderBottom: "1px solid var(--color-border)",
-              }}
-            >
+          {EDU.map((e) => (
+            <div key={e.degree} className="reveal split-3" style={ROW_SPLIT}>
               <span className="type-index">{e.period}</span>
               <span style={{ fontFamily: "var(--font-medium)", fontSize: "1rem", color: "var(--color-foreground)" }}>
                 {e.degree}
@@ -207,6 +274,62 @@ export default function AboutPage() {
               </span>
             </div>
           ))}
+        </div>
+
+        {/* ── Certificates + languages ── */}
+        <div
+          className="col split"
+          style={{
+            paddingBlock: "3.5rem",
+            ["--split-a" as string]: "clamp(14rem, 34vw, 26rem)",
+            ["--split-gap" as string]: "3rem",
+          }}
+        >
+          <div>
+            <p className="type-label mb-8 reveal">
+              <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Certificates</span>
+            </p>
+            {CERTS.map((c) => (
+              <div
+                key={c.title}
+                className="reveal"
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: "1rem",
+                  paddingBlock: "0.75rem",
+                  borderBottom: "1px solid var(--color-border)",
+                }}
+              >
+                <span className="type-index" style={{ flexShrink: 0 }}>{c.period}</span>
+                <span style={{ flex: 1, fontSize: "0.875rem", color: "var(--color-foreground)" }}>{c.title}</span>
+                <span className="type-index" style={{ flexShrink: 0, textAlign: "right" }}>{c.issuer}</span>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <p className="type-label mb-8 reveal">
+              <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Languages</span>
+            </p>
+            {LANG.map((l) => (
+              <div
+                key={l.name}
+                className="reveal"
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  justifyContent: "space-between",
+                  gap: "1rem",
+                  paddingBlock: "0.75rem",
+                  borderBottom: "1px solid var(--color-border)",
+                }}
+              >
+                <span style={{ fontSize: "0.875rem", color: "var(--color-foreground)" }}>{l.name}</span>
+                <span className="type-index">{l.level}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </main>
       <Footer />

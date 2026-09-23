@@ -8,11 +8,12 @@ import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* From the CV (public/cv.pdf) — same source as the About page. */
 const FACTS = [
-  { label: "Age", value: "26" },
-  { label: "Location", value: "Tangerang Selatan, ID" },
-  { label: "Experience", value: "3+ years" },
-  { label: "Focus", value: "Fullstack Web" },
+  { label: "Location", value: "Serpong, Tangerang Selatan" },
+  { label: "Experience", value: "2+ years" },
+  { label: "Focus", value: "Frontend Web" },
+  { label: "Languages", value: "ID / EN" },
   { label: "Status", value: "Open to work" },
 ];
 
@@ -88,8 +89,8 @@ export default function AboutStrip() {
               maxWidth: "52ch",
             }}
           >
-            I&apos;m a fullstack developer from Indonesia with a <em>serious</em> approach to craft. I believe the web
-            should be fast, accessible, and purposefully designed, and I build it that way.
+            Frontend developer from Serpong, Indonesia — 2+ years building responsive, interactive, and user-friendly
+            web and mobile applications. I care about the details other developers skip.
           </p>
 
           <p
@@ -99,8 +100,8 @@ export default function AboutStrip() {
               maxWidth: "52ch",
             }}
           >
-            When I&apos;m not coding I&apos;m thinking about design systems, reading about architecture patterns, or
-            taking a long walk with a strong coffee.
+            Mostly the React and Node.js ecosystem: React, React Native, and Next.js on the front, Express with
+            PostgreSQL or MongoDB and Prisma behind it. Currently open to new projects and full-time roles.
           </p>
         </div>
       </div>

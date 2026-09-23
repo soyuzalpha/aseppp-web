@@ -97,7 +97,7 @@ export default function PicsClient({ photos }: { photos: Photo[] }) {
                 fontWeight: 500,
                 cursor: "default",
                 color: cat === c ? "var(--color-foreground)" : "var(--color-mutedForeground)",
-                borderBottom: cat === c ? "1px solid var(--color-accent)" : "1px solid transparent",
+                borderBottom: cat === c ? "1px solid var(--color-accentText)" : "1px solid transparent",
                 transition: "color 0.2s ease",
               }}
             >

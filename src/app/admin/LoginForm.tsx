@@ -36,7 +36,7 @@ export default function LoginForm() {
 
   return (
     <main style={{ paddingTop: "8rem", maxWidth: "26rem" }} className="col">
-      <p className="type-label mb-4" style={{ color: "var(--color-accent)" }}>
+      <p className="type-label mb-4" style={{ color: "var(--color-accentText)" }}>
         Admin
       </p>
       <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -59,7 +59,7 @@ export default function LoginForm() {
         <button type="submit" disabled={busy} className="type-label" style={{ cursor: "default" }}>
           {busy ? "Checking…" : "Sign in"}
         </button>
-        {error && <p className="type-index" style={{ color: "var(--color-accent)" }}>{error}</p>}
+        {error && <p className="type-index" style={{ color: "var(--color-accentText)" }}>{error}</p>}
       </form>
     </main>
   );

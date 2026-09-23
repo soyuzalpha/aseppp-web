@@ -92,18 +92,10 @@ export default function PostsClient({ posts }: { posts: Post[] }) {
                 gap: "2rem",
                 alignItems: "start",
                 textDecoration: "none",
-                transition: "background 0.2s ease",
               }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-                  "color-mix(in srgb, var(--color-foreground) 3%, transparent)")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent")
-              }
             >
               <div>
-                <span className="type-label" style={{ color: "var(--color-accent)", display: "block", marginBottom: "0.75rem" }}>
+                <span className="type-label" style={{ color: "var(--color-accentText)", display: "block", marginBottom: "0.75rem" }}>
                   Featured
                 </span>
                 <h2
@@ -132,7 +124,7 @@ export default function PostsClient({ posts }: { posts: Post[] }) {
               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.5rem", paddingTop: "0.25rem", minWidth: "5rem" }}>
                 <span className="type-index">{f.date}</span>
                 <span className="type-index">{f.readTime} min</span>
-                <ArrowUpRight size={16} strokeWidth={1.5} style={{ color: "var(--color-accent)", marginTop: "0.5rem" }} />
+                <ArrowUpRight size={16} strokeWidth={1.5} style={{ color: "var(--color-accentText)", marginTop: "0.5rem" }} />
               </div>
             </Link>
           );
@@ -144,20 +136,12 @@ export default function PostsClient({ posts }: { posts: Post[] }) {
             <Link
               key={p.slug}
               href={`/posts/${p.slug}`}
-              className="post-row list-row"
+              className="post-row list-row row-hover"
               style={{
                 borderBottom: "1px solid var(--color-border)",
                 paddingBlock: "1.5rem",
                 textDecoration: "none",
-                transition: "background 0.15s ease",
               }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-                  "color-mix(in srgb, var(--color-foreground) 3%, transparent)")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent")
-              }
             >
               <span className="type-index" style={{ paddingTop: "0.2rem" }}>
                 {String(posts.indexOf(p) + 1).padStart(2, "0")}
@@ -168,7 +152,6 @@ export default function PostsClient({ posts }: { posts: Post[] }) {
                   style={{
                     fontFamily: "var(--font-medium)",
                     fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)",
-                    color: "var(--color-foreground)",
                     letterSpacing: "-0.01em",
                     marginBottom: "0.35rem",
                     lineHeight: 1.3,

@@ -140,7 +140,7 @@ export default function Hero() {
 
           {/* Name */}
           <h1 id="hero-name" className="type-display" style={{ color: "var(--color-foreground)" }}>
-            ASEP SAEPUDIN<span style={{ color: "var(--color-accent)" }}>.</span>
+            ASEP SAEPUDIN<span style={{ color: "var(--color-accentText)" }}>.</span>
           </h1>
 
           {/* Tagline */}
@@ -289,7 +289,7 @@ export default function Hero() {
               width: 6,
               height: 6,
               borderRadius: "50%",
-              backgroundColor: "var(--color-accent)",
+              backgroundColor: "var(--color-accentText)",
               marginRight: "0.5em",
               animation: "cursor-blink 2s ease infinite",
             }}

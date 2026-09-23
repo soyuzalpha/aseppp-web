@@ -31,7 +31,7 @@ export default function ProjectDetailClient({
     return (
       <div style={{ paddingTop: "8rem" }}>
         <div className="col" style={{ paddingBlock: "4rem" }}>
-          <p className="type-label mb-4" style={{ color: "var(--color-accent)" }}>404</p>
+          <p className="type-label mb-4" style={{ color: "var(--color-accentText)" }}>404</p>
           <h1 className="type-title" style={{ color: "var(--color-foreground)", marginBottom: "1.5rem" }}>
             Project not found.
           </h1>
@@ -112,7 +112,7 @@ export default function ProjectDetailClient({
                     target={project.live.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     className="type-label link-draw flex items-center gap-1.5"
-                    style={{ color: "var(--color-accent)", textDecoration: "none" }}
+                    style={{ color: "var(--color-accentText)", textDecoration: "none" }}
                   >
                     <ArrowUpRight size={11} strokeWidth={2} />
                     Live site
@@ -196,7 +196,7 @@ export default function ProjectDetailClient({
             {/* Outcome */}
             <blockquote
               style={{
-                borderLeft: "2px solid var(--color-accent)",
+                borderLeft: "2px solid var(--color-accentText)",
                 paddingLeft: "1.5rem",
                 marginBottom: "2.5rem",
                 fontFamily: "var(--font-editorial)",
@@ -221,7 +221,7 @@ export default function ProjectDetailClient({
               {project.stack.map(({ layer, tools }, i) => (
                 <div key={layer}>
                   <div style={{ paddingBlock: "0.75rem" }}>
-                    <p className="type-index mb-2" style={{ color: "var(--color-accent)" }}>{layer}</p>
+                    <p className="type-index mb-2" style={{ color: "var(--color-accentText)" }}>{layer}</p>
                     <div className="flex flex-wrap gap-1">
                       {tools.map((tool) => (
                         <span key={tool} className="tag" style={{ fontSize: "0.5625rem" }}>{tool}</span>
@@ -244,7 +244,7 @@ export default function ProjectDetailClient({
             style={{ paddingBlock: "3rem", borderTop: "1px solid var(--color-border)" }}
           >
             <p className="type-label mb-6">
-              <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>More projects</span>
+              <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>More projects</span>
             </p>
             <div style={{
               display: "grid",

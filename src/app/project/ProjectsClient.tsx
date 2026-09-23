@@ -73,7 +73,7 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
                 textTransform: "uppercase",
                 fontWeight: 500,
                 color: filter === r ? "var(--color-foreground)" : "var(--color-mutedForeground)",
-                borderBottom: filter === r ? "1px solid var(--color-accent)" : "1px solid transparent",
+                borderBottom: filter === r ? "1px solid var(--color-accentText)" : "1px solid transparent",
                 transition: "color 0.2s ease",
               }}
             >
@@ -88,18 +88,12 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
             <Link
               key={p.slug}
               href={`/project/${p.slug}`}
-              className="project-row list-row"
+              className="project-row list-row row-hover"
               style={{
                 borderBottom: "1px solid var(--color-border)",
                 paddingBlock: "1.75rem",
                 textDecoration: "none",
-                transition: "background 0.15s ease",
               }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-                  "color-mix(in srgb, var(--color-foreground) 3%, transparent)")
-              }
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent")}
             >
               {/* Number */}
               <span className="type-index" style={{ paddingTop: "0.25rem" }}>
@@ -122,7 +116,6 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
                       fontFamily: "var(--font-editorial)",
                       fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
                       letterSpacing: "-0.02em",
-                      color: "var(--color-foreground)",
                       lineHeight: 1.1,
                     }}
                   >
@@ -131,7 +124,7 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
                   <span
                     className="type-label"
                     style={{
-                      color: "var(--color-accent)",
+                      color: "var(--color-accentText)",
                       border: "1px solid var(--color-border)",
                       borderRadius: "2px",
                       padding: "0.15rem 0.6rem",

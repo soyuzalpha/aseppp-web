@@ -97,7 +97,7 @@ export default function Contact() {
               transition: "color 0.2s ease",
             }}
             onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-accent)")
+              ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-accentText)")
             }
             onMouseLeave={(e) =>
               ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-foreground)")

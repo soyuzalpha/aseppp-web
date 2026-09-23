@@ -144,7 +144,7 @@ export default function Work() {
               <span
                 className="type-label"
                 style={{
-                  color: "var(--color-accent)",
+                  color: "var(--color-accentText)",
                   border: "1px solid var(--color-border)",
                   borderRadius: "2px",
                   padding: "0.2rem 0.7rem",

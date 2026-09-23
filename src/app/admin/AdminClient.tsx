@@ -235,7 +235,7 @@ export default function AdminClient() {
   return (
     <main style={{ paddingTop: "6rem", paddingBottom: "5rem", maxWidth: "60rem" }} className="col">
       <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
-        <p className="type-label" style={{ color: "var(--color-accent)" }}>Admin</p>
+        <p className="type-label" style={{ color: "var(--color-accentText)" }}>Admin</p>
         <button
           className="type-index tap-target"
           style={{ cursor: "default", color: "var(--color-mutedForeground)" }}
@@ -260,7 +260,7 @@ export default function AdminClient() {
               border: "none",
               padding: 0,
               color: t === tab ? "var(--color-foreground)" : "var(--color-mutedForeground)",
-              borderBottom: t === tab ? "1px solid var(--color-accent)" : "1px solid transparent",
+              borderBottom: t === tab ? "1px solid var(--color-accentText)" : "1px solid transparent",
             }}
           >
             {t}
@@ -269,7 +269,7 @@ export default function AdminClient() {
       </div>
 
       {msg && (
-        <p className="type-index" style={{ color: "var(--color-accent)", paddingBlock: "0.75rem" }}>
+        <p className="type-index" style={{ color: "var(--color-accentText)", paddingBlock: "0.75rem" }}>
           {msg}
         </p>
       )}
@@ -297,8 +297,8 @@ export default function AdminClient() {
               textAlign: "center",
               marginBlock: "1.5rem",
               padding: "2rem 1rem",
-              border: `1px dashed ${drag ? "var(--color-accent)" : "var(--color-border)"}`,
-              color: drag ? "var(--color-accent)" : "var(--color-mutedForeground)",
+              border: `1px dashed ${drag ? "var(--color-accentText)" : "var(--color-border)"}`,
+              color: drag ? "var(--color-accentText)" : "var(--color-mutedForeground)",
               cursor: "default",
             }}
           >
@@ -339,7 +339,7 @@ export default function AdminClient() {
                 className="type-label tap-target"
                 disabled={busy || !cat.trim()}
                 onClick={() => upload(pending)}
-                style={{ cursor: "default", color: "var(--color-accent)" }}
+                style={{ cursor: "default", color: "var(--color-accentText)" }}
               >
                 {busy ? "Uploading…" : `Upload ${pending.length}`}
               </button>
@@ -396,7 +396,7 @@ export default function AdminClient() {
                     <button
                       onClick={() => remove(p.id)}
                       className="type-index tap-target"
-                      style={{ cursor: "default", color: "var(--color-accent)", flexShrink: 0 }}
+                      style={{ cursor: "default", color: "var(--color-accentText)", flexShrink: 0 }}
                     >
                       Delete
                     </button>
@@ -423,7 +423,7 @@ export default function AdminClient() {
               <p className="type-index">{items.length} rows</p>
               <button
                 className="type-index tap-target"
-                style={{ cursor: "default", color: "var(--color-accent)" }}
+                style={{ cursor: "default", color: "var(--color-accentText)" }}
                 onClick={() => {
                   setEditing(null);
                   setForm({});
@@ -459,7 +459,7 @@ export default function AdminClient() {
                       border: "none",
                       padding: 0,
                       flex: 1,
-                      color: r.id === editing ? "var(--color-accent)" : "var(--color-foreground)",
+                      color: r.id === editing ? "var(--color-accentText)" : "var(--color-foreground)",
                     }}
                   >
                     {String(r.slug)}

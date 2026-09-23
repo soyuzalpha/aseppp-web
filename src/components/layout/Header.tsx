@@ -44,7 +44,7 @@ export default function Header() {
             href="/"
             className="type-mono"
             style={{
-              // color: "var(--color-accent)",
+              // color: "var(--color-accentText)",
               fontSize: "0.8rem",
               letterSpacing: "0.12em",
               textDecoration: "none",
@@ -119,7 +119,7 @@ export default function Header() {
                   }}
                 >
                   {label}
-                  {active && <span style={{ color: "var(--color-accent)", marginLeft: "0.25em" }}>·</span>}
+                  {active && <span style={{ color: "var(--color-accentText)", marginLeft: "0.25em" }}>·</span>}
                 </Link>
               );
             })}

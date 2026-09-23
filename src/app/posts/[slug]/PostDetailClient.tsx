@@ -43,7 +43,7 @@ export default function PostDetailClient({
     return (
       <div style={{ paddingTop: "8rem" }}>
         <div className="col" style={{ paddingBlock: "4rem" }}>
-          <p className="type-label mb-4" style={{ color: "var(--color-accent)" }}>404</p>
+          <p className="type-label mb-4" style={{ color: "var(--color-accentText)" }}>404</p>
           <h1 className="type-title" style={{ color: "var(--color-foreground)", marginBottom: "1.5rem" }}>
             Post not found.
           </h1>
@@ -67,7 +67,7 @@ export default function PostDetailClient({
           left: 0,
           height: "2px",
           width: `${progress}%`,
-          backgroundColor: "var(--color-accent)",
+          backgroundColor: "var(--color-accentText)",
           zIndex: 49,
           transition: "width 0.1s linear",
         }}
@@ -161,7 +161,7 @@ export default function PostDetailClient({
                     style={{
                       height: "100%",
                       width: `${progress}%`,
-                      backgroundColor: "var(--color-accent)",
+                      backgroundColor: "var(--color-accentText)",
                       transition: "width 0.1s linear",
                     }}
                   />
@@ -255,7 +255,7 @@ export default function PostDetailClient({
                 <blockquote
                   key={i}
                   style={{
-                    borderLeft: "2px solid var(--color-accent)",
+                    borderLeft: "2px solid var(--color-accentText)",
                     paddingLeft: "1.5rem",
                     marginBlock: "2rem",
                     fontFamily: "var(--font-editorial)",
@@ -284,7 +284,7 @@ export default function PostDetailClient({
                         color: "var(--color-foreground)",
                       }}
                     >
-                      <span style={{ color: "var(--color-accent)", flexShrink: 0, marginTop: "0.25rem" }}>—</span>
+                      <span style={{ color: "var(--color-accentText)", flexShrink: 0, marginTop: "0.25rem" }}>—</span>
                       {item}
                     </li>
                   ))}
@@ -330,7 +330,7 @@ export default function PostDetailClient({
             style={{ paddingBlock: "3rem", borderTop: "1px solid var(--color-border)" }}
           >
             <p className="type-label mb-6">
-              <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>More posts</span>
+              <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>More posts</span>
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))", gap: "1px", border: "1px solid var(--color-border)" }}>
               {related.map((r) => (

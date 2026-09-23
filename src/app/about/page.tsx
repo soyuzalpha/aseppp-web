@@ -111,7 +111,7 @@ export default function AboutPage() {
         {/* ── Values ── */}
         <div className="col" style={{ paddingBlock: "3.5rem", borderBottom: "1px solid var(--color-border)" }}>
           <p className="type-label mb-8 reveal">
-            <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>Values</span>
+            <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Values</span>
           </p>
           <div
             className="grid gap-px reveal"
@@ -150,7 +150,7 @@ export default function AboutPage() {
         {/* ── Experience ── */}
         <div className="col" style={{ paddingBlock: "3.5rem", borderBottom: "1px solid var(--color-border)" }}>
           <p className="type-label mb-8 reveal">
-            <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>Experience</span>
+            <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Experience</span>
           </p>
           {EXP.map((e, i) => (
             <div
@@ -184,7 +184,7 @@ export default function AboutPage() {
         {/* ── Education ── */}
         <div className="col" style={{ paddingBlock: "3.5rem" }}>
           <p className="type-label mb-8 reveal">
-            <span style={{ color: "var(--color-accent)", marginRight: "0.5em" }}>Education</span>
+            <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Education</span>
           </p>
           {EDU.map((e, i) => (
             <div

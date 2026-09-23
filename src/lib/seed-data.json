@@ -386,73 +386,13 @@
         }
       ],
       "related": [
-        "support-hrd",
         "bos"
       ],
       "sort": 0
     },
     {
-      "slug": "support-hrd",
-      "n": "02",
-      "title": "Support HRD",
-      "year": "2025",
-      "role": "Fullstack",
-      "status": "In development",
-      "tags": [
-        "Next.js",
-        "TypeScript",
-        "React Query",
-        "Radix UI"
-      ],
-      "github": "https://github.com/soyuzalpha/support-hrd",
-      "live": null,
-      "desc": "HR support portal — authenticated dashboard, request forms, and PDF exports on top of a typed service layer.",
-      "summary": "Internal HR support app: login, dashboard, and request flows, with a service layer and hooks keeping data access out of the components.",
-      "challenge": "HR requests arrived over chat and email, so there was no record of who asked, when, or what happened next.",
-      "solution": "Next.js App Router with route-handler APIs, React Query for caching and mutations, react-hook-form + Zod for the forms, Radix and shadcn primitives for the UI, and @react-pdf/renderer to hand back a document. Service and hook layers keep the components thin.",
-      "outcome": "Requests have one place to live, and no component calls fetch directly — swapping the backend touches the service layer only.",
-      "stack": [
-        {
-          "layer": "Frontend",
-          "tools": [
-            "Next.js App Router",
-            "TypeScript",
-            "Tailwind CSS",
-            "Radix UI",
-            "react-three-fiber"
-          ]
-        },
-        {
-          "layer": "Data",
-          "tools": [
-            "React Query",
-            "react-hook-form",
-            "Zod"
-          ]
-        },
-        {
-          "layer": "Output",
-          "tools": [
-            "@react-pdf/renderer"
-          ]
-        },
-        {
-          "layer": "Tooling",
-          "tools": [
-            "pnpm",
-            "ESLint"
-          ]
-        }
-      ],
-      "related": [
-        "clipper",
-        "bos"
-      ],
-      "sort": 1
-    },
-    {
       "slug": "bos",
-      "n": "03",
+      "n": "02",
       "title": "BOS",
       "year": "2026",
       "role": "Fullstack",
@@ -502,11 +442,11 @@
         "clipper",
         "median-api-nest-js-prisma-postgres"
       ],
-      "sort": 2
+      "sort": 1
     },
     {
       "slug": "chat-group",
-      "n": "04",
+      "n": "03",
       "title": "Chat Group",
       "year": "2023",
       "role": "Fullstack",
@@ -557,11 +497,11 @@
         "articles-app",
         "bos"
       ],
-      "sort": 3
+      "sort": 2
     },
     {
       "slug": "articles-app",
-      "n": "05",
+      "n": "04",
       "title": "Articles",
       "year": "2023",
       "role": "Fullstack",
@@ -616,11 +556,11 @@
         "chat-group",
         "clipper"
       ],
-      "sort": 4
+      "sort": 3
     },
     {
       "slug": "portfolio",
-      "n": "06",
+      "n": "05",
       "title": "This Portfolio",
       "year": "2024",
       "role": "Design + Dev",
@@ -676,11 +616,11 @@
         "clipper",
         "articles-app"
       ],
-      "sort": 5
+      "sort": 4
     },
     {
       "slug": "median-api-nest-js-prisma-postgres",
-      "n": "07",
+      "n": "06",
       "title": "Median API",
       "year": "2024",
       "role": "Backend",
@@ -734,11 +674,11 @@
         "bos",
         "clipper"
       ],
-      "sort": 6
+      "sort": 5
     },
     {
       "slug": "quiz-app",
-      "n": "08",
+      "n": "07",
       "title": "Quiz App",
       "year": "2024",
       "role": "Frontend",
@@ -785,11 +725,11 @@
         "job-listing",
         "rest-countries"
       ],
-      "sort": 7
+      "sort": 6
     },
     {
       "slug": "rest-countries",
-      "n": "09",
+      "n": "08",
       "title": "REST Countries",
       "year": "2024",
       "role": "Frontend",
@@ -834,11 +774,11 @@
         "ip-address-tracker",
         "dictionary-app"
       ],
-      "sort": 8
+      "sort": 7
     },
     {
       "slug": "ip-address-tracker",
-      "n": "10",
+      "n": "09",
       "title": "IP Address Tracker",
       "year": "2023",
       "role": "Frontend",
@@ -890,11 +830,11 @@
         "rest-countries",
         "dictionary-app"
       ],
-      "sort": 9
+      "sort": 8
     },
     {
       "slug": "job-listing",
-      "n": "11",
+      "n": "10",
       "title": "Job Listing",
       "year": "2024",
       "role": "Frontend",
@@ -939,11 +879,11 @@
         "quiz-app",
         "search-github-user"
       ],
-      "sort": 10
+      "sort": 9
     },
     {
       "slug": "dictionary-app",
-      "n": "12",
+      "n": "11",
       "title": "Dictionary",
       "year": "2023",
       "role": "Frontend",
@@ -995,11 +935,11 @@
         "rest-countries",
         "search-github-user"
       ],
-      "sort": 11
+      "sort": 10
     },
     {
       "slug": "search-github-user",
-      "n": "13",
+      "n": "12",
       "title": "GitHub User Search",
       "year": "2023",
       "role": "Frontend",
@@ -1051,7 +991,7 @@
         "job-listing",
         "dictionary-app"
       ],
-      "sort": 12
+      "sort": 11
     }
   ]
 }

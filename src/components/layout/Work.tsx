@@ -58,9 +58,8 @@ const PROJECTS = [
 ];
 
 export default function Work() {
-  const secRef   = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const headRef  = useRef<HTMLDivElement>(null);
+  const secRef  = useRef<HTMLElement>(null);
+  const headRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -68,13 +67,6 @@ export default function Work() {
         opacity: 0, y: 24, duration: 0.7, ease: "expo.out",
         scrollTrigger: { trigger: headRef.current, start: "top 88%" },
       });
-      const cards = trackRef.current?.querySelectorAll(".work-card");
-      if (cards) {
-        gsap.from(cards, {
-          opacity: 0, x: 60, duration: 0.7, stagger: 0.1, ease: "expo.out",
-          scrollTrigger: { trigger: trackRef.current, start: "top 82%" },
-        });
-      }
     }, secRef);
     return () => ctx.revert();
   }, []);
@@ -99,125 +91,66 @@ export default function Work() {
         </Link>
       </div>
 
-      {/* Horizontal scroll */}
-      <div
-        ref={trackRef}
-        className="h-scroll-track"
-        style={{ paddingInline: "var(--col-pad)", paddingBlock: "2.5rem", gap: "1px" }}
-      >
-        {PROJECTS.map((p) => (
-          <Link
-            key={p.n}
-            href={p.href}
-            className="work-card h-scroll-item group block"
-            style={{
-              width: "clamp(18rem, 32vw, 26rem)",
-              textDecoration: "none",
-              background: "color-mix(in srgb, var(--color-card) 70%, transparent)",
-              backdropFilter: "blur(16px)",
-              WebkitBackdropFilter: "blur(16px)",
-              border: "1px solid var(--color-border)",
-              padding: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              minHeight: "22rem",
-              transition: "border-color 0.25s ease, background 0.25s ease, transform 0.3s var(--ease-spring)",
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.borderColor = "var(--color-foreground)";
-              el.style.background = "color-mix(in srgb, var(--color-card) 92%, transparent)";
-              el.style.transform = "translateY(-4px)";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.borderColor = "var(--color-border)";
-              el.style.background = "color-mix(in srgb, var(--color-card) 70%, transparent)";
-              el.style.transform = "translateY(0)";
-            }}
-          >
-            <div className="flex items-start justify-between">
-              <span className="type-index" style={{ fontSize: "0.75rem", letterSpacing: "0.08em" }}>
-                {p.n}
-              </span>
-              <span
-                className="type-label"
-                style={{
-                  color: "var(--color-accentText)",
-                  border: "1px solid var(--color-border)",
-                  borderRadius: "2px",
-                  padding: "0.2rem 0.7rem",
-                }}
-              >
-                {p.role}
-              </span>
-            </div>
-
-            <div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-editorial)",
-                  fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
-                  lineHeight: 1.05,
-                  letterSpacing: "-0.025em",
-                  color: "var(--color-foreground)",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {p.title}
-              </h3>
-              <p className="type-body" style={{ color: "var(--color-mutedForeground)", fontSize: "0.875rem" }}>
-                {p.desc}
-              </p>
-            </div>
-
-            <div>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
+      {/* Scroll stack — each card sticks below the previous one, so the deck
+          visibly piles up as you scroll. See .stack-card in globals.css. */}
+      <div className="col">
+        <div className="stack-deck">
+          {PROJECTS.map((p, i) => (
+            <Link
+              key={p.n}
+              href={p.href}
+              className="stack-card"
+              style={{ ["--i" as string]: i }}
+            >
+              <div className="flex items-start justify-between">
+                <span className="type-index" style={{ fontSize: "0.75rem", letterSpacing: "0.08em" }}>
+                  {p.n}
+                </span>
+                <span
+                  className="type-label"
+                  style={{
+                    color: "var(--color-accentText)",
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "2px",
+                    padding: "0.2rem 0.7rem",
+                  }}
+                >
+                  {p.role}
+                </span>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="type-index">{p.year}</span>
-                <ArrowUpRight
-                  size={16}
-                  strokeWidth={1.5}
-                  style={{ color: "var(--color-mutedForeground)", transition: "transform 0.2s ease" }}
-                />
+
+              <div>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-editorial)",
+                    fontSize: "clamp(1.6rem, 5vw, 3rem)",
+                    lineHeight: 1.05,
+                    letterSpacing: "-0.025em",
+                    marginBottom: "0.75rem",
+                  }}
+                >
+                  {p.title}
+                </h3>
+                <p
+                  className="type-body"
+                  style={{ color: "var(--color-mutedForeground)", fontSize: "0.875rem", maxWidth: "46ch" }}
+                >
+                  {p.desc}
+                </p>
               </div>
-            </div>
-          </Link>
-        ))}
 
-        {/* End cap */}
-        <Link
-          href="/project"
-          className="h-scroll-item flex flex-col items-center justify-center gap-3"
-          style={{
-            width: "clamp(10rem, 16vw, 14rem)",
-            minHeight: "22rem",
-            textDecoration: "none",
-            border: "1px dashed var(--color-border)",
-            color: "var(--color-mutedForeground)",
-            transition: "border-color 0.2s ease, color 0.2s ease",
-          }}
-          onMouseEnter={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement;
-            el.style.borderColor = "var(--color-foreground)";
-            el.style.color = "var(--color-foreground)";
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement;
-            el.style.borderColor = "var(--color-border)";
-            el.style.color = "var(--color-mutedForeground)";
-          }}
-        >
-          <ArrowUpRight size={20} strokeWidth={1.5} />
-          <span className="type-label" style={{ color: "inherit" }}>View all</span>
-        </Link>
-      </div>
-
-      <div className="col mt-1">
-        <p className="type-index" style={{ opacity: 0.5 }}>← drag or scroll horizontally</p>
+              <div>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="type-index">{p.year}</span>
+                  <ArrowUpRight className="stack-arrow" size={16} strokeWidth={1.5} />
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

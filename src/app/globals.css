@@ -90,7 +90,9 @@ body {
     color 0.5s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* `clip`, not `hidden`: `hidden` turns body into a scroll container and
+     silently breaks `position: sticky` in the Selected work stack. */
+  overflow-x: clip;
   overflow-wrap: break-word;
   line-height: 1.6;
 }
@@ -457,41 +459,59 @@ body.cursor-hover .cursor-ring {
   opacity: 0.25;
 }
 
-/* ─── Horizontal scroll track ─────────────────────────────────── */
-.h-scroll-track {
+/* ─── Selected work — scroll stack ────────────────────────────────
+   Cards stick one below the other as you scroll, so the deck visibly
+   piles up and fans by 0.75rem per card. Native `position: sticky`,
+   no JS: it holds at any width, and on touch the stack IS the
+   interaction — there is no hover to miss. Sticky is bounded by
+   .stack-deck, so the last card releases on its own.
+
+   Requires `overflow-x: clip` on an ancestor, never `hidden` —
+   `hidden` makes the element a scroll container and silently kills
+   sticky. See the note on body. */
+.stack-deck {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 2.5rem;
+}
+
+.stack-card {
+  position: sticky;
+  /* fixed header (3.5rem) + gap + one step per card */
+  top: calc(3.5rem + 1.25rem + var(--i, 0) * 0.75rem);
   display: flex;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  gap: 1px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: clamp(18rem, 44vh, 24rem);
+  padding: clamp(1.5rem, 4vw, 2rem);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: border-color 0.25s ease;
 }
-.h-scroll-track::-webkit-scrollbar {
-  display: none;
+.stack-card:hover {
+  border-color: var(--color-foreground);
 }
-
-/* Mouse users can't swipe — show them there's more to scroll */
-@media (pointer: fine) {
-  .h-scroll-track {
-    scrollbar-width: thin;
-    padding-bottom: 1.5rem;
-  }
-  .h-scroll-track::-webkit-scrollbar {
-    display: block;
-    height: 4px;
-  }
-  .h-scroll-track::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-  }
-  .h-scroll-track::-webkit-scrollbar-thumb:hover {
-    background: var(--color-foreground);
-  }
+/* Title carries the hover, same as .row-hover. No inline `color` on the
+   <h3> — an inline style would win over these rules. */
+.stack-card h3 {
+  color: var(--color-foreground);
+  transition: color 0.35s var(--ease-out-expo);
 }
-
-.h-scroll-item {
-  scroll-snap-align: start;
-  flex-shrink: 0;
+.stack-card:hover h3 {
+  color: var(--color-accentText);
+}
+.stack-arrow {
+  color: var(--color-mutedForeground);
+  transition:
+    transform 0.35s var(--ease-out-expo),
+    color 0.35s var(--ease-out-expo);
+}
+.stack-card:hover .stack-arrow {
+  color: var(--color-accentText);
+  transform: translate(3px, -3px);
 }
 
 /* ─── Link underline draw ─────────────────────────────────────── */

@@ -334,365 +334,293 @@
   ],
   "projects": [
     {
-      "slug": "ecommerce-platform",
+      "slug": "clipper",
       "n": "01",
-      "title": "E-Commerce Platform",
-      "year": "2024",
+      "title": "Clipper",
+      "year": "2026",
       "role": "Fullstack",
-      "status": "Live",
+      "status": "In development",
       "tags": [
         "Next.js",
-        "Node.js",
-        "Stripe",
-        "PostgreSQL"
-      ],
-      "github": "https://github.com/soyuzalpha",
-      "live": null,
-      "desc": "Full-stack storefront with product catalog, cart, Stripe checkout, order management, and admin dashboard. Handles 10k+ SKUs.",
-      "summary": "A production-grade e-commerce platform built for a retail client. Supports 10k+ SKUs, multi-variant products, real-time inventory, and a full admin dashboard — built in 6 weeks from scratch.",
-      "challenge": "The client had an existing Shopify store that was expensive, hard to customize, and couldn't support their specific multi-warehouse inventory logic. They needed ownership of the stack.",
-      "solution": "Built a custom Next.js storefront with App Router for SSR/SSG, a Node.js/Express backend with Prisma ORM, and Stripe for payments. The admin panel is a separate React SPA with role-based access.",
-      "outcome": "Reduced monthly platform cost by 80%. Checkout conversion rate improved by 12% after optimizing the funnel. Page load times under 1.2s for product pages.",
-      "stack": [
-        {
-          "layer": "Frontend",
-          "tools": [
-            "Next.js 14",
-            "Tailwind CSS",
-            "React Query",
-            "Zustand"
-          ]
-        },
-        {
-          "layer": "Backend",
-          "tools": [
-            "Node.js",
-            "Express",
-            "Prisma ORM",
-            "PostgreSQL"
-          ]
-        },
-        {
-          "layer": "Payments",
-          "tools": [
-            "Stripe",
-            "Webhooks",
-            "Stripe Elements"
-          ]
-        },
-        {
-          "layer": "Infra",
-          "tools": [
-            "Vercel (frontend)",
-            "Railway (backend)",
-            "Cloudinary (images)"
-          ]
-        }
-      ],
-      "related": [
-        "ops-dashboard",
-        "blog-cms"
-      ],
-      "sort": 0
-    },
-    {
-      "slug": "ops-dashboard",
-      "n": "02",
-      "title": "Ops Dashboard",
-      "year": "2024",
-      "role": "Fullstack",
-      "status": "Live",
-      "tags": [
-        "React",
-        "Socket.io",
-        "Redis",
-        "TypeScript"
-      ],
-      "github": "https://github.com/soyuzalpha",
-      "live": null,
-      "desc": "Real-time logistics monitoring with WebSocket updates, interactive charts, and role-based access control. 50k+ daily requests in production.",
-      "summary": "Real-time operations dashboard for a logistics company — tracking vehicle locations, delivery statuses, and fleet performance metrics. Handles 50k+ requests per day with sub-100ms updates.",
-      "challenge": "The ops team was working with spreadsheets and delayed email reports. By the time they knew about a delivery issue, it was too late to intervene.",
-      "solution": "Built a WebSocket-powered dashboard with Socket.io, Redis pub/sub for message fanout, and Chart.js for live-updating metric charts. Role-based access for drivers, dispatchers, and managers.",
-      "outcome": "Mean response time to delivery issues dropped from 45 minutes to under 3 minutes. Zero downtime in 8 months of production.",
-      "stack": [
-        {
-          "layer": "Frontend",
-          "tools": [
-            "React",
-            "TypeScript",
-            "Chart.js",
-            "Tailwind CSS"
-          ]
-        },
-        {
-          "layer": "Real-time",
-          "tools": [
-            "Socket.io",
-            "Redis Pub/Sub"
-          ]
-        },
-        {
-          "layer": "Backend",
-          "tools": [
-            "Node.js",
-            "Express",
-            "PostgreSQL",
-            "Prisma"
-          ]
-        },
-        {
-          "layer": "Auth",
-          "tools": [
-            "JWT",
-            "RBAC middleware"
-          ]
-        }
-      ],
-      "related": [
-        "ecommerce-platform",
-        "api-boilerplate"
-      ],
-      "sort": 1
-    },
-    {
-      "slug": "api-boilerplate",
-      "n": "03",
-      "title": "REST API Boilerplate",
-      "year": "2023",
-      "role": "Backend",
-      "status": "Open source",
-      "tags": [
-        "Node.js",
-        "Express",
         "Prisma",
-        "Jest"
+        "Vercel AI SDK",
+        "Turso"
       ],
-      "github": "https://github.com/soyuzalpha",
+      "github": "https://github.com/soyuzalpha/clipper",
       "live": null,
-      "desc": "Production-ready Node.js API starter with JWT auth, rate limiting, input validation, Swagger docs, and 90%+ test coverage.",
-      "summary": "A production-ready Node.js API starter kit that I open-sourced after using a similar pattern across 5+ client projects. Skip the boilerplate, start with architecture.",
-      "challenge": "Every new project started with the same two weeks of setup: auth, validation, error handling, logging, rate limiting. Time that should be spent on product.",
-      "solution": "Codified my best patterns into a single, well-documented starter. Includes layered architecture (router → controller → service → repository), Zod validation, structured JSON logging with Pino, and a complete test suite template.",
-      "outcome": "Used as the starting point for 3 client projects. Estimated 12-15 hours saved per project in initial setup.",
+      "desc": "AI content OS for clipper creators — a campaign brief becomes ideas, a plan, clips, and performance feedback in one loop.",
+      "summary": "One workspace for short-form creators who clip brand campaigns: campaign analysis, content ideas, planner, production, clip maker, library, and analytics — with the AI closing the loop back into ideas.",
+      "challenge": "Clipper work scatters across notes, a spreadsheet, a clipping tool, and platform analytics. Every stage loses the context of the one before it, so the AI has nothing to learn from.",
+      "solution": "Nine screens on one data model, so each stage writes what the next one reads: campaign → analysis → ideas → planner → production → clips → library → analytics → optimisation. Next.js App Router, Prisma on libSQL/Turso, NextAuth for sessions, and the Vercel AI SDK for the analysis and optimisation steps.",
+      "outcome": "The loop is the product. Analytics feeds ideas directly, so the workspace gets sharper with every campaign instead of starting from zero.",
       "stack": [
         {
-          "layer": "Runtime",
+          "layer": "Frontend",
           "tools": [
-            "Node.js",
-            "Express"
-          ]
-        },
-        {
-          "layer": "Database",
-          "tools": [
-            "PostgreSQL",
-            "Prisma ORM"
-          ]
-        },
-        {
-          "layer": "Validation",
-          "tools": [
-            "Zod"
-          ]
-        },
-        {
-          "layer": "Auth",
-          "tools": [
-            "JWT",
-            "bcryptjs"
-          ]
-        },
-        {
-          "layer": "Testing",
-          "tools": [
-            "Jest",
-            "Supertest"
-          ]
-        },
-        {
-          "layer": "Logging",
-          "tools": [
-            "Pino",
-            "pino-http"
-          ]
-        }
-      ],
-      "related": [
-        "ops-dashboard",
-        "ecommerce-platform"
-      ],
-      "sort": 2
-    },
-    {
-      "slug": "blog-cms",
-      "n": "04",
-      "title": "Blog CMS",
-      "year": "2023",
-      "role": "Frontend",
-      "status": "Live",
-      "tags": [
-        "Next.js",
-        "MDX",
-        "Vercel",
-        "Tailwind"
-      ],
-      "github": "https://github.com/soyuzalpha",
-      "live": null,
-      "desc": "Headless CMS with MDX content, tag system, full-text search, and Incremental Static Regeneration. Sub-800ms load time.",
-      "summary": "A fast, minimal headless blog for a tech writer. MDX content, tag taxonomy, full-text search, reading time estimates, and an RSS feed. Loads under 800ms globally.",
-      "challenge": "The client wanted to write in Markdown with custom components, needed SEO out of the box, and didn't want to pay for a CMS subscription.",
-      "solution": "Next.js App Router with MDX processing via next-mdx-remote. Content lives in a /posts directory as .mdx files. ISR regenerates pages when content changes. Built-in search uses a client-side index.",
-      "outcome": "Core Web Vitals: LCP 0.8s, CLS 0, FID < 10ms. 95/100 Lighthouse performance score.",
-      "stack": [
-        {
-          "layer": "Framework",
-          "tools": [
-            "Next.js 14",
-            "App Router",
-            "ISR"
-          ]
-        },
-        {
-          "layer": "Content",
-          "tools": [
-            "MDX",
-            "next-mdx-remote",
-            "gray-matter"
-          ]
-        },
-        {
-          "layer": "Styling",
-          "tools": [
+            "Next.js App Router",
             "Tailwind CSS",
-            "Typography plugin"
-          ]
-        },
-        {
-          "layer": "Search",
-          "tools": [
-            "Fuse.js (client-side)"
-          ]
-        }
-      ],
-      "related": [
-        "portfolio",
-        "ecommerce-platform"
-      ],
-      "sort": 3
-    },
-    {
-      "slug": "task-manager",
-      "n": "05",
-      "title": "Task Manager",
-      "year": "2023",
-      "role": "Fullstack",
-      "status": "Live",
-      "tags": [
-        "React",
-        "Redux",
-        "Node.js",
-        "Socket.io"
-      ],
-      "github": "https://github.com/soyuzalpha",
-      "live": null,
-      "desc": "Drag-and-drop kanban board with real-time team updates via WebSocket, notifications, and user authentication.",
-      "summary": "A collaborative kanban board for small teams — drag-and-drop cards, real-time sync across users, notifications, and project-based workspaces.",
-      "challenge": "The team was using Trello but needed custom fields, time tracking, and tighter integration with their internal tools. SaaS options were either too expensive or too complex.",
-      "solution": "Custom kanban with React DnD, Socket.io for real-time sync (optimistic UI + server reconciliation), and a PostgreSQL backend with normalized board/column/card schema.",
-      "outcome": "Deployed for a 12-person team. Average task completion tracking improved by 40% in the first month.",
-      "stack": [
-        {
-          "layer": "Frontend",
-          "tools": [
-            "React",
-            "Redux Toolkit",
-            "React DnD",
-            "Tailwind"
-          ]
-        },
-        {
-          "layer": "Real-time",
-          "tools": [
-            "Socket.io",
-            "Optimistic updates"
-          ]
-        },
-        {
-          "layer": "Backend",
-          "tools": [
-            "Node.js",
-            "Express",
-            "PostgreSQL"
-          ]
-        },
-        {
-          "layer": "Auth",
-          "tools": [
-            "JWT",
-            "Refresh tokens"
-          ]
-        }
-      ],
-      "related": [
-        "ops-dashboard",
-        "api-boilerplate"
-      ],
-      "sort": 4
-    },
-    {
-      "slug": "analytics-dashboard",
-      "n": "06",
-      "title": "Analytics Dashboard",
-      "year": "2024",
-      "role": "Frontend",
-      "status": "WIP",
-      "tags": [
-        "React",
-        "Chart.js",
-        "TypeScript"
-      ],
-      "github": "https://github.com/soyuzalpha",
-      "live": null,
-      "desc": "Data visualization dashboard with filterable charts, date range pickers, and CSV/PDF export. Built for a logistics client.",
-      "summary": "A data visualization dashboard for a logistics client — filterable time-series charts, KPI cards, date range pickers, and one-click CSV/PDF exports.",
-      "challenge": "The client had data scattered across 3 systems and was exporting to Excel weekly to build manual reports. Each report took 3-4 hours.",
-      "solution": "Built a dashboard that pulls from a single aggregated API endpoint. Chart.js for interactive visualizations, date-fns for range calculations, and jsPDF for on-demand PDF reports.",
-      "outcome": "Still in development — targeting 90% reduction in time spent on weekly reporting.",
-      "stack": [
-        {
-          "layer": "Frontend",
-          "tools": [
-            "React",
-            "TypeScript",
-            "Chart.js",
-            "Tailwind"
+            "shadcn/ui",
+            "TanStack Query"
           ]
         },
         {
           "layer": "Data",
           "tools": [
-            "REST API integration",
-            "date-fns"
+            "Prisma",
+            "libSQL (Turso)",
+            "Zod"
           ]
         },
         {
-          "layer": "Export",
+          "layer": "AI",
           "tools": [
-            "jsPDF",
-            "PapaParse (CSV)"
+            "Vercel AI SDK",
+            "OpenAI"
+          ]
+        },
+        {
+          "layer": "Auth",
+          "tools": [
+            "NextAuth"
           ]
         }
       ],
       "related": [
-        "ops-dashboard",
-        "task-manager"
+        "support-hrd",
+        "bos"
       ],
-      "sort": 5
+      "sort": 0
+    },
+    {
+      "slug": "support-hrd",
+      "n": "02",
+      "title": "Support HRD",
+      "year": "2025",
+      "role": "Fullstack",
+      "status": "In development",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "React Query",
+        "Radix UI"
+      ],
+      "github": "https://github.com/soyuzalpha/support-hrd",
+      "live": null,
+      "desc": "HR support portal — authenticated dashboard, request forms, and PDF exports on top of a typed service layer.",
+      "summary": "Internal HR support app: login, dashboard, and request flows, with a service layer and hooks keeping data access out of the components.",
+      "challenge": "HR requests arrived over chat and email, so there was no record of who asked, when, or what happened next.",
+      "solution": "Next.js App Router with route-handler APIs, React Query for caching and mutations, react-hook-form + Zod for the forms, Radix and shadcn primitives for the UI, and @react-pdf/renderer to hand back a document. Service and hook layers keep the components thin.",
+      "outcome": "Requests have one place to live, and no component calls fetch directly — swapping the backend touches the service layer only.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js App Router",
+            "TypeScript",
+            "Tailwind CSS",
+            "Radix UI",
+            "react-three-fiber"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "React Query",
+            "react-hook-form",
+            "Zod"
+          ]
+        },
+        {
+          "layer": "Output",
+          "tools": [
+            "@react-pdf/renderer"
+          ]
+        },
+        {
+          "layer": "Tooling",
+          "tools": [
+            "pnpm",
+            "ESLint"
+          ]
+        }
+      ],
+      "related": [
+        "clipper",
+        "bos"
+      ],
+      "sort": 1
+    },
+    {
+      "slug": "bos",
+      "n": "03",
+      "title": "BOS",
+      "year": "2026",
+      "role": "Fullstack",
+      "status": "In development",
+      "tags": [
+        "NestJS",
+        "Next.js",
+        "TypeScript",
+        "Jest"
+      ],
+      "github": "https://github.com/soyuzalpha/bos",
+      "live": null,
+      "desc": "Two apps in one repo — a NestJS REST API and a Next.js frontend, kept on the same conventions.",
+      "summary": "A monorepo split into backend/ and frontend/: NestJS with RxJS and Jest on one side, Next.js with Tailwind on the other, one lint and format standard over both.",
+      "challenge": "Keeping an API and its client in separate repos meant two pull requests and a version dance for every contract change.",
+      "solution": "One repo, two apps. NestJS modules with DTO validation and Jest for the API; Next.js App Router with Tailwind and strict TypeScript for the UI. ESLint and Prettier run in both, so a change can't land half-formatted.",
+      "outcome": "A contract change is one commit — the API and the screen that calls it move together.",
+      "stack": [
+        {
+          "layer": "Backend",
+          "tools": [
+            "NestJS",
+            "TypeScript",
+            "RxJS",
+            "Jest"
+          ]
+        },
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js App Router",
+            "Tailwind CSS",
+            "TypeScript strict"
+          ]
+        },
+        {
+          "layer": "Repo",
+          "tools": [
+            "backend/",
+            "frontend/",
+            "docs/",
+            "shared ESLint + Prettier"
+          ]
+        }
+      ],
+      "related": [
+        "clipper",
+        "median-api-nest-js-prisma-postgres"
+      ],
+      "sort": 2
+    },
+    {
+      "slug": "chat-group",
+      "n": "04",
+      "title": "Chat Group",
+      "year": "2023",
+      "role": "Fullstack",
+      "status": "Live",
+      "tags": [
+        "Socket.io",
+        "Prisma",
+        "PostgreSQL",
+        "Next.js"
+      ],
+      "github": "https://github.com/soyuzalpha/chat-group",
+      "live": "https://chat-group-me.vercel.app",
+      "desc": "Realtime group chat — rooms, presence, and message history over Socket.io, with JWT auth and a Postgres store.",
+      "summary": "Fullstack realtime chat: a Next.js client with Redux Toolkit and Chakra UI, Express + Prisma + PostgreSQL behind it, and Socket.io carrying messages both ways.",
+      "challenge": "Chat is the classic place where optimistic UI and a real database disagree — the message you see and the message stored aren't always the same one.",
+      "solution": "Socket.io for transport, Prisma + PostgreSQL as the single source of truth, JWT for auth and bcrypt for credentials. Redux Toolkit with redux-persist keeps the client session across reloads; the server event is what actually appends a message.",
+      "outcome": "Messages survive a refresh, because the server write — not the client state — is the record.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js",
+            "Chakra UI",
+            "Redux Toolkit",
+            "redux-persist",
+            "Socket.io client"
+          ]
+        },
+        {
+          "layer": "Backend",
+          "tools": [
+            "Node.js",
+            "Express",
+            "Socket.io",
+            "JWT",
+            "bcrypt"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "Prisma ORM",
+            "PostgreSQL"
+          ]
+        }
+      ],
+      "related": [
+        "articles-app",
+        "bos"
+      ],
+      "sort": 3
+    },
+    {
+      "slug": "articles-app",
+      "n": "05",
+      "title": "Articles",
+      "year": "2023",
+      "role": "Fullstack",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "TipTap",
+        "Prisma",
+        "NextAuth"
+      ],
+      "github": "https://github.com/soyuzalpha/articles-app",
+      "live": "https://articels-me.vercel.app",
+      "desc": "Blog platform with a rich-text editor, drafts, favourites, and per-user profiles — NextAuth over Prisma.",
+      "summary": "A publishing app: write in a TipTap editor, keep drafts, publish, favourite what you read, and own a profile.",
+      "challenge": "Rich text has two failure modes — storing HTML you can't safely render later, or storing JSON you can't search.",
+      "solution": "TipTap on top of StarterKit for authoring, NextAuth with the Prisma adapter for sessions, Prisma + PostgreSQL for content, Chakra UI for the interface. Posts and profiles stay ordinary rows, so the editor never leaks into the data layer.",
+      "outcome": "Editing is the hard part, and it lives in one component — everywhere else a post is just text.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js",
+            "Chakra UI",
+            "TipTap",
+            "react-hook-form",
+            "Framer Motion"
+          ]
+        },
+        {
+          "layer": "Auth",
+          "tools": [
+            "NextAuth",
+            "Prisma adapter"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "Prisma ORM",
+            "PostgreSQL"
+          ]
+        },
+        {
+          "layer": "Extras",
+          "tools": [
+            "nodemailer",
+            "firebase-admin"
+          ]
+        }
+      ],
+      "related": [
+        "chat-group",
+        "clipper"
+      ],
+      "sort": 4
     },
     {
       "slug": "portfolio",
-      "n": "07",
+      "n": "06",
       "title": "This Portfolio",
       "year": "2024",
       "role": "Design + Dev",
@@ -700,52 +628,430 @@
       "tags": [
         "Next.js",
         "GSAP",
+        "SQLite",
         "TypeScript"
       ],
-      "github": "https://github.com/soyuzalpha",
+      "github": "https://github.com/soyuzalpha/aseppp-web",
       "live": "/",
-      "desc": "The site you're on — editorial layout, custom cursor, multi-theme system, GSAP scroll animations, horizontal scroll projects.",
-      "summary": "You're looking at it. Editorial typographic design, custom cursor with mix-blend-mode difference, multi-theme system with 9 themes, GSAP scroll animations, horizontal scroll projects, full-viewport hero, and a photos gallery.",
-      "challenge": "Every developer portfolio looks the same — hero photo, feature cards, project grid, contact form. I wanted something with a strong visual identity that felt personal.",
-      "solution": "Threw out the template. Built around a magazine editorial concept: oversized type as the UI, numbered sections, horizontal scroll, glass panels as the only decoration, and a cursor that inverts colors underneath it.",
-      "outcome": "You're here. I'd call that a success.",
+      "desc": "This site — editorial layout, multi-theme system, GSAP scroll animations, and a SQLite-backed admin.",
+      "summary": "The site you're reading: a Next.js App Router portfolio with a theme system, scroll animations, and content you edit from /admin.",
+      "challenge": "A portfolio you can't update stops being true. Hardcoded content means every new project is a code change and a deploy.",
+      "solution": "Content lives in SQLite through node:sqlite — no extra service to run — behind route handlers and an admin UI for posts, projects, and photo uploads. Theming is CSS variables driven by a small React context, and GSAP handles the scroll work.",
+      "outcome": "Adding a project or a post is a form, not a commit.",
       "stack": [
         {
-          "layer": "Framework",
+          "layer": "Frontend",
           "tools": [
-            "Next.js 14",
-            "App Router"
-          ]
-        },
-        {
-          "layer": "Styling",
-          "tools": [
+            "Next.js App Router",
+            "React 19",
             "Tailwind CSS",
+            "GSAP"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "SQLite (node:sqlite)",
+            "route handlers",
+            "admin UI"
+          ]
+        },
+        {
+          "layer": "Theming",
+          "tools": [
             "CSS variables",
-            "Custom design system"
+            "React context"
           ]
         },
         {
-          "layer": "Animation",
+          "layer": "Deploy",
           "tools": [
-            "GSAP",
-            "ScrollTrigger"
-          ]
-        },
-        {
-          "layer": "Theme",
-          "tools": [
-            "React context",
-            "CSS custom properties",
-            "9 themes"
+            "Docker",
+            "self-hosted runner",
+            "cloudflared"
           ]
         }
       ],
       "related": [
-        "blog-cms",
-        "ecommerce-platform"
+        "clipper",
+        "articles-app"
+      ],
+      "sort": 5
+    },
+    {
+      "slug": "median-api-nest-js-prisma-postgres",
+      "n": "07",
+      "title": "Median API",
+      "year": "2024",
+      "role": "Backend",
+      "status": "Open source",
+      "tags": [
+        "NestJS",
+        "Prisma",
+        "PostgreSQL",
+        "Swagger"
+      ],
+      "github": "https://github.com/soyuzalpha/median-api-nest-js-prisma-postgres",
+      "live": null,
+      "desc": "REST API for a Medium-style publishing backend — JWT auth, DTO validation, and generated Swagger docs.",
+      "summary": "A NestJS service split into modules with Prisma over PostgreSQL, passport-jwt for auth, and class-validator guarding every payload.",
+      "challenge": "A REST API without a published contract is a guess — the client finds out what the server accepts by getting a 400 back.",
+      "solution": "DTOs with class-validator and class-transformer on every route, @nestjs/swagger generating the spec from those same types, Prisma for schema and migrations, and a JWT strategy for protected routes.",
+      "outcome": "The docs are generated from the validation rules, so they can't drift from what the API actually accepts.",
+      "stack": [
+        {
+          "layer": "Framework",
+          "tools": [
+            "NestJS",
+            "TypeScript",
+            "RxJS"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "Prisma ORM",
+            "PostgreSQL"
+          ]
+        },
+        {
+          "layer": "Auth",
+          "tools": [
+            "passport-jwt",
+            "bcrypt"
+          ]
+        },
+        {
+          "layer": "Docs & Tests",
+          "tools": [
+            "Swagger",
+            "Jest",
+            "Supertest"
+          ]
+        }
+      ],
+      "related": [
+        "bos",
+        "clipper"
       ],
       "sort": 6
+    },
+    {
+      "slug": "quiz-app",
+      "n": "08",
+      "title": "Quiz App",
+      "year": "2024",
+      "role": "Frontend",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "Framer Motion",
+        "Radix UI",
+        "Tailwind CSS"
+      ],
+      "github": "https://github.com/soyuzalpha/quiz-app",
+      "live": "https://quiz-app-sage-beta.vercel.app/",
+      "desc": "Frontend quiz — pick a subject, answer timed questions, and get a scored breakdown at the end.",
+      "summary": "A quiz flow from subject picker to results: progress, scoring, and a bit of confetti when you land it.",
+      "challenge": "A quiz is mostly state — current question, selected answer, score, and whether you've already submitted. Get that wrong and a double click scores twice.",
+      "solution": "A single client-side state machine for the flow, Radix primitives for the answer options and the progress bar, Framer Motion for the transitions, and next-themes for the dark mode toggle.",
+      "outcome": "Answer → feedback → next question, with no way to submit the same question twice.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js",
+            "React",
+            "Tailwind CSS",
+            "Radix UI"
+          ]
+        },
+        {
+          "layer": "Motion",
+          "tools": [
+            "Framer Motion",
+            "react-confetti"
+          ]
+        },
+        {
+          "layer": "UX",
+          "tools": [
+            "next-themes",
+            "Tailwind Animate"
+          ]
+        }
+      ],
+      "related": [
+        "job-listing",
+        "rest-countries"
+      ],
+      "sort": 7
+    },
+    {
+      "slug": "rest-countries",
+      "n": "09",
+      "title": "REST Countries",
+      "year": "2024",
+      "role": "Frontend",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "Tailwind CSS",
+        "REST API",
+        "Dark mode"
+      ],
+      "github": "https://github.com/soyuzalpha/rest-countries",
+      "live": "https://rest-countries-silk-zeta.vercel.app/",
+      "desc": "Country explorer on the REST Countries API — search, region filter, and detail pages you can walk by border.",
+      "summary": "Browse every country, filter by region or name, then follow a border straight to the next one.",
+      "challenge": "The API gives you country names for borders, not the countries — so every detail page needs a second lookup just to render its neighbours.",
+      "solution": "Next.js pages over the REST Countries API, Tailwind for the responsive grid, and a small mapping step that resolves border codes against the full list before render.",
+      "outcome": "You can travel the map by border instead of going back to the index every time.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js",
+            "React",
+            "Tailwind CSS"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "REST Countries API"
+          ]
+        },
+        {
+          "layer": "UX",
+          "tools": [
+            "next-themes",
+            "heroicons"
+          ]
+        }
+      ],
+      "related": [
+        "ip-address-tracker",
+        "dictionary-app"
+      ],
+      "sort": 8
+    },
+    {
+      "slug": "ip-address-tracker",
+      "n": "10",
+      "title": "IP Address Tracker",
+      "year": "2023",
+      "role": "Frontend",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "Leaflet",
+        "SWR",
+        "react-hook-form"
+      ],
+      "github": "https://github.com/soyuzalpha/ip-address-tracker",
+      "live": "https://identity-address-tracker.vercel.app/",
+      "desc": "IP and domain tracker — look up any address, drop it on a Leaflet map, and see the ISP behind it.",
+      "summary": "Type an IP or a domain, get location, timezone, and ISP, plotted on a live map.",
+      "challenge": "Map libraries assume they own the layout and the DOM. Leaflet inside React needs its lifecycle handled, and its default marker icons break under a bundler.",
+      "solution": "react-leaflet with the default-icon fix applied, a controlled form via react-hook-form, and SWR for the lookup so repeat queries come from cache. Map position is state, not a remount.",
+      "outcome": "A new search re-centres the map instead of rebuilding it.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js",
+            "Tailwind CSS"
+          ]
+        },
+        {
+          "layer": "Maps",
+          "tools": [
+            "Leaflet",
+            "react-leaflet",
+            "leaflet-geosearch"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "SWR",
+            "IP geolocation API"
+          ]
+        },
+        {
+          "layer": "Forms",
+          "tools": [
+            "react-hook-form"
+          ]
+        }
+      ],
+      "related": [
+        "rest-countries",
+        "dictionary-app"
+      ],
+      "sort": 9
+    },
+    {
+      "slug": "job-listing",
+      "n": "11",
+      "title": "Job Listing",
+      "year": "2024",
+      "role": "Frontend",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS"
+      ],
+      "github": "https://github.com/soyuzalpha/job-listing",
+      "live": "https://job-listing-dusky.vercel.app",
+      "desc": "Job board where the filter bar is the whole interface — stack tags narrow the list live.",
+      "summary": "Search roles by language, tool, or level, and watch the list react as tags come and go.",
+      "challenge": "Filtering by several tags at once is a set intersection, and doing it in the wrong place means either a request per click or a list that quietly goes stale.",
+      "solution": "TypeScript with a typed listing shape, the dataset held client-side, and the active filters as a set — so adding a tag is one intersection over an array that's already in memory.",
+      "outcome": "Every filter change is instant: no request, no spinner.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js",
+            "TypeScript",
+            "Tailwind CSS"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "static dataset",
+            "typed filters"
+          ]
+        },
+        {
+          "layer": "Tooling",
+          "tools": [
+            "ESLint",
+            "PostCSS"
+          ]
+        }
+      ],
+      "related": [
+        "quiz-app",
+        "search-github-user"
+      ],
+      "sort": 10
+    },
+    {
+      "slug": "dictionary-app",
+      "n": "12",
+      "title": "Dictionary",
+      "year": "2023",
+      "role": "Frontend",
+      "status": "Live",
+      "tags": [
+        "Next.js",
+        "Redux Toolkit",
+        "Chakra UI",
+        "Axios"
+      ],
+      "github": "https://github.com/soyuzalpha/dictionary-app",
+      "live": "https://awesome-dictionary.vercel.app",
+      "desc": "Dictionary lookup — definitions, phonetics, synonyms, and audio pronunciation from one search.",
+      "summary": "Search a word, get its meanings by part of speech, plus synonyms and a play button for the audio.",
+      "challenge": "Dictionary responses are nested and irregular: not every entry has phonetics, audio, or synonyms, so naive rendering crashes on the gaps.",
+      "solution": "Redux Toolkit for search state and the loading/error paths, Axios for the fetch, Chakra UI for the presentation, and defensive rendering that skips missing fields rather than assuming them.",
+      "outcome": "A word with half the usual fields still renders — the missing parts just don't appear.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Next.js",
+            "Chakra UI",
+            "Framer Motion"
+          ]
+        },
+        {
+          "layer": "State",
+          "tools": [
+            "Redux Toolkit",
+            "react-redux"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "Axios",
+            "Free Dictionary API"
+          ]
+        },
+        {
+          "layer": "Forms",
+          "tools": [
+            "react-hook-form"
+          ]
+        }
+      ],
+      "related": [
+        "rest-countries",
+        "search-github-user"
+      ],
+      "sort": 11
+    },
+    {
+      "slug": "search-github-user",
+      "n": "13",
+      "title": "GitHub User Search",
+      "year": "2023",
+      "role": "Frontend",
+      "status": "Live",
+      "tags": [
+        "Vue 3",
+        "Pinia",
+        "Tailwind CSS",
+        "Vitest"
+      ],
+      "github": "https://github.com/soyuzalpha/search-github-user",
+      "live": "https://search-github-user-dusky.vercel.app",
+      "desc": "GitHub user search in Vue 3 — profile, repos, followers, and links, in light and dark.",
+      "summary": "Search a handle and get the profile: avatar, bio, stats, links, and repos.",
+      "challenge": "Search-as-you-type against a rate-limited API will get you blocked, and an empty state is easy to forget until someone types nonsense.",
+      "solution": "Vue 3 with Pinia for the store and Vue Router for the profile route, Axios against the GitHub API, and a debounced query with explicit idle / loading / error / empty states. Vitest and Cypress cover the store and the search flow.",
+      "outcome": "Bad input gets an empty state, not a blank screen.",
+      "stack": [
+        {
+          "layer": "Frontend",
+          "tools": [
+            "Vue 3",
+            "Vue Router",
+            "Tailwind CSS"
+          ]
+        },
+        {
+          "layer": "State",
+          "tools": [
+            "Pinia"
+          ]
+        },
+        {
+          "layer": "Data",
+          "tools": [
+            "Axios",
+            "GitHub REST API"
+          ]
+        },
+        {
+          "layer": "Tests",
+          "tools": [
+            "Vitest",
+            "Cypress"
+          ]
+        }
+      ],
+      "related": [
+        "job-listing",
+        "dictionary-app"
+      ],
+      "sort": 12
     }
   ]
 }

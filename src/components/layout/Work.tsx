@@ -6,58 +6,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import SectionLabel from "@/components/ui/SectionLabel";
+import type { Project } from "@/lib/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PROJECTS = [
-  {
-    n: "01",
-    title: "E-Commerce Platform",
-    year: "2024",
-    tags: ["Next.js", "Node.js", "Stripe", "PostgreSQL"],
-    desc: "Full-stack storefront — product catalog, checkout, order management, and admin panel. Handles 10k+ SKUs.",
-    href: "/project/ecommerce-platform",
-    role: "Fullstack",
-  },
-  {
-    n: "02",
-    title: "Ops Dashboard",
-    year: "2024",
-    tags: ["React", "Socket.io", "Redis"],
-    desc: "Real-time logistics monitoring with WebSocket updates and role-based access. 50k+ daily requests in prod.",
-    href: "/project/ops-dashboard",
-    role: "Fullstack",
-  },
-  {
-    n: "03",
-    title: "API Boilerplate",
-    year: "2023",
-    tags: ["Node.js", "Prisma", "Jest"],
-    desc: "Production-ready Node.js starter — JWT auth, rate limiting, Swagger docs, 90%+ test coverage.",
-    href: "/project/api-boilerplate",
-    role: "Backend",
-  },
-  {
-    n: "04",
-    title: "Blog CMS",
-    year: "2023",
-    tags: ["Next.js", "MDX", "Vercel"],
-    desc: "Headless CMS with MDX content, tag system, full-text search, and ISR. Loads in under 800ms.",
-    href: "/project/blog-cms",
-    role: "Frontend",
-  },
-  {
-    n: "05",
-    title: "This Portfolio",
-    year: "2024",
-    tags: ["Next.js", "GSAP", "TypeScript"],
-    desc: "What you're looking at — editorial layout, multi-theme system, custom cursor, GSAP scroll animations.",
-    href: "/project/portfolio",
-    role: "Design + Dev",
-  },
-];
+/* How many cards the landing page shows. The rest live on /project — the
+   deck is a highlight reel, not the archive. */
+const SHOWN = 6;
 
-export default function Work() {
+export default function Work({ projects }: { projects: Project[] }) {
   const secRef  = useRef<HTMLElement>(null);
   const headRef = useRef<HTMLDivElement>(null);
 
@@ -95,10 +52,10 @@ export default function Work() {
           visibly piles up as you scroll. See .stack-card in globals.css. */}
       <div className="col">
         <div className="stack-deck">
-          {PROJECTS.map((p, i) => (
+          {projects.slice(0, SHOWN).map((p, i) => (
             <Link
-              key={p.n}
-              href={p.href}
+              key={p.slug}
+              href={`/project/${p.slug}`}
               className="stack-card"
               style={{ ["--i" as string]: i }}
             >

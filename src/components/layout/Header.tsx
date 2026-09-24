@@ -52,10 +52,7 @@ export default function Header() {
             }}
             aria-label="Home"
           >
-            <SectionLabel n="00" children={"COSMIC"} />
-            {/* <span>
-              ~/cosmic/{NAV.find((item) => item.href === pathname)?.label?.toLowerCase() ?? pathname.replace("/", "")}
-            </span> */}
+            <SectionLabel n="00">COSMIC</SectionLabel>
           </Link>
 
           <div className="flex items-center gap-3">

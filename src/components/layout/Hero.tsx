@@ -136,7 +136,7 @@ export default function Hero() {
           }}
         >
           {/* Label row */}
-          <SectionLabel n="01">FULLSTACK DEVELOPER · Tangerang Selatan, ID</SectionLabel>
+          <SectionLabel n="00">FULLSTACK DEVELOPER · Tangerang Selatan, ID</SectionLabel>
 
           {/* Name */}
           <h1 id="hero-name" className="type-display" style={{ color: "var(--color-foreground)" }}>

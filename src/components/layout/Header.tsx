@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { Menu, X } from "lucide-react";
+import SectionLabel from "../ui/SectionLabel";
 
 const NAV = [
   { label: "About", href: "/about" },
@@ -42,7 +43,6 @@ export default function Header() {
           {/* Logo — wordmark only */}
           <Link
             href="/"
-            className="type-mono"
             style={{
               // color: "var(--color-accentText)",
               fontSize: "0.8rem",
@@ -52,9 +52,10 @@ export default function Header() {
             }}
             aria-label="Home"
           >
-            <span>
+            <SectionLabel n="00" children={"COSMIC"} />
+            {/* <span>
               ~/cosmic/{NAV.find((item) => item.href === pathname)?.label?.toLowerCase() ?? pathname.replace("/", "")}
-            </span>
+            </span> */}
           </Link>
 
           <div className="flex items-center gap-3">

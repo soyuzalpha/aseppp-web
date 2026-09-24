@@ -6,26 +6,26 @@
 
 /* ─── Design tokens ───────────────────────────────────────────── */
 :root {
-  /* colors — light (paper) */
-  --color-background: #f7f6f2;
-  --color-foreground: #1c1c1a;
-  --color-primary: #1c1c1a;
-  --color-primaryForeground: #f7f6f2;
-  --color-secondary: #ececea;
-  --color-secondaryForeground: #1c1c1a;
-  --color-muted: #ececea;
-  --color-mutedForeground: #8a8880;
-  --color-accent: #43ff88;
-  --color-accentForeground: #f7f6f2;
-  /* Accent for text. The brand green is 1.2:1 on paper — invisible as a
-     colour, fine as a fill. Same hue, dropped to value 0.50 (4.7:1 AA). */
-  --color-accentText: #00802f;
+  /* colors — light (paper). Palette: Carbon #171717 + Lime #C0FF34. */
+  --color-background: #f6f6f4;
+  --color-foreground: #171717;
+  --color-primary: #171717;
+  --color-primaryForeground: #f6f6f4;
+  --color-secondary: #eaeae7;
+  --color-secondaryForeground: #171717;
+  --color-muted: #eaeae7;
+  --color-mutedForeground: #6b6b66;
+  --color-accent: #c0ff34;
+  --color-accentForeground: #171717;
+  /* Lime is 1.1:1 on paper — a fill, never a text colour. Same hue at
+     value 0.43 gives 5.4:1 for links and inline accents. */
+  --color-accentText: #4f6e00;
   --color-accent-2: #c98a2d;
-  --color-border: #dedcd5;
-  --color-card: #efeee9;
-  --color-cardForeground: #1c1c1a;
-  --color-ring: #1c1c1a;
-  --grid-line: rgba(28, 28, 26, 0.05);
+  --color-border: #dcdcd8;
+  --color-card: #ededea;
+  --color-cardForeground: #171717;
+  --color-ring: #171717;
+  --grid-line: rgba(23, 23, 23, 0.05);
 
   /* typography */
   --font-editorial: "Archivo Black", "JetBrains Mono", sans-serif;
@@ -44,24 +44,24 @@
 }
 
 .dark {
-  --color-background: #131311;
-  --color-foreground: #e8e6e1;
-  --color-primary: #e8e6e1;
-  --color-primaryForeground: #131311;
-  --color-secondary: #1e1e1c;
-  --color-secondaryForeground: #e8e6e1;
-  --color-muted: #1e1e1c;
-  --color-mutedForeground: #8a887e;
-  --color-accent: #43ff88;
-  --color-accentForeground: #131311;
-  /* Already 14:1 here, so the text accent is the brand green itself. */
-  --color-accentText: #43ff88;
+  --color-background: #171717;
+  --color-foreground: #e8e8e6;
+  --color-primary: #e8e8e6;
+  --color-primaryForeground: #171717;
+  --color-secondary: #1f1f1f;
+  --color-secondaryForeground: #e8e8e6;
+  --color-muted: #1f1f1f;
+  --color-mutedForeground: #8c8c88;
+  --color-accent: #c0ff34;
+  --color-accentForeground: #171717;
+  /* 15:1 on Carbon, so the text accent is Lime itself. */
+  --color-accentText: #c0ff34;
   --color-accent-2: #d9a04a;
-  --color-border: #2a2a27;
-  --color-card: #1b1b19;
-  --color-cardForeground: #e8e6e1;
-  --color-ring: #e8e6e1;
-  --grid-line: rgba(232, 230, 225, 0.05);
+  --color-border: #2b2b2b;
+  --color-card: #1e1e1e;
+  --color-cardForeground: #e8e8e6;
+  --color-ring: #e8e8e6;
+  --grid-line: rgba(232, 232, 230, 0.05);
 }
 
 /* ─── Base reset ──────────────────────────────────────────────── */

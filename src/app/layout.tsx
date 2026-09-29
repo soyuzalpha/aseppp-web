@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Asep Saepudin — Fullstack Developer",
   description:
     "Fullstack web developer from Indonesia. Building scalable web applications — from the database to the pixel.",
+  verification: {
+    google: "fxT3FGmkpC7Nt-uXtX4zOpPc7CldVLaw8o_uCgsEml0",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

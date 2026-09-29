@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Asep Saepudin — Fullstack Developer",
   description:
     "Fullstack web developer from Indonesia. Building scalable web applications — from the database to the pixel.",

@@ -25,7 +25,18 @@
   --color-card: #ededea;
   --color-cardForeground: #171717;
   --color-ring: #171717;
-  --grid-line: rgba(23, 23, 23, 0.05);
+
+  /* Paper grain: SVG fractal noise over the flat background, blended with
+     `background-blend-mode: overlay` so one asset reads right in both themes
+     (overlay darkens light paper, lightens Carbon) — no per-theme override.
+     Two fixes are needed for the noise to show at all, both measured, not
+     guessed: (1) raw feTurbulence is a flat mid-grey (sd≈15/255) and overlay
+     flattens that to nothing, so feComponentTransfer stretches it to full
+     range; (2) turbulence's alpha is noisy too, so pin it to 1 or the grain
+     composites at ~35% and washes out. At this setting the composited sd is
+     ≈5 on paper and ≈13 on Carbon — the ceiling for overlay on a near-white
+     backdrop, so do not expect more headroom from the light side. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='4' intercept='-1.5'/%3E%3CfeFuncG type='linear' slope='4' intercept='-1.5'/%3E%3CfeFuncB type='linear' slope='4' intercept='-1.5'/%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
 
   /* typography */
   --font-editorial: "Archivo Black", "JetBrains Mono", sans-serif;
@@ -61,7 +72,6 @@
   --color-card: #1e1e1e;
   --color-cardForeground: #e8e8e6;
   --color-ring: #e8e8e6;
-  --grid-line: rgba(232, 232, 230, 0.05);
 }
 
 /* ─── Base reset ──────────────────────────────────────────────── */
@@ -80,10 +90,12 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--color-background);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 44px 44px;
+  background-image: var(--grain);
+  background-size: 160px 160px;
+  /* Grain over the flat paper. `overlay` keeps the page's own tone while the
+     noise bites into it; `normal` reads as a grey wash, `multiply` kills the
+     dark theme. */
+  background-blend-mode: overlay;
   color: var(--color-foreground);
   transition:
     background-color 0.5s ease,

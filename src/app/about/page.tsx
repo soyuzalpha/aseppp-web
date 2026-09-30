@@ -86,6 +86,23 @@ const ROW_SPLIT = {
   borderBottom: "1px solid var(--color-border)",
 };
 
+/* Skill rows reuse the Experience rhythm — layer name in the index column,
+   tags flowing beside it. The old 4-card grid left the 4th card orphaned on
+   its own row (3×356px fit, so "Tools" wrapped) and stretched the 2-tag
+   "Mobile" card to the tallest row's height.
+   The label column is a flat 6rem, not the 7–11rem Experience gutter: that
+   gutter left the tags only 864px, so the 10 Frontend tags overflowed by 55px
+   and orphaned "Redux Toolkit" on a second line. It must stay a fixed width
+   (not `max-content`) so all four tag columns start at the same x — each row
+   is its own grid, so a content-sized label column aligns differently per
+   row. */
+const SKILL_SPLIT = {
+  ["--split-a" as string]: "6rem",
+  ["--split-gap" as string]: "2rem",
+  paddingBlock: "1.25rem",
+  borderBottom: "1px solid var(--color-border)",
+};
+
 /* Experience rows carry bullets, so they get two columns — the bullets take
    the full width next to the dates instead of a cramped third column. */
 const EXP_SPLIT = {
@@ -142,17 +159,31 @@ export default function AboutPage() {
           style={{
             paddingBlock: "3.5rem",
             borderBottom: "1px solid var(--color-border)",
-            ["--split-a" as string]: "clamp(7rem, 15vw, 11rem)",
+            ["--split-a" as string]: "clamp(12rem, 25vw, 20rem)",
             ["--split-gap" as string]: "3rem",
           }}
         >
-          <div style={{ aspectRatio: "1", overflow: "hidden" }}>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "20rem",
+              aspectRatio: "1",
+              overflow: "hidden",
+              borderRadius: "4px",
+            }}
+          >
             <Image
               src="/profile_picture.png"
               alt="Asep Saepudin"
-              width={400}
-              height={400}
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+              width={500}
+              height={500}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top",
+                filter: "grayscale(20%)",
+              }}
             />
           </div>
           <div>
@@ -186,33 +217,20 @@ export default function AboutPage() {
           <p className="type-label mb-8 reveal">
             <span style={{ color: "var(--color-accentText)", marginRight: "0.5em" }}>Skills</span>
           </p>
-          <div
-            className="grid gap-px reveal"
-            style={{
-              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 22rem), 1fr))",
-              border: "1px solid var(--color-border)",
-            }}
-          >
-            {SKILLS.map(([layer, tools]) => (
-              <div
-                key={layer}
-                style={{
-                  padding: "1.75rem",
-                  borderRight: "1px solid var(--color-border)",
-                  backgroundColor: "var(--color-card)",
-                }}
-              >
-                <p className="type-index mb-3" style={{ color: "var(--color-accentText)" }}>
-                  {layer}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {tools.map((t) => (
-                    <span key={t} className="tag">{t}</span>
-                  ))}
-                </div>
+          {SKILLS.map(([layer, tools]) => (
+            <div key={layer} className="reveal split" style={SKILL_SPLIT}>
+              <span className="type-index" style={{ color: "var(--color-accentText)" }}>
+                {layer}
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {tools.map((t) => (
+                  <span key={t} className="tag">
+                    {t}
+                  </span>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         {/* ── Experience ── */}

@@ -7,3 +7,4 @@ docker-compose.yml
 npm-debug.log*
 pnpm-debug.log*
 storage
+drafts

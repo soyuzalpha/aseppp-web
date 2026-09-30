@@ -13,8 +13,9 @@ jobs:
     runs-on: self-hosted
 
     # Database and uploaded photos live on the host, so they outlive the image
-    # that wrote them. Under $HOME because the runner user has no sudo, and a
-    # container-created directory would end up root-owned.
+    # that wrote them. Inside the repo under ~/app (gitignored), because the
+    # runner user has no sudo and a container-created directory would be
+    # root-owned.
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -38,7 +39,7 @@ jobs:
 
       - name: Prepare storage
         run: |
-          STORAGE_DIR="$HOME/aseppp-web/storage"
+          STORAGE_DIR="$HOME/app/aseppp-web/storage"
           echo "STORAGE_DIR=$STORAGE_DIR" >> "$GITHUB_ENV"
           mkdir -p "$STORAGE_DIR"
 

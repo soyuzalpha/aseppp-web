@@ -349,6 +349,98 @@ body {
   background: var(--color-border);
 }
 
+/* ─── Stack ticker ────────────────────────────────────────────────
+   Full-bleed band. The track holds two copies of the list and the loop
+   translates by exactly -50%, so one copy has always scrolled off by the time
+   the tween restarts and the seam is invisible. It is `max-content` so the two
+   copies sit side by side instead of wrapping.
+   The outer band is `overflow: hidden`, which is safe here — it is a leaf
+   wrapper with nothing sticky inside it. */
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  padding-block: clamp(1.25rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-secondary);
+  user-select: none;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-editorial);
+  font-size: clamp(1.5rem, 4.5vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-foreground);
+  white-space: nowrap;
+}
+/* Lime diamond between items — a separator that survives the two-copy seam
+   because it is part of the item, not a sibling. */
+.marquee-item::after {
+  content: "";
+  width: 0.28em;
+  height: 0.28em;
+  margin-inline: clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* ─── Cursor spotlight ────────────────────────────────────────────
+   A soft lime glow under the pointer, so the paper grain you only see up
+   close lights up as the cursor passes. `mix-blend-mode: soft-light` keeps
+   it a tint rather than a painted disc: on paper it warms, on Carbon it
+   lifts. `is-on` is added on the first pointermove — without it the glow
+   sits parked at (0,0) on load. */
+.spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: clamp(18rem, 40vw, 32rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  /* -1, not 0: the page wrapper is itself a stacking context (position:
+     relative + z-index: 1), so a child at 0 would paint OVER the text. At -1
+     it sits above the body background it blends with and behind the content. */
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(circle, var(--color-accent) 0%, transparent 68%);
+  mix-blend-mode: soft-light;
+  transition: opacity 0.6s ease;
+}
+.spotlight.is-on {
+  opacity: 0.55;
+}
+/* Dark theme needs a weaker glow: measured at 0.55 the lime core sits at
+   luminance 0.216 and takes the light-on-Carbon text down to 3.22:1, under
+   the 4.5:1 AA floor. 0.28 lands it back above 4.5:1 and still reads as a
+   glow on Carbon. */
+.dark .spotlight.is-on {
+  opacity: 0.28;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The marquee and spotlight both bail out in JS; this covers the CSS-only
+     animations (slideDown, fadeUp, cursor-blink, the link underline) that
+     would otherwise keep moving. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* ─── Animations ──────────────────────────────────────────────── */
 @keyframes slideDown {
   from {

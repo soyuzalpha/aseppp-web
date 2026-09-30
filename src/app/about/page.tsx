@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Footer from "@/components/layout/Footer";
+import Marquee from "@/components/layout/Marquee";
 import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -77,6 +78,21 @@ const LANG = [
   { name: "English", level: "Beginner" },
 ];
 
+/* Ticker content — the stack, not prose. It is aria-hidden decoration, so it
+   must never be the only place a fact appears. */
+const TICKER = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Node.js",
+  "PostgreSQL",
+  "Prisma",
+  "Tailwind CSS",
+  "React Native",
+  "Express",
+  "MongoDB",
+];
+
 /* Education rows are single-line, so they keep the 3-column form. */
 const ROW_SPLIT = {
   ["--split-a" as string]: "clamp(8rem, 16vw, 13rem)",
@@ -114,6 +130,7 @@ const EXP_SPLIT = {
 
 export default function AboutPage() {
   const pageRef = useRef<HTMLDivElement>(null);
+  const spotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -130,8 +147,38 @@ export default function AboutPage() {
     return () => ctx.revert();
   }, []);
 
+  /* Cursor spotlight. Guarded on `pointerType === "mouse"` rather than
+     `(hover: hover)`: a touchscreen laptop reports hover-capable yet still
+     fires `pointermove` on a finger drag, which would smear the glow across
+     the page while scrolling. A real cursor is the only thing that should
+     move it. */
+  useEffect(() => {
+    const el = spotRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    gsap.set(el, { xPercent: -50, yPercent: -50 });
+    const xTo = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3" });
+    const yTo = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3" });
+
+    let shown = false;
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      xTo(e.clientX);
+      yTo(e.clientY);
+      if (!shown) {
+        shown = true;
+        el.classList.add("is-on");
+      }
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
+
   return (
-    <div ref={pageRef}>
+    <div ref={pageRef} style={{ position: "relative", zIndex: 1 }}>
+      <div ref={spotRef} className="spotlight" aria-hidden="true" />
       <main style={{ paddingTop: "5rem" }}>
         {/* ── Page title ── */}
         <div
@@ -211,6 +258,9 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+
+        {/* ── Stack ticker (full-bleed: a direct child of <main>, not .col) ── */}
+        <Marquee items={TICKER} />
 
         {/* ── Skills ── */}
         <div className="col" style={{ paddingBlock: "3.5rem", borderBottom: "1px solid var(--color-border)" }}>

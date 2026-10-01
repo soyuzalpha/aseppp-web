@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
+import Spotlight from "@/components/layout/Spotlight";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { SITE_URL } from "@/lib/site";
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
+        <Spotlight />
         <ThemeProvider>
           <Header />
           <main>{children}</main>

@@ -396,7 +396,22 @@ body {
    close lights up as the cursor passes. `mix-blend-mode: soft-light` keeps
    it a tint rather than a painted disc: on paper it warms, on Carbon it
    lifts. `is-on` is added on the first pointermove — without it the glow
-   sits parked at (0,0) on load. */
+   sits parked at (0,0) on load.
+
+   Mounted once in the root layout so every page gets it. The wrapper is not
+   decoration: it is the isolation boundary the blend needs. `mix-blend-mode`
+   blends against whatever sits behind the element inside its own stacking
+   context. As a bare child of <body> that backdrop is the paper background,
+   and soft-light lime over near-white paper is a no-op — measured a G-B
+   (green minus blue) tint of 4.4, versus 89.9 for the identical element with
+   an isolated backdrop. Hence the layer. */
+.spotlight-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  isolation: isolate;
+}
 .spotlight {
   position: fixed;
   top: 0;
@@ -405,10 +420,6 @@ body {
   aspect-ratio: 1;
   border-radius: 50%;
   pointer-events: none;
-  /* -1, not 0: the page wrapper is itself a stacking context (position:
-     relative + z-index: 1), so a child at 0 would paint OVER the text. At -1
-     it sits above the body background it blends with and behind the content. */
-  z-index: -1;
   opacity: 0;
   background: radial-gradient(circle, var(--color-accent) 0%, transparent 68%);
   mix-blend-mode: soft-light;

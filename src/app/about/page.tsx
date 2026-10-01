@@ -130,7 +130,6 @@ const EXP_SPLIT = {
 
 export default function AboutPage() {
   const pageRef = useRef<HTMLDivElement>(null);
-  const spotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -147,38 +146,11 @@ export default function AboutPage() {
     return () => ctx.revert();
   }, []);
 
-  /* Cursor spotlight. Guarded on `pointerType === "mouse"` rather than
-     `(hover: hover)`: a touchscreen laptop reports hover-capable yet still
-     fires `pointermove` on a finger drag, which would smear the glow across
-     the page while scrolling. A real cursor is the only thing that should
-     move it. */
-  useEffect(() => {
-    const el = spotRef.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    gsap.set(el, { xPercent: -50, yPercent: -50 });
-    const xTo = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3" });
-
-    let shown = false;
-    const onMove = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
-      xTo(e.clientX);
-      yTo(e.clientY);
-      if (!shown) {
-        shown = true;
-        el.classList.add("is-on");
-      }
-    };
-
-    window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
-  }, []);
+  /* Cursor spotlight lives in the root layout now (see
+     components/layout/Spotlight.tsx) so every page gets it, not just About. */
 
   return (
     <div ref={pageRef} style={{ position: "relative", zIndex: 1 }}>
-      <div ref={spotRef} className="spotlight" aria-hidden="true" />
       <main style={{ paddingTop: "5rem" }}>
         {/* ── Page title ── */}
         <div

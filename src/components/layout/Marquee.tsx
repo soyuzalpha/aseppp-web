@@ -21,7 +21,14 @@ gsap.registerPlugin(ScrollTrigger);
 
    Decorative: `aria-hidden`, so nothing here may be the only place a fact
    appears. The list is duplicated for the loop, which would double every item
-   for a screen reader. */
+   for a screen reader.
+
+   The loop is paused whenever the band is outside the viewport. The band sits
+   well below the fold on About, so without this the transform keeps being
+   written every frame for a strip nobody can see — pure battery/GPU cost on a
+   low-spec device. IntersectionObserver (not the ScrollTrigger above) is the
+   gate because it reports true intersection with the viewport regardless of
+   where the trigger's start/end land. */
 export default function Marquee({ items }: { items: string[] }) {
   const bandRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -38,6 +45,7 @@ export default function Marquee({ items }: { items: string[] }) {
       });
 
       let target = 1;
+      let visible = true;
       const trigger = ScrollTrigger.create({
         trigger: bandRef.current,
         start: "top bottom",
@@ -48,13 +56,22 @@ export default function Marquee({ items }: { items: string[] }) {
         },
       });
 
+      const io = new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) loop.resume();
+        else loop.pause();
+      });
+      if (bandRef.current) io.observe(bandRef.current);
+
       const tick = () => {
+        if (!visible) return; // paused off-screen: nothing to retime
         target += (1 - target) * 0.04; // ease back to base drift
         loop.timeScale(target);
       };
       gsap.ticker.add(tick);
 
       return () => {
+        io.disconnect();
         gsap.ticker.remove(tick);
         trigger.kill();
       };

@@ -36,7 +36,10 @@ export default function Header() {
         style={{
           borderBottom: scrolled ? "1px solid var(--color-border)" : "1px solid transparent",
           backgroundColor: scrolled ? "color-mix(in srgb, var(--color-background) 90%, transparent)" : "transparent",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
+          // 16px was a big compositor cost (measured 317ms of RasterTask over a
+          // full-page scroll at 6x CPU throttle, vs 12ms at 4px) for a blur the
+          // 90%-opaque bar barely shows. 6px keeps the frosted edge cheap.
+          backdropFilter: scrolled ? "blur(6px)" : "none",
         }}
       >
         <div className="col flex items-center justify-between" style={{ height: "3.5rem" }}>

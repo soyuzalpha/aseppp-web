@@ -26,17 +26,23 @@
   --color-cardForeground: #171717;
   --color-ring: #171717;
 
-  /* Paper grain: SVG fractal noise over the flat background, blended with
-     `background-blend-mode: overlay` so one asset reads right in both themes
-     (overlay darkens light paper, lightens Carbon) — no per-theme override.
+  /* Paper grain: SVG fractal noise, carried as its own alpha so the grain is
+     a plain alpha blit rather than a blend pass. It is painted by a
+     viewport-sized fixed layer (body::after) — see the body rules — because a
+     `background-blend-mode` on <body> has to re-blend the whole scrollable
+     document every frame.
+
      Two fixes are needed for the noise to show at all, both measured, not
-     guessed: (1) raw feTurbulence is a flat mid-grey (sd≈15/255) and overlay
-     flattens that to nothing, so feComponentTransfer stretches it to full
-     range; (2) turbulence's alpha is noisy too, so pin it to 1 or the grain
-     composites at ~35% and washes out. At this setting the composited sd is
-     ≈5 on paper and ≈13 on Carbon — the ceiling for overlay on a near-white
-     backdrop, so do not expect more headroom from the light side. */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='4' intercept='-1.5'/%3E%3CfeFuncG type='linear' slope='4' intercept='-1.5'/%3E%3CfeFuncB type='linear' slope='4' intercept='-1.5'/%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+     guessed: (1) raw feTurbulence is a flat mid-grey (sd≈15/255), so
+     feComponentTransfer stretches it to full range; (2) turbulence's alpha is
+     noisy too, so it is recomputed from scratch — RGB pinned to a constant
+     (0 = dark specks, 1 = light specks) and alpha = slope·noise + intercept.
+
+     Calibrated against the old overlay grain: composited luminance sd ≈5/255
+     on paper and ≈13/255 on Carbon. Light lands at sd 4.97 (slope 2.1,
+     intercept −1.5); dark at sd 10.08 (slope 2, intercept −1.3), the most the
+     light-specks side can reach before the mean lifts off Carbon. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0' intercept='0'/%3E%3CfeFuncG type='linear' slope='0' intercept='0'/%3E%3CfeFuncB type='linear' slope='0' intercept='0'/%3E%3CfeFuncA type='linear' slope='2.1' intercept='-1.5'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
 
   /* typography */
   --font-editorial: "Archivo Black", "JetBrains Mono", sans-serif;
@@ -72,6 +78,9 @@
   --color-card: #1e1e1e;
   --color-cardForeground: #e8e8e6;
   --color-ring: #e8e8e6;
+
+  /* Dark grain: light specks (RGB pinned to 1) instead of dark ones. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0' intercept='1'/%3E%3CfeFuncG type='linear' slope='0' intercept='1'/%3E%3CfeFuncB type='linear' slope='0' intercept='1'/%3E%3CfeFuncA type='linear' slope='2' intercept='-1.3'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 
 /* ─── Base reset ──────────────────────────────────────────────── */
@@ -90,12 +99,6 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--color-background);
-  background-image: var(--grain);
-  background-size: 160px 160px;
-  /* Grain over the flat paper. `overlay` keeps the page's own tone while the
-     noise bites into it; `normal` reads as a grey wash, `multiply` kills the
-     dark theme. */
-  background-blend-mode: overlay;
   color: var(--color-foreground);
   transition:
     background-color 0.5s ease,
@@ -107,6 +110,39 @@ body {
   overflow-x: clip;
   overflow-wrap: break-word;
   line-height: 1.6;
+}
+
+/* Paper grain layer.
+   Why not `background-image` on body: a background-image is rasterized over
+   the WHOLE scrollable document (measured 2883px tall here), so every scroll
+   frame re-rasters it — and the old `background-blend-mode: overlay` made it
+   worse by re-blending that full-height layer each frame. On a low-spec GPU
+   that is the jank.
+
+   A viewport-sized fixed pseudo-element is a single composited layer: it
+   rasters once and the compositor just blits it as the page scrolls. The
+   grain tile carries its own alpha (see --grain), so it needs no blend mode
+   at all — a plain alpha blit. `translateZ(0)` promotes it to its own layer;
+   without it Chromium still re-rasters the layer on scroll.
+
+   Measured (CPU throttle 6×, full-page scroll): 189ms of RasterTask before,
+   19.6ms after, at an identical grain strength (luminance sd 5.16 → 5.02).
+   `background-attachment: fixed` is NOT an alternative: it re-rasters the
+   full document height every frame and measured 566ms.
+
+   z-index −2, not −1: the grain must stay the bottom-most painted layer, the
+   slot the body background used to occupy. The (currently unmounted)
+   `.spotlight-layer` also sits at −1, so this keeps the glow above the grain
+   when it is switched back on. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-size: 160px 160px;
+  transform: translateZ(0);
 }
 
 /* ─── Custom cursor ───────────────────────────────────────────── */

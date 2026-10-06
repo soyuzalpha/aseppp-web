@@ -2,9 +2,9 @@ import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 import seedData from "./seed-data.json";
-import type { Block, Photo, Post, Project } from "./types";
+import type { Block, NumberedPost, Photo, Post, Project } from "./types";
 
-export type { Block, Photo, Post, Project };
+export type { Block, NumberedPost, Photo, Post, Project };
 
 /* ── Storage layout ───────────────────────────────────────────────
    storage/app.db            sqlite (WAL)
@@ -226,6 +226,11 @@ const toPost = (r: PostRow): Post => ({
   featured: !!r.featured,
 });
 
+/* Two column lists, because the paginated query nests one inside the other: the
+   inner subquery has to project the raw `read_time` for the outer one to alias,
+   since an alias is not a source column. */
+const POST_COLS_RAW =
+  "id, slug, title, date, read_time, tags, excerpt, body, featured";
 const POST_COLS =
   "id, slug, title, date, read_time AS readTime, tags, excerpt, body, featured";
 
@@ -236,10 +241,97 @@ export function listPosts(): Post[] {
   return rows.map(toPost);
 }
 
+/* ── Posts, paginated ───────────────────────────────────────────────
+   Paging happens in SQL, not in the component: the whole point of a page is
+   that the rows you are not looking at are never read. The search term is
+   filtered in the same statement, so the total is the total of the *match*,
+   and the page count is derived from it rather than from the archive size.
+
+   `ROW_NUMBER()` is computed *after* the WHERE runs, so the number is the
+   row's position in the list you are actually looking at: it runs 01..N
+   contiguously across pages and matches the range the pager prints. Ordering
+   the outer query by that same `n` reproduces `ORDER BY sort, id` without
+   having to project `sort` into the result. */
+export type PostsPageResult = {
+  posts: NumberedPost[];
+  total: number;
+  page: number;
+  pages: number;
+  perPage: number;
+};
+
+export const POSTS_PER_PAGE = 8;
+
+export function listPostsPage({
+  page = 1,
+  perPage = POSTS_PER_PAGE,
+  q = "",
+  excludeFeatured = false,
+}: {
+  page?: number;
+  perPage?: number;
+  q?: string;
+  excludeFeatured?: boolean;
+} = {}): PostsPageResult {
+  const db = getDb();
+
+  // Escape LIKE's own wildcards so a literal % or _ in a query matches itself.
+  const needle = `%${q.trim().toLowerCase().replace(/[\\%_]/g, "\\$&")}%`;
+  const matching = q.trim() === "";
+  const where = [
+    excludeFeatured ? "featured = 0" : "",
+    // Parenthesised: the search group is an OR, and `a AND b OR c` parses as
+    // `(a AND b) OR c` — that would let a featured post back in on a tag match.
+    matching ? "" : "(lower(title) LIKE ? ESCAPE '\\' OR lower(tags) LIKE ? ESCAPE '\\')",
+  ].filter(Boolean);
+  const clause = where.length ? `WHERE ${where.join(" AND ")}` : "";
+  const args: string[] = matching ? [] : [needle, needle];
+
+  const total = (
+    db.prepare(`SELECT COUNT(*) AS c FROM posts ${clause}`).get(...args) as { c: number }
+  ).c;
+
+  const pages = Math.max(1, Math.ceil(total / perPage));
+  // Clamp rather than 404: a stale ?page=9 or a hand-typed one lands on the
+  // last page instead of an empty screen.
+  const current = Math.min(Math.max(1, Math.trunc(page) || 1), pages);
+  const offset = (current - 1) * perPage;
+
+  const rows = db
+    .prepare(
+      `SELECT ${POST_COLS}, n FROM (
+         SELECT ${POST_COLS_RAW}, sort,
+                ROW_NUMBER() OVER (ORDER BY sort, id) AS n
+         FROM posts
+         ${clause}
+       ) t
+       ORDER BY n
+       LIMIT ? OFFSET ?`
+    )
+    .all(...args, perPage, offset) as unknown as (PostRow & { n: number })[];
+
+  return { posts: rows.map((r) => ({ ...toPost(r), n: r.n })), total, page: current, pages, perPage };
+}
+
 export function getPost(slug: string): Post | null {
   const r = getDb()
     .prepare(`SELECT ${POST_COLS} FROM posts WHERE slug = ?`)
     .get(slug) as unknown as PostRow | undefined;
+  return r ? toPost(r) : null;
+}
+
+/** Archive size, for the header count. Deliberately not `listPosts().length`:
+    the list page no longer reads every row, and it should not start again just
+    to print a number. */
+export function countPosts(): number {
+  return (getDb().prepare("SELECT COUNT(*) AS c FROM posts").get() as { c: number }).c;
+}
+
+/** The single post pinned to the top of the list page, if any. */
+export function getFeaturedPost(): Post | null {
+  const r = getDb()
+    .prepare(`SELECT ${POST_COLS} FROM posts WHERE featured = 1 ORDER BY sort, id LIMIT 1`)
+    .get() as unknown as PostRow | undefined;
   return r ? toPost(r) : null;
 }
 

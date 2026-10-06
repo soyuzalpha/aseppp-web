@@ -27,6 +27,12 @@ export type Post = {
   featured: boolean;
 };
 
+/** A post plus its 1-based position in the list it was fetched for (the
+    filtered set, not the whole archive). Numbering the filtered set is what
+    makes the row labels run 01..N contiguously and agree with the pager's
+    "09–16 of 19" range. */
+export type NumberedPost = Post & { n: number };
+
 export type Project = {
   id: number;
   slug: string;

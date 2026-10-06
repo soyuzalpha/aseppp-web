@@ -697,6 +697,75 @@ body.cursor-hover .cursor-ring {
   color: var(--color-foreground);
 }
 
+/* ─── Pagination ──────────────────────────────────────────────────
+   Sits on the list's bottom border as a continuation of it. The links are
+   square and hairline-bordered so they read as part of the row rhythm, not
+   as buttons; `is-current` fills with the accent, which is the same fill-only
+   use the tag pills make of it. */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-block: 1.5rem;
+}
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding-inline: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--color-mutedForeground);
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
+}
+a.page-link:hover {
+  border-color: var(--color-foreground);
+  color: var(--color-foreground);
+}
+.page-link:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+/* Lime is a fill, never a text colour: Carbon on lime is the pair that reads. */
+.page-link.is-current {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accentForeground);
+}
+.page-link.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.page-gap {
+  padding-inline: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-mutedForeground);
+  user-select: none;
+}
+@media (pointer: coarse) {
+  .page-link {
+    min-width: 44px;
+    height: 44px;
+  }
+}
+
 /* ─── Glass ───────────────────────────────────────────────────── */
 .glass {
   background: var(--color-card);

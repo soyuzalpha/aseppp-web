@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { X, ZoomIn } from "lucide-react";
 import Footer from "@/components/layout/Footer";
@@ -131,16 +132,13 @@ export default function PicsClient({ photos }: { photos: Photo[] }) {
                 aspectRatio: photo.w === 2 ? "16/9" : photo.h === 2 ? "3/4" : "1/1",
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={photo.src}
                 alt={photo.alt}
-                loading="lazy"
+                fill
+                sizes="(max-width: 768px) 50vw, 340px"
                 style={{
-                  width: "100%",
-                  height: "100%",
                   objectFit: "cover",
-                  display: "block",
                   transition: "transform 0.5s var(--ease-out-expo)",
                 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLImageElement).style.transform = "scale(1.04)")}
@@ -233,12 +231,15 @@ export default function PicsClient({ photos }: { photos: Photo[] }) {
             style={{ maxWidth: "min(90vw, 900px)", maxHeight: "80vh", width: "100%" }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={lightbox.src}
               alt={lightbox.alt}
+              width={1600}
+              height={1600}
+              sizes="90vw"
               style={{
                 width: "100%",
+                height: "auto",
                 maxHeight: "70vh",
                 objectFit: "contain",
                 display: "block",

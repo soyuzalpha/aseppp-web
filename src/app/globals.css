@@ -6,25 +6,24 @@
 
 /* ─── Design tokens ───────────────────────────────────────────── */
 :root {
-  /* colors — light (paper). Palette: Carbon #171717 + Lime #C0FF34. */
-  --color-background: #f6f6f4;
-  --color-foreground: #171717;
-  --color-primary: #171717;
-  --color-primaryForeground: #f6f6f4;
-  --color-secondary: #eaeae7;
-  --color-secondaryForeground: #171717;
-  --color-muted: #eaeae7;
-  --color-mutedForeground: #6b6b66;
-  --color-accent: #c0ff34;
-  --color-accentForeground: #171717;
-  /* Lime is 1.1:1 on paper — a fill, never a text colour. Same hue at
-     value 0.43 gives 5.4:1 for links and inline accents. */
-  --color-accentText: #4f6e00;
-  --color-accent-2: #c98a2d;
-  --color-border: #dcdcd8;
-  --color-card: #ededea;
-  --color-cardForeground: #171717;
-  --color-ring: #171717;
+  /* colors — light (paper). Palette: Linen #E2D6C6 + Moss #232B20 + Umber #6C4830. */
+  --color-background: #E2D6C6;
+  --color-foreground: #232B20;
+  --color-primary: #232B20;
+  --color-primaryForeground: #E2D6C6;
+  --color-secondary: #D6C9B6;
+  --color-secondaryForeground: #232B20;
+  --color-muted: #D6C9B6;
+  --color-mutedForeground: #5E5A4C;
+  --color-accent: #6C4830;
+  --color-accentForeground: #E2D6C6;
+  /* Umber on Linen is 5.6:1, so it works as text too. */
+  --color-accentText: #6C4830;
+  --color-accent-2: #8A5E3C;
+  --color-border: #C9BBA6;
+  --color-card: #EBE2D5;
+  --color-cardForeground: #232B20;
+  --color-ring: #232B20;
 
   /* Paper grain: SVG fractal noise, carried as its own alpha so the grain is
      a plain alpha blit rather than a blend pass. It is painted by a
@@ -69,23 +68,23 @@
 }
 
 .dark {
-  --color-background: #171717;
-  --color-foreground: #e8e8e6;
-  --color-primary: #e8e8e6;
-  --color-primaryForeground: #171717;
-  --color-secondary: #1f1f1f;
-  --color-secondaryForeground: #e8e8e6;
-  --color-muted: #1f1f1f;
-  --color-mutedForeground: #8c8c88;
-  --color-accent: #c0ff34;
-  --color-accentForeground: #171717;
-  /* 15:1 on Carbon, so the text accent is Lime itself. */
-  --color-accentText: #c0ff34;
-  --color-accent-2: #d9a04a;
-  --color-border: #2b2b2b;
-  --color-card: #1e1e1e;
-  --color-cardForeground: #e8e8e6;
-  --color-ring: #e8e8e6;
+  --color-background: #232B20;
+  --color-foreground: #E2D6C6;
+  --color-primary: #E2D6C6;
+  --color-primaryForeground: #232B20;
+  --color-secondary: #2A3324;
+  --color-secondaryForeground: #E2D6C6;
+  --color-muted: #2A3324;
+  --color-mutedForeground: #A59C88;
+  --color-accent: #6C4830;
+  --color-accentForeground: #E2D6C6;
+  /* Umber is 1.8:1 on Moss, so dark-mode text accent is Linen. */
+  --color-accentText: #E2D6C6;
+  --color-accent-2: #B07A4F;
+  --color-border: #3A4434;
+  --color-card: #2A3324;
+  --color-cardForeground: #E2D6C6;
+  --color-ring: #E2D6C6;
 
   /* Dark grain: light specks (RGB pinned to 1) instead of dark ones. Same
      baseFrequency/slope intent as the light tile — see the note above; dark
